@@ -3,6 +3,13 @@ document.addEventListener('DOMContentLoaded', init);
 function init() {
     const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, '#000000');
+    const rangeEl = document.getElementsByName('opacity')[0];
+    
+    rangeEl.addEventListener('change', setBoxShadow);
+    rangeEl.addEventListener('mouseover', setBoxShadow);
+    const colorEl = document.getElementsByName('color')[0];
+    colorEl.addEventListener('change', getChannelColor);
+    
 }
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
