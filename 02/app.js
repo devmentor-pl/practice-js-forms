@@ -5,7 +5,7 @@ const labelEl = document.querySelectorAll('label');
 //const ulEl = document.createElement('ul');
 //ulEl.classList.add('errors');
 //formEl.appendChild(ulEl)
-
+formEl.noValidate = true;
 formEl.addEventListener('submit', function(e)
 {
    e.preventDefault();
@@ -55,6 +55,7 @@ formEl.addEventListener('submit', function(e)
         
     }
     else{
+        //e.style.border = '1px solid green'
          console.log('done');
          
     }
