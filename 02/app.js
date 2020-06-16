@@ -50,7 +50,7 @@ formEl.addEventListener('submit', function(e)
        errorsArr.forEach(function(e)
        {
            //console.log(e)
-           e.style.border = '1px solid red';
+           e.previousElementSibling.style.border = '1px solid red';
        })
         
     }

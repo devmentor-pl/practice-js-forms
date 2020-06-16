@@ -1,7 +1,7 @@
 const imagesList = document.querySelector('.images-list')
-console.log(imagesList);
+//console.log(imagesList);
 const inputEl = document.querySelector('input');
-console.log(inputEl)
+//console.log(inputEl)
 //const li = imagesList.querySelector('li')
 //console.log(li)
 inputEl.addEventListener('change', function(e)

@@ -4,31 +4,42 @@ function init() {
     const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, '#000000');
 
-    const inputColor = document.querySelector('[type=color]')
-    inputColor.addEventListener('change', function(){
-       setBoxShadow(boxElement, this.value, inputRange.value*0.01); 
-       //console.log(this)
-       
-    })
-    const inputRange = document.querySelector('[type=range]')
-        console.log(inputRange)
-        inputRange.addEventListener('change', value)
-        inputRange.addEventListener('mousemove', value)
+    const inputColor = document.querySelector('[type=color]');
+    const inputRange = document.querySelector('[type=range]');
+    inputColor.addEventListener('change', handleChangeColor);
+    inputRange.addEventListener('change', handleChangeColor);
+    inputRange.addEventListener('mousemove', handleChangeColor);
 
-        function value(e) {
-            const isMouseMoveEvent = e.type === 'mousemove';
-            const isMouseLeftButtonPress = e.buttons === 1;
-            if(
-                isMouseMoveEvent && isMouseLeftButtonPress
-                || !isMouseMoveEvent
-                ) {
-                console.log(e.target.value, boxElement, this.name)
-                    //boxElement.innerHTML= this.value *0.1
-                    setBoxShadow(boxElement, inputColor.value, this.value*0.01); 
-                }       
-         }
+    function handleChangeColor(e){
+        //console.log(e, inputColor.value)
+        setBoxShadow(boxElement, inputColor.value, inputRange.value*0.01) // a co z parametrem w tym przypadku?
+    }
+
+//     const inputColor = document.querySelector('[type=color]')
+//     inputColor.addEventListener('change', function(){
+//        setBoxShadow(boxElement, this.value, inputRange.value*0.01); 
+//        //console.log(this)
+       
+//     })
+//     const inputRange = document.querySelector('[type=range]')
+//         console.log(inputRange)
+//         inputRange.addEventListener('change', value)
+//         inputRange.addEventListener('mousemove', value)
+
+//         function value(e) {
+//             const isMouseMoveEvent = e.type === 'mousemove';
+//             const isMouseLeftButtonPress = e.buttons === 1;
+//             if(
+//                 isMouseMoveEvent && isMouseLeftButtonPress
+//                 || !isMouseMoveEvent
+//                 ) {
+//                 console.log(e.target.value, boxElement, this.name)
+//                     //boxElement.innerHTML= this.value *0.1
+//                     setBoxShadow(boxElement, inputColor.value, this.value*0.01); 
+//                 }       
+//          }
                   
-}
+ }
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
     const colorInRGBA = `rgba(
