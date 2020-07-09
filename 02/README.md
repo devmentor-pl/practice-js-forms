@@ -6,7 +6,7 @@ Aby można było się zarejestrować to należy wprowadzić poprawny adres email
 
 Jeśli warunki zostały spełnione to w konsoli powinien pojawić się napis `done`. W przeciwnym razie należy zaznaczyć na czerwono kolor font-u dla `<label/>` błędnie wprowdzonych danych.
 
-Do rozwiązania problemu oznaczania błędnych elementów można użyć tablicy, która bedzie przechowywać dane tj. `const errors = []`. W momecie wystąpienia błędów dodajemy do tej tablicy selektor elementu, który błędnie jest wypełniony.
+Do rozwiązania problemu oznaczania błędnych elementów można użyć tablicy, która bedzie przechowywać dane tj. `const errors = []`. W momencie wystąpienia błędów dodajemy do tej tablicy selektor elementu, który błędnie jest wypełniony.
 
 Na samym końcu wykonujemy pętlę (`for` lub `forEach`), która zaznacza elementy z błędem.
 
