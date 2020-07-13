@@ -25,15 +25,15 @@ function checkUser(el) {
     errors.push(document.querySelector('input[id="formLogin"]'));
     // return false;
 
-  } else if (pass_1.length < 6 || pass_2.length < 6) {
+  } if (pass_1.length < 6 || pass_2.length < 6) {
     errors.push(document.querySelector('input[id="formPass1"]'), document.querySelector('input[id="formPass2"]'));
     // return false;
 
-  } else if (pass_1 !== pass_2) {
+  } if (pass_1 !== pass_2) {
     errors.push(document.querySelector('input[id="formPass1"]'),               document.querySelector('input[id="formPass2"]'));
     // return false;
 
-  } else if (chkbox === false) {
+  } if (chkbox === false) {
     errors.push(document.querySelector('input[type="checkbox"]'));
     // return false;
 
