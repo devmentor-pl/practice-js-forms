@@ -24,7 +24,7 @@ form.addEventListener('submit', function (e) {
         console.log('email jest nie poprawny')
 
         errors.push(e.target.elements.login)
-        e.target.elements.login.style.border = "2px solid red";
+
 
 
     }
@@ -38,7 +38,8 @@ form.addEventListener('submit', function (e) {
         alert('wpisz hasło które ma więcej niż 6 znaków')
         console.log('hasła się nie zgadzają, albo mają za mało liczb')
         errors.push(e.target.elements.pass1)
-        pass1.style.border = "2px solid red";
+        errors.push(e.target.elements.pass2)
+        //pass1.style.border = "2px solid red";
     }
 
 
@@ -47,10 +48,15 @@ form.addEventListener('submit', function (e) {
     } else {
         console.log('zatwierdź regulamin!')
         alert('zatwierdź regulamin')
-        errors.push(e.target.elements.confirm)
-        confirm.style.border = "2px solid red";
+
+        console.log(e.target.elements, '??');
+        errors.push(e.target.elements.accept)
+        //confirm.style.border = "2px solid red";
     }
 
+    errors.forEach(function (el) {
+        el.previousElementSibling.style.color = 'red';
+    })
 
 
 })

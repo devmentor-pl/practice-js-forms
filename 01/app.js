@@ -26,7 +26,7 @@ form.addEventListener('submit', function (e) {
         newName.innerText = firstName.value + ' ' +
             lastName.value;
 
-        document.querySelector('ul').appendChild(newName);
+        ulList[0].appendChild(newName);
 
 
 
@@ -35,7 +35,7 @@ form.addEventListener('submit', function (e) {
     }
 
 
-    firstName.value = ' ';
-    lastName.value = ' ';
+    firstName.value = '';
+    lastName.value = '';
 
 })

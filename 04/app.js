@@ -5,28 +5,25 @@ function init() {
     setBoxShadow(boxElement, '#000000');
 
 
-    const inputColor = document.querySelector('[type-color')
+    const inputColor = document.querySelector('[type=color]');
+    const inputRange = document.querySelector('[type=range]')
+
     inputColor.addEventListener('change', function () {
+        setBoxShadow(boxElement, inputColor.value, inputRange.value / 100);
+    });
+
+    inputRange.addEventListener('change', showValue)
+    inputRange.addEventListener('mousemove', showValue)
 
 
-    })
+    function showValue(e) {
 
-}
+        const isMouseEvent = e.type === 'mousemove';
+        const isMOuseLeftButtonPress = e.buttons === 1;
 
-
-const inputRange = document.querySelector('[type=range]')
-console.log(inputRange)
-inputRange.addEventListener('change', showValue)
-inputRange.addEventListener('mousemove', showValue)
-
-
-function showValue(e) {
-
-    const isMouseEvent = e.type === 'mousemove';
-    const isMOuseLeftButtonPress = e.buttons === 1;
-
-    if (isMouseEvent && isMOuseLeftButtonPress || !isMouseEvent) {
-
+        if (isMouseEvent && isMOuseLeftButtonPress || !isMouseEvent) {
+            setBoxShadow(boxElement, inputColor.value, inputRange.value / 100);
+        }
     }
 }
 

@@ -49,7 +49,7 @@ function checkData(e) {
         errors.push('Wpisz poprawnie numer mieszkania!');
         // alert('wpisz numer mieszkania!')
     }
-    if (!(zip.match('^[0-9]{2}\-[0-9]{3}$'))) {
+    if (!(zip.match('^[0-9]{2}-[0-9]{3}$'))) {
         // alert('wpisz poprawny kod pocztowy!')
         errors.push('Wpisz poprawnie kod pocztowy')
     }
@@ -63,12 +63,11 @@ function checkData(e) {
 
     function showOptionsInfo(e) {
 
-        optionList.forEach(function (option) {
-            if (!optionList.selected) {
-                // alert('wybierz województwo')
-                errors.push('Wybierz województwo!')
-            }
-        })
+        if (select.value !== '') {
+            console.log('cos nie tak')
+        } else {
+            console.log('ok');
+        }
 
     }
 
@@ -91,6 +90,8 @@ function checkData(e) {
             newLi.style.color = "red";
         })
 
+    } else {
+        console.log('ok!');
     }
 
 

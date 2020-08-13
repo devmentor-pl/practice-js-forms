@@ -8,15 +8,6 @@ const fileInput = document.querySelector('input');
 fileInput.addEventListener('change', showFile);
 
 
-// function showFile(e) {
-//     const file = e.target.files[0];
-//     console.log(
-//         file.name,
-//         file.size
-//     )
-// }
-
-
 
 
 function showFile(e) {
@@ -50,8 +41,13 @@ function showFile(e) {
 
 
 
-                sizeText.innerHTML = fileSize.toFixed(2) + ' ' + 'mb' + '  ';
-                ulList.appendChild(sizeText)
+
+
+                var sizeInMB = (fileSize / (1024 * 1024)).toFixed(2) + 'mb';
+                console.log(sizeInMB)
+
+                sizeText.innerHTML = sizeInMB;
+                ulList.appendChild(sizeText);
 
                 nameImg.innerHTML = fileName;
                 ulList.appendChild(nameImg)
