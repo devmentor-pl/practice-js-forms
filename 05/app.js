@@ -1,7 +1,7 @@
 // get form
 const form = document.querySelector('form');
 
-form.addEventListener('submit', (event) => {
+form.addEventListener('submit', (ev) => {
 
   // make a error obj
   let obj = {};
@@ -15,18 +15,18 @@ form.addEventListener('submit', (event) => {
   const flatNumber = form.querySelector('input[name="flatNumber"]');
 
   const postCode = form.querySelector('input[name="zip"]').value;
-  // const firstNameEle = event.target.elements.firstName.value; // chyba inna forma
+  // const firstNameEle = ev.target.elements.firstName.value; // chyba inna forma
 
   const voivodeship = form.querySelector('select[name="voivodeship"]');
 
   // check if data is valid                     // // NOTE: TUTAJ NIE JESTEM PEWIEN
-  if (firstName == null || !isNaN(firstName) || firstName.length < 2) {
-    obj.firstName = 'First Name: No empty, no number, length min 2';
+  if (firstName == null || firstName.length < 2) {
+    obj.firstName = 'First Name: No empty, length min 2';
   }
-  if (lastName == null || !isNaN(lastName) || lastName.length < 2) {
-    obj.lastName = 'Last Name: No empty, no number, length min 2';
+  if (lastName == null || lastName.length < 2) {
+    obj.lastName = 'Last Name: No empty, length min 2';
   }
-  if (street == null || !isNaN(street) || street.length < 2) {
+  if (street == null || street.length < 2) {
     obj.street = 'Street: No empty, no number, length min 2';
   }
   if (city == null || !isNaN(city) || city.length < 2) {
@@ -63,12 +63,13 @@ form.addEventListener('submit', (event) => {
   };
 
   if (obj.length > 0) {
-    event.preventDefault();
+    ev.preventDefault();
 
     console.log('sukces');
   } else {
     // NEED TO BE TURNED INTO AN OBJECT TO DISPLAY PROPERLY
-
+    ev.preventDefault();
+    
     for (let i = 0; i < form.length; i++) {
 
       const formField = document.querySelectorAll('label');

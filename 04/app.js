@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', init);
+const boxElement = document.querySelector('.box');
 
 function init() {
-    const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, '#00000');
 }
 
@@ -40,8 +40,6 @@ function getChannelColor(colorInHex, channelName) {
 // // SOLUTION
 
 function getShadowValues() {
-    // get box element
-    const boxElement = document.querySelector('.box');
     // color
     const color = document.querySelector('input[name="color"]').value;
     // opacity
