@@ -2,11 +2,8 @@
 let imagesList = document.querySelector('.images-list');
 let input = document.querySelector('input');
 
-console.log(imagesList);
-console.log(input);
-
 // event listener for _change event_
-input.addEventListener('change', function(el) {
+input.addEventListener('change', function (el) {
   // CHANGE event works properly
 
   // loop over all elements
@@ -23,8 +20,8 @@ input.addEventListener('change', function(el) {
     if (file && file.type.includes('image')) {
 
       const read = new FileReader();
-      read.onload = function(reader) {
-        const addImg = document.createElement('img'); // is addImg = new Image() the same?
+      read.onload = function (reader) {
+        const addImg = document.createElement('img');
         addImg.src = reader.target.result;
 
         // file size

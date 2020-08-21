@@ -1,48 +1,54 @@
 // get form - form: HTML Collection
 const form = document.querySelector('form');
-console.log(form);
+
+// get data
+let email = document.querySelector('input[id="formLogin"]');
+let pass_1 = document.querySelector('input[id="formPass1"]');
+let pass_2 = document.querySelector('input[id="formPass2"]');
+let chkbox = document.querySelector('input[id="formAccept"]');
 
 // add event listener onto the form
-form.addEventListener('submit', checkUser);
-
-// error handling
+form.noValidate = true;
 let errors = [];
+
+form.addEventListener('submit', checkUser);
 
 // get data and run rests
 function checkUser(el) {
   el.preventDefault();
-
-  // get data
-  let email = document.querySelector('input[id="formLogin"]').value;
-  let pass_1 = document.querySelector('input[id="formPass1"]').value;
-  let pass_2 = document.querySelector('input[id="formPass2"]').value;
-  let chkbox = document.querySelector('input[type="checkbox"]').checked;
+  errors.forEach(el => el.previousElementSibling.style.color = 'black');
+  errors = [];
 
   // check if email has @, has, first character is not a dot
   const mailRegex = /^\S+(\.?)+@\S+$/
 
-  if (mailRegex.test(email) === false) {
-    errors.push(document.querySelector('input[id="formLogin"]'));
-    // return false;
-
-  } if (pass_1.length < 6 || pass_2.length < 6) {
-    errors.push(document.querySelector('input[id="formPass1"]'), document.querySelector('input[id="formPass2"]'));
-    // return false;
-
-  } if (pass_1 !== pass_2) {
-    errors.push(document.querySelector('input[id="formPass1"]'),               document.querySelector('input[id="formPass2"]'));
-    // return false;
-
-  } if (chkbox === false) {
-    errors.push(document.querySelector('input[type="checkbox"]'));
-    // return false;
-
-  } else {
+  if (mailRegex.test(email.value) === false) {
+    errors.push(email);
+  }
+  if (pass_1.value.length < 6 || pass_2.value.length < 6) {
+    errors.push(pass_1, pass_2);
+  }
+  if (pass_1.value !== pass_2.value) {
+    errors.push(pass_1, pass_2);
+  }
+  if (chkbox.checked === false) {
+    errors.push(chkbox);
+    // alert('You must accept the terms and conditions.');
+  } else if (errors.length === 0) {
+    console.log('done');
     return true;
   };
 
-  // color the <label/> with errors
-  errors.forEach(el => {
-    el.previousElementSibling.style.color = 'red';
-  });
+  // color the <label> with errors
+
+  // mam nadzieję że zrobiłem to dobrze, w każdym razie działa.
+  // nie wiem czy tez powrót do poprzedniego koloru dziala jak nalezy
+
+  if (errors.length > 0) {
+    console.log(errors);
+
+    errors.forEach(el => {
+      el.previousElementSibling.style.color = 'red';
+    });
+  }
 };

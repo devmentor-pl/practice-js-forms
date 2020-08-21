@@ -62,28 +62,28 @@ form.addEventListener('submit', (event) => {
     document.body.appendChild(stonoga);
   };
 
-    if (obj.length > 0) {
-      event.preventDefault();
+  if (obj.length > 0) {
+    event.preventDefault();
 
-      console.log('sukces');
-    } else {
-      // NEED TO BE TURNED INTO AN OBJECT TO DISPLAY PROPERLY
+    console.log('sukces');
+  } else {
+    // NEED TO BE TURNED INTO AN OBJECT TO DISPLAY PROPERLY
 
-        for (let i = 0; i < form.length; i++) {
+    for (let i = 0; i < form.length; i++) {
 
-          const formField = document.querySelectorAll('label');
-          let val = form[i].name;
+      const formField = document.querySelectorAll('label');
+      let val = form[i].name;
 
-          if (val in obj) {
-            const par = document.createElement('p');
-            par.innerText = obj[val];
-            par.style.color = 'red';
-            par.style.border = '2px solid red';
-            par.style.width = '300px'
+      if (val in obj) {
+        const par = document.createElement('p');
+        par.innerText = obj[val];
+        par.style.color = 'red';
+        par.style.border = '2px solid red';
+        par.style.width = '300px'
 
-            // formField.forEach(el => el.appendChild(par));
-            formField[i].appendChild(par);
-          }
-        }
+        // formField.forEach(el => el.appendChild(par));
+        formField[i].appendChild(par);
+      }
     }
+  }
 });

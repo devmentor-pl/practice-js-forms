@@ -18,7 +18,7 @@ function setBoxShadow(element, colorInHex, opacity = 1) {
 
 function getChannelColor(colorInHex, channelName) {
     let start;
-    switch(channelName) {
+    switch (channelName) {
         case 'red':
             start = 1;
             break;
@@ -40,18 +40,18 @@ function getChannelColor(colorInHex, channelName) {
 // // SOLUTION
 
 function getShadowValues() {
-  // get box element
-  const boxElement = document.querySelector('.box');
-  // color
-  const color = document.querySelector('input[name="color"]').value;
-  // opacity
-  const opacity = document.querySelector('input[name="opacity"]').value;
+    // get box element
+    const boxElement = document.querySelector('.box');
+    // color
+    const color = document.querySelector('input[name="color"]').value;
+    // opacity
+    const opacity = document.querySelector('input[name="opacity"]').value;
 
-  // change color and opacity of box shadow
-  setBoxShadow(boxElement, color, opacity*0.01);
+    // change color and opacity of box shadow
+    setBoxShadow(boxElement, color, opacity * 0.01);
 };
 
 // attach selector to the elements
 document.querySelectorAll('.panel > input').forEach(item => {
-  item.addEventListener('change', getShadowValues);
+    item.addEventListener('change', getShadowValues);
 })
