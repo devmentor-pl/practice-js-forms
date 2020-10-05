@@ -3,8 +3,11 @@ document.addEventListener('DOMContentLoaded', initEvents);
 function initEvents() {
   const form = document.querySelector('form');
   form.addEventListener('submit', checkData);
-  // const label = document.querySelector('label');
-  // console.log(label)
+}
+
+function clearCorrect(arr) {
+  arr.forEach(element =>
+    element.previousElementSibling.style.color = 'inherit')
 }
 
 function checkData(e) {
@@ -15,10 +18,6 @@ function checkData(e) {
   const checkBox = e.target.elements.accept;
   const errors = [];
   const correct = [];
-  function clearCorrect() {
-    correct.forEach(element =>
-      element.previousElementSibling.style.color = 'inherit')
-  }
 
   if (!emailInp.value.includes('@')) {
     console.log('Include @ in the email address')
@@ -41,9 +40,8 @@ function checkData(e) {
     errors.forEach(error => {
       error.previousElementSibling.style.color = 'red';
     })
-    clearCorrect();
   } else {
     console.log('done');
-    clearCorrect();
   }
+  clearCorrect(correct);
 }
