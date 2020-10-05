@@ -6,7 +6,6 @@ function initEvents() {
   form.addEventListener('submit', getData)
 }
 
-
 function getData(e) {
   e.preventDefault();
   const firstName = e.target.elements.firstName.value
@@ -19,11 +18,8 @@ function getData(e) {
   userList.appendChild(listItem);
 
   //Zrobiłam sobie zadanie z gwiazdą ;)
-  function clearInputs() {
-    e.target.elements.firstName.value = '';
-    e.target.elements.lastName.value = ''
-  } //nie rozumiem dlaczego funkcja ta nie działa mi jako funkcja samowywołująca. 
-  clearInputs()
+  e.target.elements.firstName.value = '';
+  e.target.elements.lastName.value = ''
 }
 
 
