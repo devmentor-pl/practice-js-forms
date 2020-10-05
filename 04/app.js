@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', init);
 function init() {
     const boxElement = document.querySelector('.box');
     const panel = document.querySelector('.panel')
-    panel.addEventListener('change', function () { setBoxShadow(boxElement) });
+    panel.addEventListener('input', function () { setBoxShadow(boxElement) });
     setBoxShadow(boxElement)
 }
 
