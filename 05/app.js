@@ -21,7 +21,7 @@ function checkForm(e) {
   const voivInp = e.target.elements.voivodeship;
   const formEls = e.target.elements;
 
-  for (element of formEls) {
+  for (const element of formEls) {
     if (element.type !== 'submit') { element.style.background = 'initial' }
   }
 
