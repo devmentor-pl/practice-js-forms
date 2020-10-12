@@ -14,18 +14,29 @@ function displayFile(e) {
             const reader = new FileReader();
 
             reader.onload = function(readerEvent) {
+                const fileContainer = createFileContainer();
                 const fileName = file.name;
                 const fileSizeMB = (file.size / 1000000).toFixed(2);
-                const fileContainer = fileContainerTemplate.cloneNode(true);
-                fileContainer.classList.remove('images-list__item--prototype');
-                const fileHeader = fileContainer.querySelector('header');
-                const fileImg = fileContainer.querySelector('img');
-                const fileFooter = fileContainer.querySelector('footer');
 
-                fileHeader.innerText = fileName;
-                fileImg.setAttribute('src', readerEvent.target.result);
-                fileFooter.innerText = fileSizeMB + ' MB';
-                filesUl.appendChild(fileContainer);
+                displayImage();
+                /////////////////////////functions:
+                function createFileContainer() {
+                    const fileContainer = fileContainerTemplate.cloneNode(true);
+                    
+                    fileContainer.classList.remove('images-list__item--prototype');
+                    return fileContainer;
+                }
+
+                function displayImage() {
+                    const fileHeader = fileContainer.querySelector('header');
+                    const fileImg = fileContainer.querySelector('img');
+                    const fileFooter = fileContainer.querySelector('footer');
+
+                    fileHeader.innerText = fileName;
+                    fileImg.setAttribute('src', readerEvent.target.result);
+                    fileFooter.innerText = fileSizeMB + ' MB';
+                    filesUl.appendChild(fileContainer);
+                }
             }
             reader.readAsDataURL(file);
         }

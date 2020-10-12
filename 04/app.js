@@ -7,6 +7,7 @@ let currentColor = '#000000';
 let currentOpacity = 1;
 
 colorPickerEl.addEventListener('change', setColor);
+opacitySlideEl.addEventListener('mousemove', setOpacity);
 opacitySlideEl.addEventListener('change', setOpacity);
 
 function setColor(e) {
@@ -15,8 +16,13 @@ function setColor(e) {
 }
 
 function setOpacity(e) {
-    currentOpacity = e.target.value / 100;
-    setBoxShadow(boxElement, currentColor, currentOpacity);
+    const isMouseMoveEvent = e.type === 'mousemove';
+    const isMouseLeftButtonPress = e.buttons === 1;
+
+    if(isMouseMoveEvent && isMouseLeftButtonPress || !isMouseMoveEvent) {
+        currentOpacity = e.target.value / 100;
+        setBoxShadow(boxElement, currentColor, currentOpacity);
+    }
 }
 
 function init() {
