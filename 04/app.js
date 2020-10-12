@@ -1,8 +1,27 @@
 document.addEventListener('DOMContentLoaded', init);
 
+const colorPickerEl = document.querySelector('input[type="color"]');
+const opacitySlideEl = document.querySelector('input[type="range"]');
+const boxElement = document.querySelector('.box');
+let currentColor = '#000000';
+let currentOpacity = 1;
+
+colorPickerEl.addEventListener('change', setColor);
+opacitySlideEl.addEventListener('change', setOpacity);
+
+function setColor(e) {
+    currentColor = e.target.value;
+    setBoxShadow(boxElement, currentColor, currentOpacity);
+}
+
+function setOpacity(e) {
+    currentOpacity = e.target.value / 100;
+    setBoxShadow(boxElement, currentColor, currentOpacity);
+}
+
 function init() {
     const boxElement = document.querySelector('.box');
-    setBoxShadow(boxElement, '#000000');
+    setBoxShadow(boxElement, currentColor);
 }
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
