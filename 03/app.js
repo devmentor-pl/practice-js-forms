@@ -14,6 +14,18 @@ const renderFile = (file, imgElement) => {
   reader.readAsDataURL(file);
 };
 
+const updateListItemElementContent = (listItemElem, selector, content) => {
+  const elem = listItemElem.querySelector(selector);
+
+  if (elem) {
+    console.log(typeof content);
+    if (typeof content === "function") {
+      content();
+    } else {
+    }
+  }
+};
+
 const createListItem = (file) => {
   const imagesListClass = "images-list";
   const listItemClass = `${imagesListClass}__item`;

@@ -1,27 +1,19 @@
 const form = document.querySelector("form");
 
-const isEmailValid = (form) => {
-  const loginElem = form.elements.login;
-
-  if (typeof loginElem !== "undefined") {
-    const email = loginElem.value;
-    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    return emailRe.test(email);
-  }
-
-  return false;
+const isFormFieldDefined = (field) => {
+  return typeof field !== "undefined";
 };
 
-const isPasswordValid = (passwordElem) => {
-  if (typeof passwordElem !== "undefined") {
-    const minPasswordLength = 6;
-    const password = passwordElem.value.trim();
+const isEmailValid = (email) => {
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    return password.length > minPasswordLength;
-  }
+  return emailRe.test(email);
+};
 
-  return false;
+const isPasswordValid = (password) => {
+  const minPasswordLength = 6;
+
+  return password.trim().length > minPasswordLength;
 };
 
 const arePasswordsTheSame = (passwordElem, confirmPasswordElem) => {
@@ -64,19 +56,27 @@ const onSubmit = (e) => {
   const acceptLabelSelector = "label[for='formAccept']";
   const errorClass = "has-error";
 
-  if (!isEmailValid(form)) {
+  const loginElem = form.elements.login;
+
+  if (!isFormFieldDefined(loginElem) || !isEmailValid(loginElem.value)) {
     errors.push(loginLabelSelector);
   }
 
   const passwordElem = form.elements.pass1;
 
-  if (!isPasswordValid(passwordElem)) {
+  if (
+    !isFormFieldDefined(passwordElem) ||
+    !isPasswordValid(passwordElem.value)
+  ) {
     errors.push(passwordLabelSelector);
   }
 
   const confirmPasswordElem = form.elements.pass2;
 
-  if (!isPasswordValid(confirmPasswordElem)) {
+  if (
+    !isFormFieldDefined(confirmPasswordElem) ||
+    !isPasswordValid(confirmPasswordElem.value)
+  ) {
     errors.push(confirmPasswordLabelSelector);
   }
 

@@ -1,7 +1,7 @@
 const form = document.querySelector("form");
-const usersList = document.querySelector(".users-list");
+const usersListElement = document.querySelector(".users-list");
 
-if (form && usersList) {
+if (form && usersListElement) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -15,7 +15,9 @@ if (form && usersList) {
       const firstName = firstNameElement.value;
       const lastName = lastNameElement.value;
 
-      usersList.appendChild(createUserListItem(firstName, lastName));
+      usersListElement.appendChild(createUserListItem(firstName, lastName));
+    } else {
+      alert("Please enter your first and last name.");
     }
   });
 }

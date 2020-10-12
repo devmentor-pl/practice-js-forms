@@ -1,3 +1,19 @@
+const validationRules = {
+  firstName: { required: "Proszę podać imię." },
+  lastName: { required: "Proszę podać nazwisko." },
+  street: { required: "Proszę podać ulicę." },
+  houseNumber: {
+    required: "Proszę podać numer budynku.",
+    number: "Proszę podać numer budynku.",
+  },
+  zip: {
+    required: "Proszę podać kod pocztowy.",
+    zip: "Proszę podać kod pocztowy w formacie NN-NNN.",
+  },
+  city: { required: "Proszę podać miasto." },
+  voivodeship: { required: "Proszę podać województwo." },
+};
+
 const form = document.querySelector("form");
 
 if (form) {
@@ -12,41 +28,42 @@ function onSubmit(e) {
   const form = e.target;
   const errorMessages = [];
 
-  if (!isRequiredFieldFilledIn(form.elements.firstName)) {
-    errorMessages.push("Proszę podać imię.");
-  }
+  for (const [field, rules] of Object.entries(validationRules)) {
+    let validationFailed = false;
 
-  if (!isRequiredFieldFilledIn(form.elements.lastName)) {
-    errorMessages.push("Proszę podać nazwisko.");
-  }
+    const addValidationError = (errorMessage) => {
+      if (!validationFailed) {
+        errorMessages.push(errorMessage);
+        validationFailed = true;
+      }
+    };
 
-  if (!isRequiredFieldFilledIn(form.elements.street)) {
-    errorMessages.push("Proszę podać ulicę.");
-  }
+    for (const [rule, errorMessage] of Object.entries(rules)) {
+      switch (rule) {
+        case "required":
+          if (!isRequiredFieldFilledIn(form.elements[field])) {
+            addValidationError(errorMessage);
+          }
 
-  if (
-    !isRequiredFieldFilledIn(form.elements.houseNumber) ||
-    !hasFieldANumber(form.elements.houseNumber)
-  ) {
-    errorMessages.push("Proszę podać numer budynku.");
-  }
+          break;
+        case "number":
+          if (!hasFieldANumber(form.elements[field])) {
+            addValidationError(errorMessage);
+          }
 
-  if (!isRequiredFieldFilledIn(form.elements.zip)) {
-    errorMessages.push("Proszę podać kod pocztowy.");
-  } else if (!isZipValid(form.elements.zip.value)) {
-    errorMessages.push("Proszę podać kod pocztowy w formacie NN-NNN.");
-  }
+          break;
+        case "zip":
+          if (!isZipValid(form.elements[field].value)) {
+            addValidationError(errorMessage);
+          }
 
-  if (!isRequiredFieldFilledIn(form.elements.city)) {
-    errorMessages.push("Proszę podać miasto.");
-  }
-
-  if (!isRequiredFieldFilledIn(form.elements.voivodeship)) {
-    errorMessages.push("Proszę podać województwo.");
+          break;
+      }
+    }
   }
 
   if (errorMessages.length > 0) {
-    showErrorMessage(errorMessages);
+    showErrorMessages(errorMessages);
   } else {
     alert("Formularz został wysłany.");
   }
@@ -72,7 +89,7 @@ function isZipValid(zip) {
   return /^[0-9]{2}-[0-9]{3}$/.test(zip);
 }
 
-function showErrorMessage(errorMessages) {
+function showErrorMessages(errorMessages) {
   const messagesList = document.querySelector(".messages");
 
   if (messagesList) {
