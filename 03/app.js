@@ -14,14 +14,19 @@ const renderFile = (file, imgElement) => {
   reader.readAsDataURL(file);
 };
 
-const updateListItemElementContent = (listItemElem, selector, content) => {
+const updateListItemElementContent = (
+  listItemElem,
+  selector,
+  content,
+  ...args
+) => {
   const elem = listItemElem.querySelector(selector);
 
   if (elem) {
-    console.log(typeof content);
     if (typeof content === "function") {
-      content();
+      content.call(this, ...args, elem);
     } else {
+      elem.innerText = content;
     }
   }
 };
@@ -42,23 +47,18 @@ const createListItem = (file) => {
     const newListLitem = listItemPrototype.cloneNode(true);
     newListLitem.classList.remove(listItemPrototypeClass);
 
-    const nameElem = newListLitem.querySelector(listItemNameSelector);
-
-    if (nameElem) {
-      nameElem.innerText = file.name;
-    }
-
-    const imageElem = newListLitem.querySelector(listItemImageSelector);
-
-    if (imageElem) {
-      renderFile(file, imageElem);
-    }
-
-    const sizeElem = newListLitem.querySelector(listItemSizeSelector);
-
-    if (sizeElem) {
-      sizeElem.innerText = convertSizeToMB(file.size);
-    }
+    updateListItemElementContent(newListLitem, listItemNameSelector, file.name);
+    updateListItemElementContent(
+      newListLitem,
+      listItemSizeSelector,
+      convertSizeToMB(file.size)
+    );
+    updateListItemElementContent(
+      newListLitem,
+      listItemImageSelector,
+      renderFile,
+      file
+    );
 
     return newListLitem;
   }
