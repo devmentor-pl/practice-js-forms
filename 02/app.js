@@ -74,8 +74,11 @@ inputEl.addEventListener('input', validationFunc);
     checkbox.addEventListener( 'change', function(e) {
         
         if(this.checked && check === true) {
-            console.log("done")
-        } else {
+            console.log("done");
+            errorsArray.forEach(function (element) {
+                element.style.color = "black";
+        })}
+         else {
             errorsArray.forEach(function (element) {
                 element.style.color = "red";
             })
