@@ -1,8 +1,22 @@
 document.addEventListener('DOMContentLoaded', init);
+const box = document.querySelector(".box");
+const inputs = document.querySelectorAll("input");
+console.log(inputs);
+inputs[0].addEventListener("input", function(e) {
+    var val = e.target.value;
+    setBoxShadow(box, val);
+    console.log(val);
+});
+inputs[1].addEventListener("change", function(e) {
+    let opacityVal = e.target.value;
+    let res = opacityVal / 100;
+    setBoxShadow(box, inputs[0].value, res);
+});
 
-function init() {
-    const boxElement = document.querySelector('.box');
-    setBoxShadow(boxElement, '#000000');
+
+function init() { //funckja jaka zeruje suwak?
+    const boxElement = document.querySelector('.box');//pobieram boxa
+    setBoxShadow(boxElement, '#000000');//przypisuje do param.
 }
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
