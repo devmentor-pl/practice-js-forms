@@ -23,7 +23,7 @@ function showFile (e) {
             const size = cln.querySelector(".images-list__item-size");
             
             const sizeFile = readFile.size;
-            const sizeDivision = sizeFile / 1024;
+            const sizeDivision = sizeFile / 1000000;
                
             
             size.innerText = sizeDivision.toFixed(2) + " " + "MB";
