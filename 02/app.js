@@ -16,14 +16,15 @@ const init = function () {
         
         if(!errors.length) {
             console.log("done");
-        } else { errors.forEach(function(element) {
+        } 
+        // else { errors.forEach(function(element) {
         
-                const labelEl = element[0].parentElement;
-                labelEl.style.backgroundColor = 'yellow';
+        //         const labelEl = element[0].parentElement;
+        //         labelEl.style.backgroundColor = 'yellow';
        
-            })
+        //     })
 
-        };
+        // };
         console.log(errors);
     };
 
