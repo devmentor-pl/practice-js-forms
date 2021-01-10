@@ -1,8 +1,22 @@
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', init);  //?dev trochę się zatanawiam czemu akurat tak, ale w sumie okay - tzn. jest przejrzyście 
 
 function init() {
     const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, '#000000');
+
+    const colorPickerEl = document.querySelector('[type="color"]');
+    const eventPicker = colorPickerEl.addEventListener('change', getColor);
+  //... jak to wywołać  
+    console.log(eventPicker, boxElement, getColor)
+    changeColor(boxElement, getColor);
+}
+function changeColor(boxElement, colorInHex) {
+        setBoxShadow(boxElement, colorInHex);
+}
+
+function getColor(event) {
+    const colorInHex = event.target.value;
+    return colorInHex;
 }
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
