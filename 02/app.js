@@ -42,3 +42,14 @@ function checkPass(e) {
         console.log('Hasło musi mieć min. 6 znaków');
     }
 }
+
+//sprawdzanie checked
+form.addEventListener('submit', acceptForm);
+
+function acceptForm(e) {
+    const accept = e.target.elements['accept'];
+
+    if(!accept.checked) {
+        console.log('Musisz zaakceptować warunki regulaminu');
+    }
+}
