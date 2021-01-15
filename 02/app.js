@@ -26,20 +26,27 @@ const form = document.querySelector('form');
 form.addEventListener('submit', checkPass);
 
 function checkPass(e) {
-    const pass1Self = e.target;
-    const pass2Self = e.target;
-    const pass1Val = pass1Self.value;
-    const pass2Val = pass2Self.value;
+    e.preventDefault();
+    const pass1 = e.target.elements['pass1'];
+    const pass2 = e.target.elements['pass2'];
+    // const pass1Val = pass1Self.value;
+    // const pass2Val = pass2Self.value;
 
 
-    if (pass1Val.length >= 6 && pass2Val.length >= 6) {
-        if (!(pass1Val === pass2Val)) {
-            console.log('Wprowadzone hasła różnią się');
+    if (pass1.length >= 6 && pass2.length >= 6) {
+        if (!(pass1 === pass2)) {
+            pass2error.innerText = 'Wprowadzone hasła różnią się';
+
         } else {
-            console.log('Hasła wprowadzone poprawnie');
+            pass2error.innerText = 'Hasła wprowadzone poprawnie';
         }
     } else {
-        console.log('Hasło musi mieć min. 6 znaków');
+        const pass1error = document.querySelectorAll('.pass1-error');
+        const pass2error = document.querySelectorAll('.pass2-error');
+
+        pass1error.innerText = 'Hasło musi mieć min. 6 znaków';
+        pass2error.innerText = 'Hasło musi mieć min. 6 znaków';
+
     }
 }
 
