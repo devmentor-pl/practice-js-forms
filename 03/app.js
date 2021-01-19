@@ -15,9 +15,12 @@ function readFiles(e) {
     }
 
 
-
     for (let i = 0; i < e.target.files.length; i++) {
         const file = e.target.files[i];
+
+        if (file && !file.type.includes('image')) {
+            alert('ERROR !!! Select an image file !!!')
+        }
 
         if (file && file.type.includes('image')) {
 
@@ -45,7 +48,6 @@ function readFiles(e) {
 
             }
             reader.readAsDataURL(file);
-
         }
     }
 }

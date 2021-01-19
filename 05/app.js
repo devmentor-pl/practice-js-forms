@@ -15,17 +15,18 @@ function checkData(e) {
     const voivodeship = e.target.elements.voivodeship.value;
     const messages = [];
 
+
     if (firstName.length === 0) {
-        messages.push('Field name: First Name is required!');
+        addMessageRequired(messages, e.target.elements.firstName.name);
     }
     if (lastName.length === 0) {
-        messages.push('Field name: Last Name is required!');
+        addMessageRequired(messages, e.target.elements.lastName.name);
     }
     if (street.length === 0) {
-        messages.push('Field name: Street is required!');
+        addMessageRequired(messages, e.target.elements.street.name);
     }
     if (houseNumber.length === 0) {
-        messages.push('Field name: Hause number is required!');
+        addMessageRequired(messages, e.target.elements.houseNumber.name);
     }
     if (houseNumber.length >= 0 && Number(houseNumber) <= 0) {
         messages.push('Field name: Hause number must be > 0');
@@ -34,16 +35,16 @@ function checkData(e) {
         messages.push('Field name: Flat number must be > 0');
     }
     if (zip.length === 0) {
-        messages.push('Field name: Zip is required!');
+        addMessageRequired(messages, e.target.elements.zip.name);
     }
     if (!zip.match(/^\d\d-\d\d\d$/)) {
         messages.push('Field name: Zip must be special number!');
     }
     if (city.length === 0) {
-        messages.push('Field name: City is required!');
+        addMessageRequired(messages, e.target.elements.city.name);
     }
     if (voivodeship.length === 0) {
-        messages.push('Field name: Voivodeship is required!');
+        addMessageRequired(messages, e.target.elements.voivodeship.name);
     }
 
 
@@ -61,17 +62,23 @@ function checkData(e) {
     } else {
         ulMessagesEl.innerHTML = '';
 
-        e.target.elements.firstName.value = '';
-        e.target.elements.lastName.value = '';
-        e.target.elements.street.value = '';
-        e.target.elements.houseNumber.value = '';
-        e.target.elements.flatNumber.value = '';
-        e.target.elements.zip.value = '';
-        e.target.elements.city.value = '';
-        e.target.elements.voivodeship.value = '';
+        const field = e.target.elements;
+
+        clearData(field);
 
         alert('Dane zostały wysłane prawidłowo');
 
         e.preventDefault();
+    }
+}
+
+function addMessageRequired(arr, fieldName) {
+    arr.push('Field name: ' + fieldName + ' is required!');
+}
+
+function clearData(field) {
+    for (let i = 0; i < field.length - 1; i++) {
+        //field[i]['value'] = '';
+        field[i].value = '';
     }
 }

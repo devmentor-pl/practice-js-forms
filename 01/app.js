@@ -29,6 +29,8 @@ function checkData(e) {
 
         });
     } else {
+        ulErrorsEl.innerHTML = '';
+
         const newLi = document.createElement('li');
         newLi.classList.add('user-list__person');
         newLi.innerText = firstName + ' ' + lastName;

@@ -1,4 +1,4 @@
-var color;
+var color, opacityShow;
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -20,7 +20,7 @@ rangeEl.addEventListener('mousemove', changeOpacity);
 function changeColor(e) {
     const boxElement = document.querySelector('.box');
     color = e.target.value;
-    setBoxShadow(boxElement, color);
+    setBoxShadow(boxElement, color, opacityShow);
 }
 
 function changeOpacity(e) {
@@ -29,7 +29,7 @@ function changeOpacity(e) {
 
     if (isMouseMoveEvent && isMouseLeftButtonPress || !isMouseMoveEvent) {
         const boxElement = document.querySelector('.box');
-        let opacityShow = e.target.value / 100;
+        opacityShow = e.target.value / 100;
         setBoxShadow(boxElement, color, opacityShow);
     }
 }
