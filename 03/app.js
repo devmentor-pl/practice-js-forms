@@ -5,7 +5,7 @@ inputFile.addEventListener('change', showInfos);
 function showInfos(e) {
 
     for (let i = 0; i < file.length; i++) {
-        const file = e.target.files[i];
+        const file = e.target.files[i]; //elements
 
         if (file && file.type.includes('image')) {
             const reader = new FileReader();
