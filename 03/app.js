@@ -18,36 +18,36 @@ function readFiles(e) {
     for (let i = 0; i < e.target.files.length; i++) {
         const file = e.target.files[i];
 
-        if (file && !file.type.includes('image')) {
-            alert('ERROR !!! Select an image file !!!')
-        }
+        if (file) {
+            if (file.type.includes('image')) {
 
-        if (file && file.type.includes('image')) {
+                const reader = new FileReader();
 
-            const reader = new FileReader();
+                reader.onload = function (readerEvent) {
 
-            reader.onload = function (readerEvent) {
+                    const liEl = document.querySelector('li');
+                    const imgEl = liEl.querySelector('img');
+                    const headerEl = liEl.firstElementChild;
+                    const footerEl = liEl.lastElementChild;
 
-                const liEl = document.querySelector('li');
-                const imgEl = liEl.querySelector('img');
-                const headerEl = liEl.firstElementChild;
-                const footerEl = liEl.lastElementChild;
+                    headerEl.innerText = file.name
+                    imgEl.src = readerEvent.target.result;
 
-                headerEl.innerText = file.name
-                imgEl.src = readerEvent.target.result;
+                    const sizeRound = file.size / 1000;;
+                    footerEl.innerText = Number(Math.round(sizeRound + 'e+2') + 'e-2');
 
-                const sizeRound = file.size / 1000;;
-                footerEl.innerText = Number(Math.round(sizeRound + 'e+2') + 'e-2');
+                    liEl.classList.remove('images-list__item--prototype');
 
-                liEl.classList.remove('images-list__item--prototype');
+                    if (ulEl && liEl && i < e.target.files.length - 1) {
+                        const cloneLiEl = liEl.cloneNode(true);
+                        ulEl.appendChild(cloneLiEl)
+                    }
 
-                if (ulEl && liEl && i < e.target.files.length - 1) {
-                    const cloneLiEl = liEl.cloneNode(true);
-                    ulEl.appendChild(cloneLiEl)
                 }
-
+                reader.readAsDataURL(file);
+            } else {
+                alert('ERROR !!! Select an image file !!!');
             }
-            reader.readAsDataURL(file);
         }
     }
 }
