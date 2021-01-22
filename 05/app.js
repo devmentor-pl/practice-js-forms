@@ -3,11 +3,12 @@ const form = document.querySelector('form');
 form.addEventListener('submit', checkData);
 
 function checkData(e) {
-    const name = e.target.elements.name.value;
+    e.preventDefault();
+    const firstName = e.target.elements.firstName.value;
     const lastName = e.target.elements.lastName.value;
     const street = e.target.elements.street.value;
-    const houseNum = e.target.elements.houseNum.value;
-    const flatNum = e.target.elements.flatNum.value;
+    const houseNumber = e.target.elements.houseNumber.value;
+    const flatNumber = e.target.elements.flatNumber.value;
     const zip = e.target.elements.zip.value;
     const city = e.target.elements.city.value;
     const voivodeship = e.target.elements.voivodeship;
@@ -21,7 +22,7 @@ function checkData(e) {
     }
 
     if (errors.length > 0) {
-        e.preventDefault();
+        // e.preventDefault();
         errors.forEach(function (err) {
             const newLi = document.createElement('li');
             newLi.innerText = err;
