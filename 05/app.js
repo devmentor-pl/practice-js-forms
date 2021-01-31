@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', init);
-
 const formEl = document.querySelector('form');
 const ulELement = document.querySelector('.messages');
+
 function init(){
     formEl.noValidate = true;
     if(formEl){
@@ -75,8 +75,11 @@ function validationCheck(e) {
     } else {
         ulELement.innerHTML = '';
         const curr = e.target.elements;
-
+        
         clearErrors(curr);
+
+        alert('Dane zostaly wyslane!');
+
         e.preventDefault();
     }
 }
