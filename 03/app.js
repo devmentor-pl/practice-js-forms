@@ -19,7 +19,7 @@ function showFile(e){
 
 
 function addImg(element) {
-    document.body.removeChild(paragraphEl);
+    paragraphEl.innerText = "";
     const ulList = document.querySelector('.images-list');
     const liEl = document.querySelector('.images-list__item--prototype');
     const cloneLiEl = liEl.cloneNode(true);

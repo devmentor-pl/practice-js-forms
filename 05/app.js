@@ -25,40 +25,40 @@ function validationCheck(e) {
 
     // Check errors
     if(firstName.length === 0) {
-        addErrors(e.target.elements.firstName.name, errors);
+        addErrors(e.target.elements.firstName.name, errors, 'Please type last Name');
     }
 
     if(lastName.length === 0) {
-        addErrors(e.target.elements.lastName.name, errors);
+        addErrors(e.target.elements.lastName.name, errors, 'Please type last Name');
     }
 
     if(street.length === 0) {
-        addErrors(e.target.elements.street.name, errors);
+        addErrors(e.target.elements.street.name, errors, 'Please type street.');
     }
 
     if(houseNumber.length === 0 && Number(houseNumber) <= 0) {
-        addErrors(e.target.elements.houseNumber.name, errors);
+        addErrors(e.target.elements.houseNumber.name, errors, 'Please type number for house.');
     }
 
     if(flatNumber.length === 0 && Number(flatNumber) <= 0) {
-        addErrors(e.target.elements.flatNumber.name, errors);
+        addErrors(e.target.elements.flatNumber.name, errors, 'Please type number for flat.');
     }
 
     if(zip.length === 0) {
-        addErrors(e.target.elements.zip.name, errors);
+        addErrors(e.target.elements.zip.name, errors, 'Please type zip.');
     }
 
     // Zip match check correct zip code
     if(!zip.match(/^\d\d-\d\d\d$/)){
-        addErrors(e.target.elements.zip.name, errors);
+        addErrors(e.target.elements.zip.name, errors, 'Zip format are incorrect!');
     }
 
     if(city.length === 0) {
-        addErrors(e.target.elements.city.name, errors);
+        addErrors(e.target.elements.city.name, errors, 'Please type City.');
     }
 
     if(voivodeship.length === 0) {
-        addErrors(e.target.elements.voivodeship.name, errors);
+        addErrors(e.target.elements.voivodeship.name, errors, 'Please type voviodeship.');
     }
     
     if(errors.length > 0) {
@@ -84,8 +84,8 @@ function validationCheck(e) {
     }
 }
 
-function addErrors(field, errors){
-    errors.push(`Current filed ${field} is required!`);
+function addErrors(field, errors, text = 'Current filed is required!'){
+    errors.push(`${text}`);
 }
 
 function clearErrors(data){
