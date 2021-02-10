@@ -37,4 +37,16 @@ function getChannelColor(colorInHex, channelName) {
     return channelColorDec; 
 }
 
+function changeShadow() {
+    const color = document.querySelector('[name="color"]');
+    const opacity = document.querySelector('[name="opacity"');
+    const boxElement = document.querySelector('.box');
+    setBoxShadow(boxElement, color.value, opacity.value / 100);
+}
+
+const input = document.querySelectorAll('input');
+
+input.forEach(function(element) {
+    element.addEventListener('change', changeShadow);
+})
 
