@@ -47,6 +47,7 @@ function changeShadow() {
 const input = document.querySelectorAll('input');
 
 input.forEach(function(element) {
-    element.addEventListener('change', changeShadow);
+    element.addEventListener('mousemove', changeShadow);
+   
 })
 

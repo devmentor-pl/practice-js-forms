@@ -25,7 +25,7 @@ function showFile(e) {
 
                 headerEl.textContent = files[i].name;
                 imgEl.src = readerEvent.target.result;
-                footerEl.textContent = (files[i].size * 0, 000001).toFixed(2);
+                footerEl.textContent = (files[i].size * 0,000001).toFixed(2);
 
             };
 

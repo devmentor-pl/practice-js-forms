@@ -1,6 +1,6 @@
 
 const formEl = document.querySelector('form');
-const ulEl = document.createElement('ul');
+const ulEl = document.querySelector('ul');
 formEl.addEventListener('submit', checkData);
 ulEl.classList.add('.messages');
 formEl.noValidate = true;
