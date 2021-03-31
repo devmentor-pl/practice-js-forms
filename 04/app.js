@@ -1,8 +1,11 @@
 document.addEventListener('DOMContentLoaded', init);
+const colorInput = document.querySelector('input:nth-of-type(1)');
+const rangeInput = document.querySelector('input:nth-of-type(2)');
 
 function init() {
     const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, '#000000');
+    document.querySelector('section').addEventListener('change', () => setBoxShadow(boxElement, colorInput.value, rangeInput.value/100));
 }
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
