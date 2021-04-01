@@ -15,10 +15,9 @@ input.addEventListener('change', (e) => {
         ul.appendChild(li);
 
         li.querySelector(".images-list__item-name").textContent = file.name;
-        li.querySelector(".images-list__item-img").src = input.value;
+        li.querySelector(".images-list__item-img").src = file.name;
 
         const mbSize = (file.size / (1024*1024)).toFixed(2);
-        li.querySelector(".images-list__item-size").textContent = mbSize;
-        console.log(mbSize)
+        li.querySelector(".images-list__item-size").textContent = `rozmiar: ${mbSize} mb`;
     }); 
 })
