@@ -5,8 +5,7 @@ console.log(input.value)
 const liToClone = document.querySelector('.images-list__item');
 
 input.addEventListener('change', (e) => {
-
-    const allFiles = Array.from(input.files);
+    const allFiles = Array.from(e.target.files);
 
     allFiles.forEach(file => {
         const li = liToClone.cloneNode(true);
