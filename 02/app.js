@@ -15,10 +15,10 @@ const validate = (e) => {
     correctData = [];
     e.preventDefault();
 
-    const loginInput = document.querySelector('#formLogin');
-    const pass1Input = document.querySelector('#formPass1');
-    const pass2Input = document.querySelector('#formPass2');
-    const formAccept = document.querySelector('#formAccept');
+    const loginInput = e.target.login;
+    const pass1Input = e.target.pass1;
+    const pass2Input = e.target.pass2;
+    const formAccept = e.target.accept;
 
     const validatedLogin = validateLogin(loginInput);
     const validatedPasswords = validatePasswords(pass1Input, pass2Input);
@@ -27,12 +27,10 @@ const validate = (e) => {
     if ( validatedLogin &&  validatedPasswords && validatedAccept) {
         console.log("done");
         correctData.forEach(correct => {
-            console.log(correct);
             correct.previousElementSibling.style.color = "black";
         })
     } else {
         errors.forEach(error => {
-            console.log(error);
             error.previousElementSibling.style.color = "red";
         })
     } 
