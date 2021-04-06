@@ -1,13 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     form.addEventListener('submit', getFormData);
+    console.log(form.firstName)
 })
 
 const getFormData = (e) => {
     e.preventDefault();
     
-    const firstName = document.getElementsByName('firstName')[0];
-    const lastName = document.getElementsByName('lastName')[0];
+    const firstName = e.target.firstName;
+    const lastName = e.target.lastName;
 
     addNewUser(firstName, lastName);
 
