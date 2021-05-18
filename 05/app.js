@@ -10,48 +10,32 @@ document.addEventListener("DOMContentLoaded", init);
 
 const checkData = function (e) {
 
-    const ulElement = document.querySelector(".messages")
-    const firstName = e.target.elements.firstName.value;
-    const lastName = e.target.elements.lastName.value;
-    const street = e.target.elements.lastName.value;
-    const houseNumber = e.target.elements.houseNumber.value;
-    const flatNumber = e.target.elements.flatNumber.value;
-    const zip = e.target.elements.zip.value;
-    const city = e.target.elements.city.value;
-    const voivodeship = e.target.elements.voivodeship.value;
+    const ulElement = document.querySelector(".messages");
+    const firstName = e.target.elements.firstName;
+    const lastName = e.target.elements.lastName;
+    const street = e.target.elements.lastName;
+    const houseNumber = e.target.elements.houseNumber;
+    const flatNumber = e.target.elements.flatNumber;
+    const zip = e.target.elements.zip;
+    const city = e.target.elements.city;
+    const voivodeship = e.target.elements.voivodeship;
     const messages = [];
 
-    if(firstName.length === 0) {
-        messages.push("Name is required");
-    };
+    const arr1 = [firstName, lastName, street, zip, city, voivodeship];
+    arr1.forEach(function (element) {
+        const value = element.value;
+        const name = element.name;
 
-    if(lastName.length === 0) {
-        messages.push("Last name is required");
-    };
+        checkLength(value, name, messages);
+    });
 
-    if(street.length === 0) {
-        messages.push("Street is required");
-    };
+    const arr2 = [houseNumber, flatNumber];
+    arr2.forEach(function (element) {
+        const value = element.value;
+        const name = element.name;
 
-    if(houseNumber.length === 0 && houseNumber <= 0) {
-        messages.push("Incorrect house number");
-    };
-
-    if(flatNumber.length === 0 && flatNumber <= 0) {
-        messages.push("Incorrect flat number");
-    };
-
-    if(zip.length === 0) {
-        messages.push("Incorrect zip code");
-    };
-
-    if(city.length === 0) {
-        messages.push("City is required");
-    };
-
-    if(voivodeship.length === 0) {
-        messages.push("Voivodeship is required");
-    }
+        checkNumber(value, name, messages);
+    });
 
     if(messages.length > 0) {
         e.preventDefault();
@@ -61,18 +45,32 @@ const checkData = function (e) {
             liElement.innerText = element;
             liElement.style.color = "red";
             ulElement.appendChild(liElement);
+
         });
+
     } else {
         
         if(ulElement) {
             while (ulElement.children.length > 0) {
                 ulElement.removeChild(ulElement.lastElementChild);
-            }
+            };
 
         alert("The form has been sent!")
         
         e.preventDefault()
-    }
+    };
+}};
 
-   
-}}
+const checkLength = function (value, name, arr) {
+    if(value.length === 0) {
+        const info = name + " is required";
+        arr.push(info);
+    };
+};
+
+const checkNumber = function (value, name, arr) {
+    if(value.length === 0 && value <= 0) {
+        const info = name + " is incorrect";
+        arr.push(info);
+    };
+};

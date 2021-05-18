@@ -16,10 +16,12 @@ const addUser = function (e) {
     const liElement = document.createElement("li");
     liElement.classList.add("users-list__person");
 
-    valueFisrt = e.target[0].value;
-    valueLast = e.target[1].value;
-    valueLi = valueFisrt + " " + valueLast;
+    const valueFisrt = e.target[0].value;
+    const valueLast = e.target[1].value;
+    const valueLi = valueFisrt + " " + valueLast;
 
-    liElement.innerText = valueLi;
-    ulElement.appendChild(liElement);
+    if(valueFisrt.length > 0 && valueLast.length > 0) {
+        liElement.innerText = valueLi;
+        ulElement.appendChild(liElement);
+    };
 };

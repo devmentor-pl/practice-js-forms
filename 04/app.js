@@ -30,11 +30,9 @@ function changeOpacity (e) {
 
     if(isMouseMoveEvent && isMouseLeftButtonPress || !isMouseMoveEvent) {
         opacityValue = e.target.value / 100;
+        setBoxShadow(element, color, opacityValue);
     };
-
-    setBoxShadow(element, color, opacityValue);
-
-}
+};
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
     const colorInRGBA = `rgba(
