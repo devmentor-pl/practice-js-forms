@@ -15,14 +15,20 @@ const readFile = function (e) {
             const name = element.name;
             const size = (element.size / (1024 * 1024)).toFixed(2) + " MB";
 
-            CreateImgElement(element, name, size)
+            const ulList = document.querySelector(".images-list");
 
+            const reader = new FileReader();
+                reader.onload = function(readerEvent) {
+                const newLi = createImgElement(name, size, readerEvent.target.result);
+                ulList.appendChild(newLi);
+            }
+            reader.readAsDataURL(element);
         };
     });
     
 };
 
-const CreateImgElement = function (element, name, size) {
+const createImgElement = function (name, size, src) {
     
     const ulList = document.querySelector(".images-list");
     const liEl =  document.querySelector(".images-list__item--prototype");
@@ -32,14 +38,11 @@ const CreateImgElement = function (element, name, size) {
     const liHeader = cloneLi.querySelector(".images-list__item-name");
     const liImg = cloneLi.querySelector(".images-list__item-img");
     const liFooter = cloneLi.querySelector(".images-list__item-size");
-
+    
+    liImg.src = src;
     liHeader.innerText = name;
     liFooter.innerText = size;
 
-    const reader = new FileReader();
-    reader.onload = function(readerEvent) {
-        liImg.src = readerEvent.target.result;
-        ulList.appendChild(cloneLi);
-    }
-    reader.readAsDataURL(element);
+    return cloneLi
+
 }
