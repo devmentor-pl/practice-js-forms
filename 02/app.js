@@ -1,0 +1,70 @@
+/*Tym razem nasz formularz to panel rejestracji do serwisu.
+
+Aby można było się zarejestrować, to należy wprowadzić poprawny adres email (sprawdzić, czy zawiera znak @ lub użyć odpowiedniego wyrażenie regularnego), podać dwa razy takie same hasła (dla pewności, że użytkownik nie pomylił się, wpisując hasło), które są dłuższe niż 6 znaków oraz zaakceptować regulamin (sprawdzić, czy jest checked).
+
+Jeśli warunki zostały spełnione, to w konsoli powinien pojawić się napis done. W przeciwnym razie należy zaznaczyć na czerwono kolor fontu dla <label> błędnie wprowadzonych danych.
+
+Do rozwiązania problemu oznaczania błędnych elementów można użyć tablicy, która będzie przechowywać dane tj. const errors = []. W momencie wystąpienia błędów dodajemy do tej tablicy selektor elementu, który błędnie jest wypełniony.
+
+Na samym końcu wykonujemy pętlę (for lub forEach), która zaznacza elementy z błędem. */
+
+
+const formEl = document.querySelector('form');
+formEl.addEventListener('submit', checkData);
+
+function checkData(e) {
+
+    e.preventDefault();
+
+    const login = e.target.elements.login.value;
+    const pass1 = e.target.elements.pass1.value;
+    const pass2 = e.target.elements.pass2.value;
+
+    const errors = [];
+
+    if (login.length === 0) {
+        errors.push('Enter your email');
+    }
+
+    if (!login.includes('@')) {
+        errors.push('Email need @ sign!');
+    }
+
+    else {
+        console.log('Your email is correct!');
+    }
+
+
+    if (pass1 === pass2 && pass1.length > 6 || pass2.length > 6) {
+
+        console.log('your password is correct!')
+    }
+
+    else {
+        alert('your password it too short')
+        errors.push(e.target.elements.pass1);
+        errors.push(e.target.elements.pass2);
+    }
+
+    const accept = e.target.elements['accept'];
+
+    if (!accept.checked) {
+
+        errors.push(accept);
+        alert('You have to accept regulations!');
+
+    }
+
+
+    if (errors.length > 0) {
+
+        errors.forEach(function (e) {
+            e.previousElementSibling.style.border = '1px solid red';
+        })
+
+    }
+
+    else {
+        console.log('done');
+    }
+}
