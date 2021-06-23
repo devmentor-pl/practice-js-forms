@@ -54,8 +54,8 @@ function changeColor() {
 
 const inputEl = document.querySelectorAll('input');
 
-inputEl.forEach(function (element) {
-    element.addEventListener('change', changeColor);
+inputEl.forEach(function (e) {
+    e.addEventListener('change', changeColor);
 
 });
 
