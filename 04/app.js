@@ -43,17 +43,21 @@ W pliku app.js masz już przygotowaną funkcję, która ustawia odpowiednie styl
 
 Zauważ, że range przyjmuje zakres od 0 do 100, natomiast w rgba() należy zdefiniować zakres dla przeźroczystości od 1 do 0. */
 
-const inputEl = document.querySelectorAll('input');
+
 
 function changeColor() {
-    const color = document.querySelector('[name="color"]');
-    const opacity = document.querySelector('[name="opacity"]');
+    const nameColor = document.querySelector('[name="color"]');
+    const nameOpacity = document.querySelector('[name="opacity"]');
     const boxElement = document.querySelector('.box');
-    setBoxShadow(boxElement, color.value, opacity.value / 100);
+    setBoxShadow(boxElement, nameColor.value, nameOpacity.value / 100 );
 }
+
+const inputEl = document.querySelectorAll('input');
 
 inputEl.forEach(function (element) {
     element.addEventListener('change', changeColor);
 
 });
+
+
 
