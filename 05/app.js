@@ -78,15 +78,13 @@ function checkForm(e) {
     }
 
 
-    const select = document.querySelector('select');
-    select.addEventListener('change', showOptionsInfo);
-
-    function showOptionsInfo(select) {
-
-        if (select.value === '') {
-            messages.push('Select the voivodeship');
-        }
+    const select = document.querySelector("select");
+    //select.addEventListener('change', showOptionsInfo);
+    //function showOptionsInfo(select) {
+    if (select.value === "") {
+        messages.push("Select the voivodeship");
     }
+    //}
 
 
     if (messages.length > 0) {

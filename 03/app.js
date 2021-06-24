@@ -7,43 +7,45 @@ Zwróć uwagę również, że ten input typu file pozwala wybierać więcej niż
 Nie zapomnij o wyświetleniu nazwy i rozmiaru pliku w MB z dwoma miejscami po przecinku. */
 
 
-const imagesList = document.querySelector ('.images-list');
+const imagesList = document.querySelector('.images-list');
+
 
 const fileEl = document.querySelector('input');
-fileEl.addEventListener('change' , readFile);
+
+fileEl.addEventListener('change', readFile);
 
 function readFile(e) {
 
     for (let i = 0; i < e.target.files.length; i++) {
-        
-    const file = e.target.files[i];
 
-   if( file && file.type.incudes('image')) {
-       const reader = new FileReader();
-
-       reader.onload = function(readerEvent) {
-           const newImage = document.createElement('img');
-           newImage.src = readerEvent.target.result;
-
-           imagesList.appendChild(newImage);
-       };
-
-const itemName = document.querySelector('.images-list__item-name');
-const itemSize = document.querySelector('.images-list__item-size');
+        const file = e.target.files[i];
+        console.log(file, file.type);
 
 
+        if (file && file.type.includes('image')) {
+            console.log("true!")
+            const reader = new FileReader();
+
+            reader.onload = function (readerEvent) {
+                const newImage = document.createElement('img');
+                newImage.src = readerEvent.target.result;
+
+                imagesList.appendChild(newImage);
 
 
+                const itemName = imagesList.querySelector('.images-list__item-name');
+                const itemSize = imagesList.querySelector('.images-list__item-size');
 
 
+                itemSize.innerHTML = (file.size / (1024 * 1024)).toFixed(2) + 'MB';
+                imagesList.appendChild(itemSize);
 
+                itemName.innerHTML = file.name;
+                imagesList.appendChild(itemName);
 
+            }
 
-
-
+            reader.readAsDataURL(file);
+        }
     }
-
-
-       reader.readAsDataURL(file);
-   }
 }
