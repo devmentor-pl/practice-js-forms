@@ -97,7 +97,9 @@ function checkForm(e) {
         })
     }
 
-    else {
+    else if (messages.length === 0) {
+        document.querySelector('.messages').innerHTML = '';
+
         console.log('Thank you for completing the form');
     }
 }

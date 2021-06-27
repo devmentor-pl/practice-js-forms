@@ -11,6 +11,10 @@ Na samym końcu wykonujemy pętlę (for lub forEach), która zaznacza elementy z
 
 const formEl = document.querySelector('form');
 formEl.addEventListener('submit', checkData);
+formEl.noValidate = true;
+const ulEl = document.querySelector('ul')
+ulEl.classList.add('.errors');
+
 
 function checkData(e) {
 
@@ -35,36 +39,39 @@ function checkData(e) {
     }
 
 
-    if (pass1 === pass2 && pass1.length > 6 || pass2.length > 6) {
+    if (pass1 === pass2 && pass1.length > 6) {
 
-        console.log('your password is correct!')
+        console.log('Your password is correct!')
     }
 
     else {
-        alert('your password it too short')
-        errors.push(e.target.elements.pass1);
-        errors.push(e.target.elements.pass2);
+        errors.push('Passwords do not match or are too short!')
     }
 
     const accept = e.target.elements['accept'];
 
     if (!accept.checked) {
 
-        errors.push(accept);
-        alert('You have to accept regulations!');
+        errors.push('You have to accept regulations!');
 
     }
 
 
     if (errors.length > 0) {
+        e.preventDefault();
+        ulEl.innerHTML = '';
+        errors.forEach(function (errors) {
+            const newLi = document.createElement('li');
+            newLi.innerText = errors;
 
-        errors.forEach(function (e) {
-            e.previousElementSibling.style.border = '1px solid red';
+            ulEl.appendChild(newLi);
+
         })
 
     }
 
-    else {
+    else if (errors.length === 0) {
+        document.querySelector('.errors').innerHTML = '';
         console.log('done');
     }
 }
