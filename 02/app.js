@@ -28,32 +28,42 @@ function checkData(e) {
 
     if (login.length === 0) {
         errors.push('Enter your email');
+        document.querySelector('#formLogin').previousElementSibling.style.color = 'red';
     }
 
     if (!login.includes('@')) {
         errors.push('Email need @ sign!');
+        document.querySelector('#formLogin').previousElementSibling.style.color = 'red';
     }
 
     else {
+
         console.log('Your email is correct!');
+        document.querySelector('#formLogin').previousElementSibling.style.color = 'black';
     }
 
 
     if (pass1 === pass2 && pass1.length > 6) {
-
-        console.log('Your password is correct!')
+        console.log('Your password is correct!');
+        document.querySelector('#formPass1').previousElementSibling.style.color = 'black';
+        document.querySelector('#formPass2').previousElementSibling.style.color = 'black';
     }
 
     else {
-        errors.push('Passwords do not match or are too short!')
+        errors.push('Passwords do not match or are too short!');
+        document.querySelector('#formPass1').previousElementSibling.style.color = 'red';
+        document.querySelector('#formPass2').previousElementSibling.style.color = 'red';
     }
 
     const accept = e.target.elements['accept'];
 
     if (!accept.checked) {
-
         errors.push('You have to accept regulations!');
+        document.querySelector('#formAccept').previousElementSibling.style.color = 'red';
+    }
 
+    else {
+        document.querySelector('#formAccept').previousElementSibling.style.color = 'black';
     }
 
 
@@ -61,9 +71,9 @@ function checkData(e) {
         e.preventDefault();
         ulEl.innerHTML = '';
         errors.forEach(function (errors) {
+
             const newLi = document.createElement('li');
             newLi.innerText = errors;
-
             ulEl.appendChild(newLi);
 
         })
