@@ -11,8 +11,8 @@ function addLi (e) {
     const ulList = document.querySelector('.users-list');
 
     const li = document.createElement('li');
-    li.innerHTML = `${firstName} ${secondName}`;
+    li.classList.add('user-list__person');
+    li.innerText = `${firstName} ${secondName}`;
 
     ulList.appendChild(li);
 }
-
