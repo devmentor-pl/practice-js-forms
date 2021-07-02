@@ -15,8 +15,12 @@ function changeColor(e) {
 }
 
 function changeOpacity(e) {
-    const opac = Number(e.target.value) / 100;
-    setBoxShadow(boxElement, colorEl.value, opac);
+    const isMouseMoveEvent = e.type === 'mousemove';
+    const isMouseLeftButtonPress = e.buttons === 1;
+    if (isMouseMoveEvent && isMouseLeftButtonPress || !isMouseMoveEvent) {
+        const opac = Number(e.target.value) / 100;
+        setBoxShadow(boxElement, colorEl.value, opac);
+    }
 }
 
 function init() {
