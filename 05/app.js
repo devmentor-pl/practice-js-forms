@@ -3,7 +3,6 @@ const ulEl = document.querySelector('ul');
 formEl.addEventListener('submit', validateData);
 
 function validateData(e) {
-    e.preventDefault();
     const errors = [];
     const firstName = e.target.elements.firstName.value;
     const lastName = e.target.elements.lastName.value;
