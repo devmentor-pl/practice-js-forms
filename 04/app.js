@@ -7,9 +7,9 @@ function init() {
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
     const colorInRGBA = `rgba(
-        ${getChannelColor(colorInHex, 'red')}, 
-        ${getChannelColor(colorInHex, 'green')}, 
-        ${getChannelColor(colorInHex, 'blue')}, 
+        ${getChannelColor(colorInHex, 'red')},
+        ${getChannelColor(colorInHex, 'green')},
+        ${getChannelColor(colorInHex, 'blue')},
         ${opacity}
     )`;
 
@@ -34,7 +34,7 @@ function getChannelColor(colorInHex, channelName) {
     const channelColorHex = colorInHex.substr(start, 2);
     const channelColorDec = parseInt(channelColorHex, 16);
 
-    return channelColorDec; 
+    return channelColorDec;
 }
 
 
