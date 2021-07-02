@@ -8,12 +8,13 @@
 .images-list {
     display: flex;
     flex-wrap: wrap;
-}   
+}
 
 .images-list__item {
     border: 1px solid #bbb;
     list-style: none;
-    padding: 10px; margin: 10px;
+    padding: 10px;
+    margin: 10px;
     max-width: 20%;
 }
 
@@ -30,6 +31,13 @@
     max-width: 100%;
 }
 
-.images-list__item-size  {
+.images-list__item-size {
     text-align: center;
+}
+
+.info {
+    position: absolute;
+    top: 5vh;
+    right: 5vh;
+    color: rgb(255, 0, 0);
 }
