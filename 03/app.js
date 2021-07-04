@@ -1,7 +1,7 @@
 const inputEl = document.querySelector('input');
 inputEl.addEventListener('change', displayImage);
 const ulEl = document.querySelector('ul');
-const liEl = document.querySelector('.images-list__item');
+const liEl = document.querySelector('.images-list__item--prototype');
 
 function displayImage(e) {
     const numFiles = inputEl.files.length;
