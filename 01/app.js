@@ -13,10 +13,11 @@ function addUser(e) {
     }
     if (lastName.length === 0) {
         alert('Last Name is required!');
+    } else {
+        const userName = firstName + ' ' + lastName;
+        const newLi = document.createElement('li');
+        newLi.classList.add('user-list__person');
+        newLi.innerText = userName
+        ulEl.appendChild(newLi);
     }
-    const userName = firstName + ' ' + lastName;
-    const newLi = document.createElement('li');
-    newLi.classList.add('user-list__person');
-    newLi.innerText = userName
-    ulEl.appendChild(newLi);
 }
