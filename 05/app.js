@@ -23,7 +23,7 @@ function validateData(e) {
     if (houseNumber <= 0) {
         errors.push('Błędnie podano Numer budynku');
     }
-    if (zip.length !== 6 || zip.match(/[0-9][0-9]-[0-9][0-9][0-9]/) === null) {
+    if (zip.length !== 6 || zip.match(/[0-9]{2}-[0-9]{3}/) === null) {
         errors.push('Błędnie podano Kod pocztowy');
     }
     if (city.length < 2) {
