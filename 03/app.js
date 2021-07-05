@@ -8,7 +8,13 @@ function displayImage(e) {
     for (let i = 0; i < numFiles; i++) {
         const file = e.target.files[i];
         if (file && file.type.includes('image')) {
-            prepareImage(file);
+            const newLi = prepareImage(file);
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const img = newLi.querySelector('img')
+                img.src = event.target.result;
+            }
+            reader.readAsDataURL(file);
         }
     }
 }
@@ -23,10 +29,5 @@ function prepareImage(file) {
     const footer = newLi.querySelector('footer');
     header.innerText = name;
     footer.innerText = size;
-    const reader = new FileReader();
-    reader.onload = function (event) {
-        const img = newLi.querySelector('img')
-        img.src = event.target.result;
-    }
-    reader.readAsDataURL(file);
+    return newLi;
 }
