@@ -11,7 +11,7 @@ function addUser(e) {
     if (firstName.length === 0) {
         alert('First Name is required!');
     }
-    if (lastName.length === 0) {
+    else if (lastName.length === 0) {
         alert('Last Name is required!');
     } else {
         const userName = firstName + ' ' + lastName;
