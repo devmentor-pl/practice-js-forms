@@ -21,10 +21,20 @@ const checkPassword = function (e, pass1, arr) {
   }
 };
 
+const checkPassword2 = function (e, pass2, arr) {
+  if (pass2.length < 6) {
+    const pass2Input = e.target.elements.pass2;
+    const label = pass2Input.parentNode.querySelector("label");
+    arr.push(label);
+    console.log(arr);
+  }
+};
+
 const checkIfPasswordsMatch = function (e, arr) {
   const pass1 = e.target.elements.pass1.value;
   checkPassword(e, pass1, arr);
   const pass2 = e.target.elements.pass2.value;
+  checkPassword2(e, pass2, arr);
   if (pass1 !== pass2) {
     const pass2Input = e.target.elements.pass2;
     const label = pass2Input.parentNode.querySelector("label");
@@ -43,7 +53,7 @@ const isRegChecked = function (e, arr) {
 };
 
 form.addEventListener("submit", function (e) {
-  e.preventDefault(); // by strona sie nie przeladowywala przy sprawdzaniu,
+  //e.preventDefault(); // to see "done" if correct
   const errors = [];
   checkEmail(e, errors);
   checkIfPasswordsMatch(e, errors);
@@ -51,6 +61,7 @@ form.addEventListener("submit", function (e) {
   if (errors.length === 0) {
     console.log("done");
   } else {
+    e.preventDefault();
     errors.forEach(function (err) {
       err.style.color = "red";
     });
