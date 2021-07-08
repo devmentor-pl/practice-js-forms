@@ -39,29 +39,29 @@ function getChannelColor(colorInHex, channelName) {
 const colorInput = document.querySelector("input[name=color]");
 const opacityInput = document.querySelector("input[name=opacity]");
 
-/*const getCurrentColor = function () {
+const getCurrentColor = function () {
   const color = document.querySelector("input[name=color]").value;
-  console.log(color);
   return color;
 };
 
 const getCurrentOpacity = function () {
   const value = document.querySelector("input[name=opacity]").value;
-  const opacity = (Number(value) / 10).toFixed(0);
+  const opacity = Number(value) / 100;
   return opacity;
 };
 
-podobny problem jak w 03, zaczelam pisac tym razem od funkcji i nie wiem jak w setBoxShadow(boxElement, color, opacity); dostac sie do zmiennych color i opacity
-*/
-
-const changeBoxShadow = function () {
-  const color = document.querySelector("input[name=color]").value;
-  const value = document.querySelector("input[name=opacity]").value;
-  const opacity = "0." + value;
-  console.log(opacity);
+const changeBoxShadow = function (e) {
   const boxElement = document.querySelector(".box");
-  setBoxShadow(boxElement, color, opacity);
+  const isMouseMoveEvent = e.type === "mousemove";
+  console.log(isMouseMoveEvent);
+  const isMouseLeftButtonPress = e.buttons === 1;
+  console.log(isMouseLeftButtonPress);
+  if ((isMouseMoveEvent && isMouseLeftButtonPress) || !isMouseMoveEvent) {
+    setBoxShadow(boxElement, getCurrentColor(), getCurrentOpacity());
+  }
 };
 
+colorInput.addEventListener("mousemove", changeBoxShadow);
+opacityInput.addEventListener("mousemove", changeBoxShadow);
 colorInput.addEventListener("change", changeBoxShadow);
 opacityInput.addEventListener("change", changeBoxShadow);
