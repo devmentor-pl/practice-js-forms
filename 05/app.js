@@ -1,6 +1,6 @@
 const form = document.querySelector("form");
 const messagesContainer = document.querySelector(".messages");
-const messages = [];
+let messages = [];
 
 const createMsgWhenInputIsEmpty = function (label) {
   const newMessage = document.createElement("li");
@@ -63,6 +63,7 @@ const validateSelect = function (region) {
 };
 
 form.addEventListener("submit", function (e) {
+  messagesContainer.innerHTML = "";
   const name = e.target.elements.firstName;
   validateString(name);
   const surname = e.target.elements.lastName;
@@ -81,8 +82,12 @@ form.addEventListener("submit", function (e) {
   validateSelect(region);
   if (messages.length > 0) {
     e.preventDefault();
+    console.log(messages);
     messages.forEach(function (msg) {
       messagesContainer.appendChild(msg);
     });
+    messages = [];
+  } else {
+    alert("Dane zostaly wprowadzone prawidlowo");
   }
 });
