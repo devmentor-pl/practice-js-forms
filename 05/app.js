@@ -29,7 +29,7 @@ const validateString = function (input) {
 };
 
 const validateNum = function (num) {
-  const regex = /^\d{2,3}[a-z-A-Z\ \d#]{0,1}$/; // zaczyna sie od cyfry i pierwsz 2-3 miejsca moga byc cyfra, ostatnie miejsce musi byc litera, calosc nie moze byc dluzsza niz 4 pozycje
+  const regex = /^\d{1,3}[a-z-A-Z\ \d#]{0,1}$/; // zaczyna sie od cyfry i pierwsz 2-3 miejsca moga byc cyfra, ostatnie miejsce musi byc litera, calosc nie moze byc dluzsza niz 4 pozycje
   const value = num.value;
   const label = num.parentNode.innerText.trim();
   if (!value) {
