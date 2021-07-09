@@ -2,6 +2,7 @@ const imageContainer = document.querySelector(".images-list");
 const imageItem = document.querySelector(".images-list__item");
 const input = document.querySelector("input");
 
+/*
 const createGallery = function (e) {
   const files = Array.from(e.target.files);
   files.forEach(function (file) {
@@ -24,10 +25,7 @@ const createGallery = function (e) {
       reader.readAsDataURL(file);
     }
   });
-};
-
-/* /* nieudana proba refaktorowania kodu...
-nie moge uzyskac dostepu do
+};*/
 
 const createNewItem = function () {
   const newItem = imageItem.cloneNode(true);
@@ -35,13 +33,13 @@ const createNewItem = function () {
   return newItem;
 };
 
-const createNewHeader = function (newItem) {
+const createNewHeader = function (newItem, file) {
   const newHeader = newItem.querySelector("header");
   newHeader.innerText = file.name;
   return newHeader;
 };
 
-const newFooter = function (newItem) {
+const createNewFooter = function (newItem, file) {
   const newFooter = newItem.querySelector("footer");
   newFooter.innerText = file.size.toFixed(2);
   return newFooter;
@@ -52,12 +50,13 @@ const createGallery = function (e) {
   files.forEach(function (file) {
     if (file && file.type.includes("image")) {
       createNewItem();
-      createNewHeader(newItem);
-      createNewFooter(newItem);
+      const newItem = createNewItem();
+      createNewHeader(newItem, file);
+      createNewFooter(newItem, file);
 
-      const reader = new FileReader(newItem);
+      const reader = new FileReader();
 
-      reader.onload = function (newItem, readerEvent) {
+      reader.onload = function (readerEvent) {
         const newImg = newItem.querySelector("img");
         newImg.src = readerEvent.target.result;
 
@@ -66,7 +65,6 @@ const createGallery = function (e) {
       reader.readAsDataURL(file);
     }
   });
-};*/
+};
 
 input.addEventListener("change", createGallery);
-console.log(imageContainer);
