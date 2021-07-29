@@ -15,6 +15,7 @@ function getUserInfo (e) {
     liElement.classList.add('users-list__person');
     liElement.textContent = `${firstName} ${lastName}`
     ulElement.appendChild(liElement)
+    
   } else {
     alert('uzupełnij wszystkie pola')
   }

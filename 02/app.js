@@ -1,7 +1,6 @@
 const formEl = document.querySelector('form');
 formEl.noValidate = true;
-const errors = [];
-const success = [];
+let errors = [];
 
 
 
@@ -9,15 +8,21 @@ const success = [];
 function checkEmail () {
   const emailLabel = formEl.querySelector('[for=formLogin');
   const emailInput = formEl.querySelector('#formLogin')
-  
   const emailValue = emailInput.value;
-  if(!emailValue.includes('@')) {
+  const regex = new RegExp('@');
+  const testreg = regex.test(emailValue);
+
+  // if(!emailValue.includes('@')) {
+  //   errors.push(emailLabel)
+  // } else {
+  //   success.push(1);
+  // }
+  if(!testreg) {
     errors.push(emailLabel)
   } else {
-    success.push(1);
+    emailLabel.style.color = 'inherit'
   }
 }
-
 function checkPassword () {
   const passOneEl = formEl.querySelector('#formPass1');
   const passTwoEl = formEl.querySelector('#formPass2');
@@ -30,8 +35,10 @@ function checkPassword () {
   if(!(passOne === passTwo) || (passOne.length < 6)) {
     errors.push(passLabelTwo, passLabelOne)
   } else {
-    success.push(1);
+    passLabelOne.style.color = 'inherit';
+    passLabelTwo.style.color = 'inherit';
   }
+  
 }
 
 function checkBoxCheck () {
@@ -41,7 +48,7 @@ function checkBoxCheck () {
   if(!(checkBoxInput.checked)) {
     errors.push(checkBoxLabel);
   } else {
-    success.push(1);
+    checkBoxLabel.style.color = 'inherit';
   }
 }
 
@@ -56,10 +63,11 @@ function checkData(e) {
   checkEmail()
   checkPassword()
   checkBoxCheck()
-  if(success.length === 3) {
+  if(errors.length === 0) {
     console.log('done')
   } else {
     showErrors();
+    errors = [];
   }
 }
 
