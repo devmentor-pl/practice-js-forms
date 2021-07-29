@@ -24,8 +24,16 @@ function checkLength (obj) {
   }
 }
 
+function resetErrosMessages () {
+  let liElementCancel = ulElement.querySelectorAll('li');
+    liElementCancel.forEach(item => {
+      ulElement.removeChild(item);
+    })
+}
+
 function checkData (e) {
   checkLength(validationObj);
+  resetErrosMessages();
   if(errors.length > 0) {
     e.preventDefault();
     errors.forEach(item => {
@@ -37,10 +45,10 @@ function checkData (e) {
     errors = [];
   } else {
     e.preventDefault()
-    let liElementCancel = ulElement.querySelectorAll('li');
-    liElementCancel.forEach(item => {
-      ulElement.removeChild(item);
-    })
+    resetErrosMessages();
+    for(let el in validationObj) {
+      validationObj[el].style.border = '1px solid green';
+    }
     alert('done');
   }
 }
