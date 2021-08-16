@@ -34,7 +34,33 @@ function getChannelColor(colorInHex, channelName) {
     const channelColorHex = colorInHex.substr(start, 2);
     const channelColorDec = parseInt(channelColorHex, 16);
 
-    return channelColorDec; 
+    return channelColorDec;
+}
+
+
+
+const sectionPanel = document.querySelector('.panel');
+const inputOpacity = sectionPanel.querySelector('[name=opacity');
+const inputColor = sectionPanel.querySelector('[name=color]');
+const boxElement = document.querySelector('.box');
+
+inputOpacity.addEventListener('mousemove', setOpacity);
+inputOpacity.addEventListener('change', setOpacity)
+inputColor.addEventListener('change', changeColor)
+
+function changeColor (e) {
+    const color = (e.target.value)
+    setBoxShadow(boxElement, color);
+}
+
+function setOpacity (e) {
+    let currentColor = inputColor.value
+    const isMouseMoveEvent = e.type === 'mousemove';
+    const isMouseLeftButtonPress = e.buttons === 1;
+    if(isMouseMoveEvent && isMouseLeftButtonPress || !isMouseMoveEvent) {
+        const opacityValue = e.target.value / 100;
+        setBoxShadow(boxElement, currentColor, opacityValue);
+    }
 }
 
 
