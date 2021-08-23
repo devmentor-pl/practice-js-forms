@@ -77,9 +77,9 @@ function validateData(isValid, label) {
     isValid ? label.style.color = 'green' : createError(label);
 }
 
-function createError(label, errInfo) {
+function createError(label) {
     errors.push(label);
-    createErrMsg(label, errInfo);
+    createErrMsg(label);
 }
 
 function createErrMsg(label) {
