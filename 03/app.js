@@ -8,23 +8,39 @@ function getImages(e) {
 }
 
 function renderImages(file) {
-  const prototype = document.querySelector(".images-list__item--prototype");
-  const newListItem = prototype.cloneNode(true);
-  newListItem.classList.remove("images-list__item--prototype");
-  const name = newListItem.querySelector(".images-list__item-name");
-  const img = newListItem.querySelector(".images-list__item-img");
-  const size = newListItem.querySelector(".images-list__item-size");
+  const newListItem = prepareNewListItem();
+  const newListItemProperties = prepareProperties(newListItem);
+
   if (file && file.type.includes("image")) {
     const reader = new FileReader();
     reader.onload = function (readerEvent) {
-      img.src = readerEvent.target.result;
-      name.textContent = file.name;
+      newListItemProperties.img.src = readerEvent.target.result;
+      newListItemProperties.name.textContent = file.name;
       const sizeInMb = (Number(file.size) / (1024 * 1024)).toFixed(2);
-      size.textContent = `${sizeInMb}MB`;
+      newListItemProperties.size.textContent = `${sizeInMb}MB`;
 
-      const list = document.querySelector(".images-list");
-      list.appendChild(newListItem);
+      renderNewListItem(newListItem);
     };
     reader.readAsDataURL(file);
   }
+}
+
+function renderNewListItem(newListItem) {
+  const list = document.querySelector(".images-list");
+  list.appendChild(newListItem);
+}
+
+function prepareNewListItem() {
+  const prototype = document.querySelector(".images-list__item--prototype");
+  const newListItem = prototype.cloneNode(true);
+  newListItem.classList.remove("images-list__item--prototype");
+  return newListItem;
+}
+
+function prepareProperties(item) {
+  const itemProperties = {};
+  itemProperties.name = item.querySelector(".images-list__item-name");
+  itemProperties.img = item.querySelector(".images-list__item-img");
+  itemProperties.size = item.querySelector(".images-list__item-size");
+  return itemProperties;
 }

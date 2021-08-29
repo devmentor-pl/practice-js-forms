@@ -48,6 +48,10 @@ opacityInput.addEventListener("change", function () {
   updateColor(box, colorInput.value, opacityInput.value);
 });
 
+opacityInput.addEventListener("mousemove", function () {
+  updateColor(box, colorInput.value, opacityInput.value);
+});
+
 function updateColor(box, color, opacity) {
   const oldValue = opacityInput.value;
   const newValue = ((oldValue - 0) / (100 - 0)) * (1 - 0) + 0;
