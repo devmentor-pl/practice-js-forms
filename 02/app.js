@@ -1,5 +1,18 @@
 const formEl = document.querySelector('form');
 formEl.noValidate = true;
+const errors = [];
+
+const emailValidation = function(emailEl) {
+    if(!emailEl.value.includes('@')) {
+        errors.push('[for="formLogin"]')
+    }
+}
+
+const passwordValidation = function(pass1, pass2) {
+    if((formPass1.value.length <= 6) || (formPass1.value !== formPass2.value)) {
+        errors.push('[for="formPass1"]', '[for="formPass2"]');
+    }
+}
 
 formEl.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -8,15 +21,8 @@ formEl.addEventListener('submit', function(e) {
     const formPass2 = formEl.elements.pass2;
     const formAccept = formEl.elements.accept;
 
-    const errors = [];
-
-    if(!emailEl.value.includes('@')) {
-        errors.push('[for="formLogin"]');
-    }
-
-    if((formPass1.value.length <= 6) || (formPass1.value !== formPass2.value)) {
-        errors.push('[for="formPass1"]', '[for="formPass2"]');
-    }
+    emailValidation(emailEl);
+    passwordValidation(formPass1, formPass2);
 
     if(!formAccept.checked) {
         errors.push('[for="formAccept"]')
@@ -37,4 +43,5 @@ formEl.addEventListener('submit', function(e) {
         });
     };
 
+    console.log(errors);
 });

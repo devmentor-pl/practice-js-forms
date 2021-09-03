@@ -1,4 +1,5 @@
 const formEl = document.querySelector('form');
+formEl.noValidate = true;
 const ulEl = document.querySelector('.messages');
 
 formEl.addEventListener('submit', checkData)

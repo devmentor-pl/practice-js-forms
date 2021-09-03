@@ -6,14 +6,26 @@ function init() {
 
     const colorPickerEl = document.querySelector('input[type="color"]');
     colorPickerEl.addEventListener('change', function(e) {
+        console.log(e.target);
         const color = e.target.value;
+        const range = rangeEl.value;
         setBoxShadow(boxElement, color);
     })
     const rangeEl = document.querySelector('input[type="range"]');
     rangeEl.addEventListener('change', function(e) {
         const range = parseInt(e.target.value)/100;
         setBoxShadow(boxElement, colorPickerEl.value, range);
-    })
+    });
+
+    rangeEl.addEventListener('mousemove', function(e) {
+        const range = parseInt(e.target.value)/100;
+        setBoxShadow(boxElement, colorPickerEl.value, range);
+    });
+}
+
+function changeOpacity(e) {
+    const range = parseInt(e.target.value)/100;
+    setBoxShadow(boxElement, colorPickerEl.value, range);
 }
 
 function setBoxShadow(element, colorInHex, opacity = 1) {

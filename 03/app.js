@@ -2,9 +2,14 @@ const inputEl = document.querySelector('[type="file"]');
 const imagesList = document.querySelector('.images-list');
 const imageItemProto = imagesList.children[0];
 
-function roundNumber(number) {
+const roundNumber = function(number) {
     return number.toFixed(2);
 }
+
+const prepareItem = function() {
+    
+}
+
 
 inputEl.addEventListener('change', function(e) {
     const filesList = e.target.files;
@@ -15,7 +20,7 @@ inputEl.addEventListener('change', function(e) {
             reader.onload = function(readerEvent) {
                 const liEl = imageItemProto.cloneNode(true);
                 liEl.classList.remove('images-list__item--prototype');
-                [header, img, footer] = liEl.children;
+                const [header, img, footer] = liEl.children;
                 header.innerText = file.name;
                 img.src = readerEvent.target.result;
                 const fileSizeInMB = file.size / 1048576;
