@@ -6,8 +6,15 @@ const roundNumber = function(number) {
     return number.toFixed(2);
 }
 
-const prepareItem = function() {
-    
+const prepareItem = function(fileName, fileSize, imageSource) {
+    const liEl = imageItemProto.cloneNode(true);
+    liEl.classList.remove('images-list__item--prototype');
+    const [header, img, footer] = liEl.children;
+    header.innerText = fileName;
+    img.src = imageSource;
+    const fileSizeInMB = fileSize / 1048576;
+    footer.innerText = `${roundNumber(fileSizeInMB)}MB`;
+    return liEl;
 }
 
 
