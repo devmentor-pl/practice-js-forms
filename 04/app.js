@@ -11,6 +11,8 @@ function init() {
         setBoxShadow(boxElement, color);
     })
 
+    // Funkcje pobierające wartość koloru i pozycję range
+
     const getCurrentRangeValue = function(e) {}
     const getCurrentColorValue = function(e) {}
 
