@@ -1,0 +1,40 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+form {
+    border: 2px solid #36BBF7;
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+div {
+    margin-bottom: 20px;
+}
+
+input[type=submit] {
+    background: #36BBF7;
+    color: #fff;
+    padding: 10px 25px;
+    border: 0;
+    border-radius: 5px;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+label {
+    margin-bottom: 6px;
+    min-width: 100px;
+}
