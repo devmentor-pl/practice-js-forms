@@ -9,17 +9,20 @@ function readFile(e) {
 			const reader = new FileReader();
 
 			reader.onload = function (readerEvent) {
-				const newImg = document.createElement('img');
-				const newLi = document.createElement('li');
-				const newHeader = document.createElement('header');
-				const newFooter = document.createElement('footer');
+				const newImg = prepareElement('img');
+				const newLi = prepareElement('li');
+				const newHeader = prepareElement('header');
+				const newFooter = prepareElement('footer');
 
 				newImg.src = readerEvent.target.result;
 
-				addClass(newImg, 'images-list__item-img');
-				addClass(newLi, 'images-list__item');
-				addClass(newHeader, 'images-list__item-name');
-				addClass(newFooter, 'images-list__item-size');
+				const classObj = [
+					{ element: newImg, className: 'images-list__item-img' },
+					{ element: newLi, className: 'images-list__item' },
+					{ element: newHeader, className: 'images-list__item-name' },
+					{ element: newFooter, className: 'images-list__item-size' },
+				];
+				addClassFromObj(classObj);
 
 				newHeader.innerText = file.name;
 				newFooter.innerText = `${(file.size / 1000000).toFixed(2)}`;
@@ -34,8 +37,15 @@ function readFile(e) {
 	}
 }
 
-function addClass(tag, className) {
-	tag.classList.add(className);
+function prepareElement(tag) {
+	return document.createElement(tag);
+}
+
+function addClassFromObj(classObj) {
+	classObj.forEach((el) => {
+		console.log(el.element);
+		el.element.classList.add(el.className);
+	});
 }
 
 function appendChild(parent, child) {
