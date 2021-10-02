@@ -11,7 +11,7 @@ function setColor(e) {
 	divBox.style.boxShadow = setBoxShadow(divBox, currColor);
 }
 
-inputList[1].addEventListener('change', setOpacity);
+inputList[1].addEventListener('mousemove', setOpacity);
 function setOpacity(e) {
 	const pickOpacity = (e.target.value / 100).toFixed(1);
 	divBox.style.boxShadow = setBoxShadow(divBox, currColor, pickOpacity);
