@@ -8,9 +8,16 @@ function addUser(e) {
 	const firstName = e.target.elements.firstName.value;
 	const lastName = e.target.elements.lastName.value;
 
-	const li = document.createElement('li');
-	li.classList.add('user-list__person');
-	li.innerText = `${firstName} ${lastName}`;
+	fullName(firstName, lastName);
+}
 
-	ulList.appendChild(li);
+function fullName(firstName, lastName) {
+	if (firstName && lastName) {
+		const li = document.createElement('li');
+		li.classList.add('user-list__person');
+		li.innerText = `${firstName} ${lastName}`;
+		ulList.appendChild(li);
+	} else {
+		alert('Fill given fields.');
+	}
 }
