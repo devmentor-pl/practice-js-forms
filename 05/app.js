@@ -1,4 +1,5 @@
 const formEl = document.querySelector('form');
+formEl.noValidate = true;
 
 const labelList = document.querySelectorAll('label');
 
@@ -19,19 +20,25 @@ function validateData(e) {
 	const flatNumber = e.target.elements.flatNumber.value;
 	buildingNumber(houseNumber, flatNumber);
 
+	const postalCode = e.target.elements.zip.value;
+	postalCodeValidation(postalCode);
+
 	const city = e.target.elements.city.value;
 	cityValidation(city, avoidChars);
+
+	const voivodeship = e.target.elements.voivodeship.value;
+	voivodeshipValidation(voivodeship);
 
 	finalValidation();
 }
 
 function fullName(firstName, lastName, avoidChars) {
-	if (!avoidChars.test(firstName)) {
+	if (!avoidChars.test(firstName) && firstName) {
 		labelList[0].style.color = 'black';
 	} else {
 		labelList[0].style.color = 'red';
 	}
-	if (!avoidChars.test(lastName)) {
+	if (!avoidChars.test(lastName) && lastName) {
 		labelList[1].style.color = 'black';
 	} else {
 		labelList[1].style.color = 'red';
@@ -40,7 +47,7 @@ function fullName(firstName, lastName, avoidChars) {
 
 function streetNameValidation(streetName) {
 	const avoidChars = /[!@#$%^&*]/g;
-	if (!avoidChars.test(streetName)) {
+	if (!avoidChars.test(streetName) && streetName) {
 		labelList[2].style.color = 'black';
 	} else {
 		labelList[2].style.color = 'red';
@@ -60,11 +67,28 @@ function buildingNumber(houseNumber, flatNumber) {
 	}
 }
 
+function postalCodeValidation(postalCode) {
+	console.log(postalCode);
+	if (!/[0-9]{2}-[0-9]{3}/g.test(postalCode) && postalCode) {
+		labelList[5].style.color = 'red';
+	} else {
+		labelList[5].style.color = 'black';
+	}
+}
+
 function cityValidation(city, avoidChars) {
-	if (!avoidChars.test(city)) {
+	if (!avoidChars.test(city) && city) {
 		labelList[6].style.color = 'black';
 	} else {
 		labelList[6].style.color = 'red';
+	}
+}
+
+function voivodeshipValidation(voivodeship) {
+	if (voivodeship) {
+		labelList[7].style.color = 'black';
+	} else {
+		labelList[7].style.color = 'red';
 	}
 }
 
@@ -78,5 +102,7 @@ function finalValidation() {
 
 	if (correctCounter === labelList.length) {
 		alert('The form has been completed correctly.');
+	} else {
+		console.log('Invalid form of the form.');
 	}
 }
