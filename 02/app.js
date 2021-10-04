@@ -7,7 +7,8 @@ function validateData(e) {
 	e.preventDefault();
 
 	const emailLogin = e.target.elements.login.value;
-	emailValidation(emailLogin);
+	const emailLabel = listLabel[0];
+	emailValidation(emailLogin, emailLabel);
 
 	const pass1 = e.target.elements.pass1.value;
 	const pass2 = e.target.elements.pass2.value;
@@ -22,8 +23,7 @@ function validateData(e) {
 	}
 }
 
-function emailValidation(emailLogin) {
-	const emailLabel = listLabel[0];
+function emailValidation(emailLogin, emailLabel) {
 	const emailCondition = emailLogin.match(/@/g);
 	if (emailCondition) {
 		emailLabel.style.color = 'black';
