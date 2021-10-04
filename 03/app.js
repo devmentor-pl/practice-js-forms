@@ -42,9 +42,9 @@ function prepareElement(tag) {
 }
 
 function addClassFromObj(classObj) {
-	classObj.forEach((el) => {
-		console.log(el.element);
-		el.element.classList.add(el.className);
+	classObj.forEach((item) => {
+		console.log(item.element);
+		item.element.classList.add(item.className);
 	});
 }
 
