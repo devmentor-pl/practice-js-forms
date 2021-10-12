@@ -24,7 +24,7 @@ function getChannelColor(colorInHex, channelName) {
             start = 1;
             break;
         case 'green':
-            start = 3;
+            start = 3; 
             break;
         case 'blue':
             start = 5;
@@ -37,4 +37,17 @@ function getChannelColor(colorInHex, channelName) {
     return channelColorDec; 
 }
 
+const color = document.querySelector('[name="color"]');
+const opacity = document.querySelector('[name="opacity"]');
+const box = document.querySelector('.box');
+console.log(color);
+console.log(opacity);
+console.log(box);
 
+color.addEventListener('change', function(el){
+    let color = el.target.value
+    // let channel = el.target.value;
+    console.log(color);
+    // console.log(channel);
+    
+});
