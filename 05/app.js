@@ -6,24 +6,23 @@ const required = form.querySelectorAll("[required]");
 const postCode = form.querySelector('[name="zip"]');
 let errors = [];
 
-form.addEventListener('submit', function(el){
-    el.preventDefault();
+form.addEventListener('submit', function(ev){
+    ev.preventDefault();
 
-    required.forEach(function(e){
+    required.forEach(function(el){
 
-        
-        if(e.value.length === 0) {
-            e.style.border = '1px solid red';
+        if(el.value.length === 0) {
+            el.style.border = '1px solid red';
 
-            if(e.name === 'voivodeship') {
+            if(el.name === 'voivodeship') {
                 errors.push('Please enter the Województwo');    //jak tutaj wyłapać samą wartość województwo? 
             }                                                   //innerText wpowadza cały tekst z option :)
             else {
-                errors.push('Please enter the ' + e.parentElement.innerText);
+                errors.push('Please enter the ' + el.parentElement.innerText);
             }
         }
         else {
-            e.style.border = '1px solid green';
+            el.style.border = '1px solid green';
         }
 
     });

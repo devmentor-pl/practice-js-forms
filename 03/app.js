@@ -21,9 +21,9 @@ inputEl.addEventListener('change', function(el){
                     clonedPrototype.querySelector('img').src = readerEvent.target.result;
                 }
                 reader.readAsDataURL(el);
-
+                // console.log(el.size);
                 let imgSizeKB = el.size / 1024;
-                let imgSizeMB = imgSizeKB.toFixed(2);
+                let imgSizeMB = (imgSizeKB / 1024).toFixed(2);
 
                 clonedPrototype.querySelector('header').innerText = el.name;
                 clonedPrototype.querySelector('footer').innerText = imgSizeMB + " MB";

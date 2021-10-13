@@ -1,9 +1,9 @@
 const formEl = document.querySelector('form');
 const ul = document.querySelector('.users-list');
 const liClassName = 'users-list__person';
-formEl.addEventListener('submit', getDatas);
+formEl.addEventListener('submit', addUserData);
 // console.log(formEl.elements)
-function getDatas(e){
+function addUserData(e){
     e.preventDefault()
 
     // console.log(e.target.elements.firstName.value);
