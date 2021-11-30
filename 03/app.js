@@ -36,6 +36,7 @@ const showFileData = function (e) {
         reader.readAsDataURL(file);
       }
     };
+
     addAnotherGraphicFile();
   }
 
