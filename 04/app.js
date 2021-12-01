@@ -13,13 +13,13 @@ function init() {
   });
 
   rangeInput.addEventListener("change", function (e) {
-    // let setOpacity = e.target.value;
-    boxElement.style.opacity = e.target.value / 100;
+    let boxOpacity = (boxElement.style.opacity = e.target.value / 100);
+    setBoxShadow(boxElement, boxOpacity);
   });
 
   rangeInput.addEventListener("mousemove", function (e) {
-    // let setOpacity = e.target.value;
-    boxElement.style.opacity = e.target.value / 100;
+    let boxOpacity = (boxElement.style.opacity = e.target.value / 100);
+    setBoxShadow(boxElement, boxOpacity);
   });
 }
 

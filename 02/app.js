@@ -9,47 +9,55 @@ const checkForm = function (e) {
   const passwordConfirmInput = e.target.elements["pass2"];
   const acceptCheckbox = e.target.elements["accept"];
 
-  const errors = [];
-
+  let errors = [];
+  // email
   if (!emailInput.value.includes("@")) {
-    emailInput.previousElementSibling.style.color = "red";
     errors.push(emailInput);
-    console.log(emailInput);
   }
-
+  if (emailInput.value.includes("@")) {
+    emailInput.previousElementSibling.style.color = "black";
+  }
+  // passwords
   if (passwordInput.value !== passwordConfirmInput.value) {
-    passwordInput.previousElementSibling.style.color = "red";
-    passwordConfirmInput.previousElementSibling.style.color = "red";
-    errors.push(e.target);
-    console.log(passwordInput, passwordConfirmInput);
+    errors.push(passwordInput, passwordConfirmInput);
+  }
+  if (passwordInput.value === passwordConfirmInput.value) {
+    passwordInput.previousElementSibling.style.color = "black";
+    passwordConfirmInput.previousElementSibling.style.color = "black";
   }
 
   if (
     passwordInput.value.length <= 6 &&
     passwordConfirmInput.value.length <= 6
   ) {
-    passwordInput.previousElementSibling.style.color = "red";
-    passwordConfirmInput.previousElementSibling.style.color = "red";
-    errors.push(e.target);
-    console.log(passwordInput, passwordConfirmInput);
+    errors.push(passwordInput, passwordConfirmInput);
   }
-
+  if (
+    passwordInput.value.length <= 6 &&
+    passwordConfirmInput.value.length <= 6
+  ) {
+    passwordInput.previousElementSibling.style.color = "black";
+    passwordConfirmInput.previousElementSibling.style.color = "black";
+  }
+  // accept regulations
   if (!acceptCheckbox.checked) {
-    acceptCheckbox.previousElementSibling.style.color = "red";
-    errors.push(e.target);
-    console.log(acceptCheckbox);
+    errors.push(acceptCheckbox);
+  }
+  if (acceptCheckbox.checked) {
+    acceptCheckbox.previousElementSibling.style.color = "black";
   }
 
   if (errors.length > 0) {
     e.preventDefault();
-    errors.forEach(function (item) {
-      console.log(item);
+
+    errors.forEach(function (item, index) {
+      const label = item.previousElementSibling;
+      label.style.color = "red";
+      console.log(label);
     });
-  } else {
-    emailInput.previousElementSibling.style.color = "black";
-    passwordInput.previousElementSibling.style.color = "black";
-    passwordConfirmInput.previousElementSibling.style.color = "black";
-    acceptCheckbox.previousElementSibling.style.color = "black";
+  }
+  // if it's ok
+  else {
     console.log("done!");
   }
 };

@@ -1,21 +1,21 @@
 const form = document.querySelector("form");
-const getFirstName = document.querySelector("input[name='firstName']");
-const getLastName = document.querySelector("input[name='lastName']");
-const submit = document.querySelector("input[type='submit']");
+const firstName = document.querySelector("input[name='firstName']");
+const lastName = document.querySelector("input[name='lastName']");
+const submitBtn = document.querySelector("input[type='submit']");
 const namesList = document.querySelector(".users-list");
 
 const addUser = function (e) {
   e.preventDefault();
-  if (getFirstName.value && getLastName.value) {
-    let fullName = getFirstName.value + " " + getLastName.value;
+  if (firstName.value && lastName.value) {
+    let fullName = firstName.value + " " + lastName.value;
     const nextName = document.createElement("li");
     nextName.innerText = fullName;
     nextName.classList.add("user-list__person");
     namesList.appendChild(nextName);
-    getFirstName.value = "";
-    getLastName.value = "";
+    firstName.value = "";
+    lastName.value = "";
   } else {
-    alert("Musisz coś wpisać!");
+    alert("Musisz uzupełnić oba pola!");
   }
 };
-submit.addEventListener("click", addUser);
+submitBtn.addEventListener("click", addUser);
