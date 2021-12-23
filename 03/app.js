@@ -9,29 +9,29 @@ function convertToMb(byteSize){
 }
 
 function showImages(e){
-    const imgFile = e.target.files[0];
-    // console.log(imgFile);
+    const files = e.target.files;
+    for(let i=0; i<files.length; i++){
+        const file = files[i];
 
-    if(imgFile && imgFile.type.includes('image')){
-        const reader = new FileReader();
-        // console.log(reader);
+        if(file.type.includes('image')){
+            const reader = new FileReader();
 
-       reader.onload = function(e){
-           const imgSrc = e.target.result
-           const imgName = imgFile.name;
-           const imgSize = convertToMb(imgFile.size);
+            reader.onload = function(e){
+                const imgSrc = e.target.result
+                const imgName = file.name;
+                const imgSize = convertToMb(file.size);
 
-           const cloneImgListItem = imagesListItem.cloneNode(true);
-           imagesList.appendChild(cloneImgListItem);
-           cloneImgListItem.classList.remove('images-list__item--prototype');
+                const cloneImgListItem = imagesListItem.cloneNode(true);
+                imagesList.appendChild(cloneImgListItem);
+                cloneImgListItem.classList.remove('images-list__item--prototype');
 
-           cloneImgListItem.querySelector('img').setAttribute('src',imgSrc);
-           cloneImgListItem.querySelector('header').innerText = 'Nazwa pliku to: ' + imgName;
-           cloneImgListItem.querySelector('footer').innerText = 'Rozmiar pliku to: ' + imgSize + ' MB ';
-
-       };
-       reader.readAsDataURL(imgFile);
-       //console.log(reader);
+                cloneImgListItem.querySelector('img').setAttribute('src',imgSrc);
+                cloneImgListItem.querySelector('header').innerText = 'Nazwa pliku to: ' + imgName;
+                cloneImgListItem.querySelector('footer').innerText = 'Rozmiar pliku to: ' + imgSize + ' MB ';
+            };
+            reader.readAsDataURL(file);
+        }
     }
 }
+
 
