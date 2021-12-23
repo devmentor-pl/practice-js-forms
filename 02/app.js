@@ -7,7 +7,7 @@ function checkData(e){
 
     // Check email
     const email = e.target.elements.login.value;
-    const regExp = /^[-\w\.]+@([-\w]+\.)+[a-z]+$/i;
+    const regExp = /^[-\w\.]+@([-\w]+\.)+[a-z]+$/i; //flaga "i" - ignoruje wielkosc liter, krótszy zapis wyrazenia
     if(!email.match(regExp)){
         errors.push(e.target.elements.login);
     }
