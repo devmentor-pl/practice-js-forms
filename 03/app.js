@@ -10,7 +10,7 @@ function convertToMb(byteSize){
 
 function showImages(e){
     const imgFile = e.target.files[0];
-    console.log(imgFile);
+    // console.log(imgFile);
 
     if(imgFile && imgFile.type.includes('image')){
         const reader = new FileReader();
@@ -19,20 +19,19 @@ function showImages(e){
        reader.onload = function(e){
            const imgSrc = e.target.result
            const imgName = imgFile.name;
-           const imgSize = imgFile.size;
-           const imgSizeMb = convertToMb(imgSize);
-        
+           const imgSize = convertToMb(imgFile.size);
+
            const cloneImgListItem = imagesListItem.cloneNode(true);
            imagesList.appendChild(cloneImgListItem);
            cloneImgListItem.classList.remove('images-list__item--prototype');
 
            cloneImgListItem.querySelector('img').setAttribute('src',imgSrc);
            cloneImgListItem.querySelector('header').innerText = 'Nazwa pliku to: ' + imgName;
-           cloneImgListItem.querySelector('footer').innerText = 'Rozmiar pliku to: ' + imgSizeMb + ' MB ';
+           cloneImgListItem.querySelector('footer').innerText = 'Rozmiar pliku to: ' + imgSize + ' MB ';
 
        };
        reader.readAsDataURL(imgFile);
-    //    console.log(reader);
+       //console.log(reader);
     }
 }
 
