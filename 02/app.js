@@ -26,6 +26,7 @@ function checkData(e){
         errors.push(e.target.elements.accept);
     }
 
+    // Show errors
     errors.forEach(function(item){
         item.previousElementSibling.style.color= "red";
     });
