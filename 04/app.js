@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', init);
+
 const boxElement = document.querySelector('.box');
 const pannelEl = document.querySelector('.panel');
-// const inputColor = document.querySelector('input[name="color"]');
-// const inputRange = document.querySelector('input[name="opacity"]');
+const inputColor = document.querySelector('input[name="color"]');
+const inputRange = document.querySelector('input[name="opacity"]');
 
 function init() {
     // const boxElement = document.querySelector('.box');
@@ -40,6 +41,7 @@ function getChannelColor(colorInHex, channelName) {
     return channelColorDec;
 }
 
+//Działa cześciowo, nie moge zmienić shadow na kolorze początkowym i wydaje mi sie ze to rozwiązanie mozna lepiej napsiac ale nie mam juz pomysłu
 pannelEl.addEventListener('change', function(e){
     let pickedRange;
     if(e.target.type ==='color'){
@@ -51,17 +53,13 @@ pannelEl.addEventListener('change', function(e){
     setBoxShadow(boxElement,pickedColor,pickedRange);
 });
 
+
 // inputColor.addEventListener('change', function(e){
 //     pickedColor = e.target.value;
 //     setBoxShadow(boxElement,pickedColor);
 // });
 
-// inputRange.addEventListener('mouseover',function(e){
-//     if(e.target.type ==='range'){
-//         range = e.target.value;
-//         console.log(range);
-//     }
-// });
+
 // inputRange.addEventListener('change',function(e){
 //     if(e.target.type ==='range'){
 //         range = e.target.value;
