@@ -1,14 +1,20 @@
 const formEl = document.forms[0];
 formEl.addEventListener('submit', checkData);
 
+function checkEmail(dataEmail){
+    const regExp = /^[-\w\.]+@([-\w]+\.)+[a-z]+$/i; //flaga "i" - ignoruje wielkosc liter, krótszy zapis wyrazenia
+    if(dataEmail.match(regExp)){
+        return dataEmail;
+    }
+    return false;
+}
+
 function checkData(e){
     e.preventDefault();
     const errors = [];
 
-    // Check email
     const email = e.target.elements.login.value;
-    const regExp = /^[-\w\.]+@([-\w]+\.)+[a-z]+$/i; //flaga "i" - ignoruje wielkosc liter, krótszy zapis wyrazenia
-    if(!email.match(regExp)){
+    if(!checkEmail(email)){
         errors.push(e.target.elements.login);
     }
 
