@@ -9,6 +9,18 @@ function checkEmail(dataEmail){
     return false;
 }
 
+function checkErrors(errors){
+    if(!errors.length){
+        console.log("Done")
+    }
+    else {
+        errors.forEach(function(item){
+            item.previousElementSibling.style.color= "red";
+        });
+    }
+}
+
+
 function checkData(e){
     e.preventDefault();
     const errors = [];
@@ -32,8 +44,6 @@ function checkData(e){
         errors.push(e.target.elements.accept);
     }
 
-    // Show errors
-    errors.forEach(function(item){
-        item.previousElementSibling.style.color= "red";
-    });
+    checkErrors(errors);
 }
+
