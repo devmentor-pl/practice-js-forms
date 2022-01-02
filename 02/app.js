@@ -1,6 +1,42 @@
 const formEl = document.forms[0];
 formEl.addEventListener('submit', checkData);
 
+function checkData(e){
+    e.preventDefault();
+    const errorValues = [];
+    const correctValues=[];
+
+    const emailValue = e.target.elements.login.value;
+    if(!checkEmail(emailValue)){
+        errorValues.push(e.target.elements.login);
+    }
+    else {
+        correctValues.push(e.target.elements.login);
+    }
+
+    const pass1Value = e.target.elements.pass1.value;
+    const pass2Value = e.target.elements.pass2.value;
+    if(!checkPassword(pass1Value,pass2Value)){
+        errorValues.push(e.target.elements.pass1);
+        errorValues.push(e.target.elements.pass2);
+    }
+    else{
+        correctValues.push(e.target.elements.pass1);
+        correctValues.push(e.target.elements.pass2);
+    }
+
+    const acceptBoxValue = e.target.elements.accept;
+    if(!acceptBoxValue.checked){
+        errorValues.push(acceptBoxValue);
+    }
+    else {
+        correctValues.push(acceptBoxValue);
+    }
+
+    showIncorrectValues(errorValues);
+    showCorrectValues(correctValues);
+}
+
 function checkEmail(dataEmail){
     const regExp = /^[-\w\.]+@([-\w]+\.)+[a-z]+$/i; //flaga "i" - ignoruje wielkosc liter, krótszy zapis wyrazenia
     if(dataEmail.match(regExp)){
@@ -9,41 +45,30 @@ function checkEmail(dataEmail){
     return false;
 }
 
-function checkErrors(errors){
-    if(!errors.length){
+function checkPassword(pass1Value, pass2Value){
+    if((pass1Value !== pass2Value) || (pass1Value.length<=5)){
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function showIncorrectValues(errorValues){
+    if(!errorValues.length){
         console.log("Done")
     }
     else {
-        errors.forEach(function(item){
+        // alert('Formularz zawiera bledy - wpisz poprawne dane')
+        errorValues.forEach(function(item){
             item.previousElementSibling.style.color= "red";
         });
     }
 }
 
-
-function checkData(e){
-    e.preventDefault();
-    const errors = [];
-
-    const email = e.target.elements.login.value;
-    if(!checkEmail(email)){
-        errors.push(e.target.elements.login);
-    }
-
-    // Check password
-    const pass1 = e.target.elements.pass1.value;
-    const pass2 = e.target.elements.pass2.value;
-    if((pass1 !== pass2) || (pass1.length<=5)) {
-        errors.push(e.target.elements.pass1);
-        errors.push(e.target.elements.pass2);
-    }
-
-    // Check accept checkbox
-    const acceptBox = e.target.elements.accept;
-    if(!acceptBox.checked){
-        errors.push(e.target.elements.accept);
-    }
-
-    checkErrors(errors);
+function showCorrectValues(correctValues){
+    correctValues.forEach(function(item){
+        item.previousElementSibling.style.color= "green";
+    });
 }
 
