@@ -88,7 +88,9 @@ function checkAndShowErrors(errorsArray){
             newLiEl.style.color = 'red';
         });
     }
-    formEl.submit();
+    else {
+        formEl.submit(alert('Wiadomość została wysłana'));
+    }
 }
 
 
