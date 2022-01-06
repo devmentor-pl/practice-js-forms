@@ -1,4 +1,5 @@
 const fileEl = document.querySelector('input');
+fileEl.value = "";
 const ulEl = document.querySelector('ul');
 const liPrototype = document.querySelector('.images-list__item--prototype');
 fileEl.addEventListener('change', readFile);
