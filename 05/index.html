@@ -26,15 +26,15 @@
                 Ulica <input name="street" required/>
             </label>
             <label>
-                Numer budunku <input name="houseNumber" type="number" required />
+                Numer budunku <input name="houseNumber" type="number" required placeholder="numer budynku" /><input name="houseNumberLetter" type="text" placeholder="oznaczenie literowe" pattern="[\D]{1}"/>
             </label>
             <label>
-                Numer mieszkania <input name="flatNumber" type="number" />
+                Numer mieszkania <input name="flatNumber" type="number"  placeholder="numer lokalu" />
             </label>
         </div>
         <div>
             <label>
-                Kod pocztowy <input name="zip" pattern="[0-9]{2}-[0-9]{3}" required/>
+                Kod pocztowy <input name="zip" pattern="[0-9]{2}-[0-9]{3}" required placeholder="00-000"/>
             </label>
 
             <label>
