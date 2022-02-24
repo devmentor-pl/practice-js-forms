@@ -1,21 +1,29 @@
 const formEl = document.querySelector('form');
-const usersList = formEl.nextElementSibling;
-const firstUser = usersList.firstElementChild;
-const firstNameInput = formEl.firstElementChild.firstElementChild.firstElementChild;
+const usersList = document.querySelector('.users-list');
+const firstUser = document.querySelector('.users-list__person');
+const firstNameInput = formEl.elements.firstName;
 
+const createNewListEl = function(userClass, firstName, lastName) {
+    const newUser = document.createElement('li');
+    newUser.classList.add(userClass);
+    newUser.innerText = firstName + ' ' + lastName;
+    return newUser;
+}
 
-const stopEvent = function(e) {
+const clearInputs = function(e) {
+    e.target.elements.firstName.value = '';
+    e.target.elements.lastName.value = '';
+    firstNameInput.select()
+}
+
+const addUserToList = function(e) {
     e.preventDefault();
     const firstName = e.target.elements.firstName.value;
     const lastName = e.target.elements.lastName.value;
-    const newUser = document.createElement('li');
-    const firstUserClass = firstUser.className;
-    newUser.classList.add(firstUserClass);
-    newUser.innerText = firstName + ' ' + lastName;
-    usersList.appendChild(newUser);
-    e.target.elements.firstName.value = '';
-    e.target.elements.lastName.value = '';
-    firstNameInput.select();
+    const userClass = firstUser.className;
+    const newListEl = createNewListEl(userClass, firstName, lastName);
+    usersList.appendChild(newListEl);
+    clearInputs(e);
 }
 
-formEl.addEventListener('submit', stopEvent);
+formEl.addEventListener('submit', addUserToList);

@@ -1,4 +1,5 @@
 const formEl = document.querySelector('form');
+const input = document.querySelector('input');
 formEl.noValidate = true;
 var regExEmailInput = /^([a-z0-9]){1}([\w-])*([a-z0-9]){1}([@]){1}([a-z0-9]){1}([\w\-\.])*(\.)([a-z0-9]){1}([a-z0-9]){1}$/i;
 
@@ -18,7 +19,7 @@ function validatation (e) {
     }
 
     if(password1Value.length < 6 || password2Value.length < 6 ) {
-        errors.push(formEl.pass1);
+        errors.push(formEl.pass1, formEl.pass2);
     }
 
     if(password1Value !== password2Value) {
@@ -31,9 +32,16 @@ function validatation (e) {
     
     if(errors.length === 0) {
         console.log('DONE');
+        
     } else {
         errors.forEach(function(el) {
             el.previousElementSibling.style.color = 'red';
         });
     }
+    
+    for(const el of formEl.elements) {
+        if(!errors.includes(el) && el.previousElementSibling){
+            el.previousElementSibling.style.color = 'black';
+        }
+    };
 }
