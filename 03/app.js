@@ -11,29 +11,49 @@ function readFile(e) {
             reader.onload = function(readerEvent) {
 
                 const imgList = document.querySelector('.images-list');
-
-                const newItem = document.createElement('li');
-                newItem.classList.add('images-list__item');
+                
+                const newItem = createItem();
                 imgList.appendChild(newItem);
 
-                const newItemHeader = document.createElement('header');
-                newItemHeader.classList.add('images-list__item-name');
-                newItemHeader.innerHTML = file.name;
-                newItem.appendChild(newItemHeader);
+                const newHeader = createHeader();
+                newHeader.innerHTML = file.name;
+                newItem.appendChild(newHeader);
 
-                const newItemImg = document.createElement('img');
-                newItemImg.classList.add('images-list__item-img');
-                newItemImg.src = readerEvent.target.result;
-                newItem.appendChild(newItemImg);
+                const newImg = createImg();
+                newImg.src = readerEvent.target.result;
+                newItem.appendChild(newImg);
 
-                const newItemFooter = document.createElement('footer');
-                newItemFooter.classList.add('images-list__item-size');
-                newItem.appendChild(newItemFooter)
-                newItemFooter.innerHTML = bytesToMegabytes(file.size).toFixed(2) + ' MB';
+                const newFooter = createFooter()
+                newItem.appendChild(newFooter)
+                newFooter.innerHTML = bytesToMegabytes(file.size).toFixed(2) + ' MB';
             };
             reader.readAsDataURL(file);
         }
     }
+}
+
+function createItem() {
+    item = document.createElement('li');
+    item.classList.add('images-list__item');
+    return item;
+}
+
+function createHeader() {
+    header = document.createElement('header');
+    header.classList.add('images-list__item-name');
+    return header;
+}
+
+function createImg() {
+    img = document.createElement('img');
+    img.classList.add('images-list__item-img');
+    return img;
+}
+
+function createFooter() {
+    footer = document.createElement('footer');
+    footer.classList.add('images-list__item-size');
+    return footer;
 }
 
 function bytesToMegabytes(bytes) {
