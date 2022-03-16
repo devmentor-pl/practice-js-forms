@@ -1,5 +1,6 @@
 const ulEl = document.querySelector('ul');
 const formAdress = document.querySelector('form');
+const labelEl = document.querySelectorAll('label')
 
 formAdress.addEventListener('submit', checkData);
 
@@ -14,27 +15,16 @@ function checkData(e) {
     const voivodeship = e.target.elements.voivodeship.value;
     const errors = [];
 
-
-    if(firstName.length === 0) {
-        errors.push('Wprowadzone imię jest nieprawidłowe!');
-    }
-    if(lastName.length === 0) {
-        errors.push('Wprowadzone nazwisko jest nieprawidłowe!');
-    }
-    if(street.length === 0) {
-        errors.push('Wprowadzona ulica jest nieprawidłowa!');
-    }
+    getData(firstName, errors, labelEl[0]);
+    getData(lastName, errors, labelEl[1]);
+    getData(street, errors, labelEl[2]);
     if(houseNumber.length === 0 && flatNumber.length === 0) {
-        errors.push('Wprowadzony numer jest nieprawidłowy!');
+        errors.push('Brak numeru budynku lub mieszkania!');
     }
-    if(zip.length !== 6) {
-        errors.push('Wprowadzony kod pocztowy jest nieprawidłowy!');
-    }
-    if(city.length === 0) {
-        errors.push('Wprowadzone miasto jest nieprawidłowe!');
-    }
+    getData(zip, errors, labelEl[5]);
+    getData(city, errors, labelEl[6]);
     if(voivodeship.length === 0) {
-        errors.push('Wprowadzone województwo jest nieprawidłowe!');
+        errors.push('Nie wybrano województwa!');
     }
 
     if(errors.length > 0) {
@@ -49,5 +39,11 @@ function checkData(e) {
         })
     } else {
         alert('Dane zostały wysłane prawidłowo!');
+    }
+}
+
+function getData(el, arr, label) {
+    if(el.length === 0) {
+        arr.push('Wprowadzono nieprawidłowe dane w polu ' + label.innerText.toUpperCase());
     }
 }
