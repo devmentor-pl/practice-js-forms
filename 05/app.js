@@ -21,11 +21,16 @@ function checkData(e) {
     if(houseNumber.length === 0 && flatNumber.length === 0) {
         errors.push('Brak numeru budynku lub mieszkania!');
     }
-    getData(zip, errors, labelEl[5]);
-    getData(city, errors, labelEl[6]);
-    if(voivodeship.length === 0) {
-        errors.push('Nie wybrano województwa!');
+    if(zip.length !== 6) {
+        errors.push('Wprowadzono nieprawidłowe dane w polu KOD POCZTOWY');
     }
+    getData(city, errors, labelEl[6]);
+    getData(voivodeship, errors, labelEl[7], 1);
+    
+    
+    // if(voivodeship.length === 0) {
+    //     errors.push('Nie wybrano województwa!');
+    // }
 
     if(errors.length > 0) {
         e.preventDefault();
@@ -42,8 +47,18 @@ function checkData(e) {
     }
 }
 
-function getData(el, arr, label) {
+function getData(el, arr, label, isSelect) {
     if(el.length === 0) {
         arr.push('Wprowadzono nieprawidłowe dane w polu ' + label.innerText.toUpperCase());
+    }
+    if(isSelect) {
+        arr.pop();
+        arr.push('Wprowadzono nieprawidłowe dane w polu WOJEWÓDZTWO');
+    }
+}
+
+function getNumbersData() {
+    if(houseNumber.length === 0 && flatNumber.length === 0) {
+        errors.push('Brak numeru budynku lub mieszkania!');
     }
 }

@@ -15,25 +15,19 @@ function checkData(e) {
     const pass2Label = pass2.previousElementSibling;
     const acceptLabel = accept.previousElementSibling;
 
+    errors.length = 0;
+
     if(!loginEmail.value.includes('@')) {
         errors.push(loginEmailLabel);
-    } else if(loginEmail.value.includes('@')) {
-        checkAgain(errors, corrected, loginEmailLabel)
     }
     if(pass1.value.length <= 6) {
         errors.push(pass1Label);
-    } else if(pass1.value.length > 6) {
-        checkAgain(errors, corrected, pass1Label)
     }
     if(pass1.value !== pass2.value || pass2.value === '') {
         errors.push(pass2Label);
-    } else if(pass1.value === pass2.value || pass2.value !== '') {
-        checkAgain(errors, corrected, pass2Label)
     }
     if(!accept.checked) {
         errors.push(acceptLabel);
-    } else if(accept.checked) {
-        checkAgain(errors, corrected, acceptLabel)
     }
 
     if(errors.length > 0) {
@@ -41,16 +35,8 @@ function checkData(e) {
         errors.forEach(function(element) {
             element.style.color = 'red';
         })
-        corrected.forEach(function(element) {
-            element.style.color = 'black';
-        })
     } else {
         console.log('done');
     }
 
 };
-
-function checkAgain(err, corr, el) {
-    corr.push(el);
-    err.shift();
-}
