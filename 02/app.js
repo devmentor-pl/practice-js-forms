@@ -1,8 +1,9 @@
 const formEl = document.querySelector('form')
 const labelList = document.querySelectorAll('label')
 
- function formHandler(e) {
+ function errorCheck(e) {
     e.preventDefault()
+    removeRed()
     const email = formEl.elements.login
     const password = formEl.elements.pass1
     const passwordTwo = formEl.elements.pass2
@@ -26,18 +27,21 @@ const labelList = document.querySelectorAll('label')
         errors.push(formAccepted)
         console.log('Należy zaakceptować regulamin')
     } 
-    
+
     if(errors.length === 0) {
         console.log('done')
-        labelList.forEach(function(e){
-            e.style.color = 'black'
-        })
     } else {
         errors.forEach(function(error) {
-            error.parentElement.style.color = 'red'
+            error.previousElementSibling.style.color = 'red'
         })  
     }
 }
 
-formEl.addEventListener('submit', formHandler )
+function removeRed() {
+    labelList.forEach(function(e){      
+        e.style.color = ''
+    })
+}
+
+formEl.addEventListener('submit', errorCheck )
 formEl.noValidate = true
