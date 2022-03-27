@@ -6,11 +6,15 @@ const formHandler = function(e) {
     const firstName = e.target.elements.firstName
     const lastName = e.target.elements.lastName 
 
-    const liEl = document.createElement('li')
-    userList.appendChild(liEl)
+    if(firstName.value !== '' && lastName.value !== '') {
+        const liEl = document.createElement('li')
+        userList.appendChild(liEl)
 
-    liEl.classList.add('user-list__person')
-    liEl.innerText = firstName.value + ' ' + lastName.value
+        liEl.classList.add('user-list__person')
+        liEl.innerText = firstName.value + ' ' + lastName.value
+    } else {
+        alert('Element nie może być pusty. Wprowadź dane.')
+    }
 }
 
  formEl.addEventListener('submit', formHandler)
