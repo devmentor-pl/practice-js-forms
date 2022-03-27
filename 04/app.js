@@ -60,7 +60,7 @@ function changeOpacity(e) {
 }
 
 function changeColor(e) {
-    const opacity = opacitySetter.value / 100;
+    const opacity = rangeEl.value / 100;
     const color = e.target.value;
      setBoxShadow(boxElement, color, opacity);
 }
