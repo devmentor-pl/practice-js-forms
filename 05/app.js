@@ -1,31 +1,33 @@
-﻿const namePattern = /^[A-Za-ząćęłńóśźżĄĘŁŃÓŚŹŻ\s]*$/;
-const zipPattern = /[0-9]{2}-[0-9]{3}$/;
+﻿const defaultPattern = /^[A-Za-ząćęłńóśźżĄĘŁŃÓŚŹŻ\s]*$/; 
+
+const rules =  { 'text'  : {'func' : checkTextData},
+                'number' : {'func' : checkNumberData},
+                }
 
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
     
     const formEl = document.querySelector('form');    
+    const inputsList = formEl.querySelectorAll('input:not([type="submit"]');
 
-    formEl.addEventListener('submit', validateForm);
+    formEl.addEventListener('submit', validateForm.bind(this, inputsList));
 }
 
-function validateForm(e) {
+function validateForm(inputsList, e) {
 
     const form = e.target;   
     const errors = []
 
     e.preventDefault();
-
     resetErrors(form);
 
-    checkTextData(form,'firstName', errors);
-    checkTextData(form,'lastName', errors);
-    checkTextData(form,'street', errors);
-    checkTextData(form, 'zip', errors, zipPattern);
-    checkNumberData(form,'houseNumber', errors);
-    checkNumberData(form,'flatNumber', errors, false);
-    checkTextData(form,'city', errors);
+    inputsList.forEach(function(item) { 
+                
+        rules[item.type].func(form.elements[item.name], errors, item.required, item.pattern);
+
+    })
+
     checkSelectData(form,'voivodeship', errors);
     
     showErrors(form, errors);
@@ -38,7 +40,7 @@ function showErrors(form, errors) {
     
     if (errors.length > 0) {
 
-        errors.forEach(function(item){
+        errors.forEach(function(item) {
 
             const errItem = document.createElement('li');       
             errItem.textContent = item.msg;
@@ -54,7 +56,6 @@ function showErrors(form, errors) {
         errItem.textContent = 'Dane zostały wysłane prawidłowo';
         listErr.appendChild(errItem);
     }
-
 }
 
 function resetErrors(form) {
@@ -63,19 +64,24 @@ function resetErrors(form) {
     const listErr = form.querySelector('.messages');
     
     label.forEach(function(item){
-        item.style = 'color : black';
+        item.style = "color : '' ";
     });
     
     listErr.textContent = '';
 }
 
-function checkTextData(form, name,  errors, pattern = namePattern) {
+function checkTextData(inputEl,  errors, required, pattern) {
         
-    const inputEl = form.elements[name];
-
     inputEl.value = inputEl.value.trim(); 
 
-    if ((!pattern.test(inputEl.value)) || (inputEl.value.length === 0)) {
+    if (pattern === '') {        
+        pattern = defaultPattern; 
+    }
+    else {        
+        pattern = new RegExp(`${pattern}$`);
+    }   
+
+    if ((!pattern.test(inputEl.value)) || ((inputEl.value.length === 0) && (required))) {
 
         const errMsg = `Wprowadzono niepoprawne dane w polu  ${inputEl.parentElement.innerText}`;
         const errLabel = inputEl.parentElement;
@@ -84,9 +90,8 @@ function checkTextData(form, name,  errors, pattern = namePattern) {
     }    
 }
 
-function checkNumberData(form, name, errors, required = true) {
+function checkNumberData(inputEl, errors, required) {
    
-    const inputEl = form.elements[name];
     const num = Number(inputEl.value);
    
     if ((num !== 0) || (required)) {
