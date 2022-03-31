@@ -46,7 +46,7 @@ function showErrors(form, errors) {
             errItem.textContent = item.msg;
             listErr.appendChild(errItem);
 
-            item.label.style = 'color : red';
+            item.label.style.color = 'red';
 
         });
     } 
@@ -64,7 +64,7 @@ function resetErrors(form) {
     const listErr = form.querySelector('.messages');
     
     label.forEach(function(item){
-        item.style = "color : '' ";
+        item.style.color = '';
     });
     
     listErr.textContent = '';
