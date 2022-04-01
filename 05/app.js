@@ -1,4 +1,4 @@
-﻿const defaultPattern = /^[A-Za-ząćęłńóśźżĄĘŁŃÓŚŹŻ\s]*$/; 
+﻿const defaultPattern = '^[A-Za-ząćęłńóśźżĄĘŁŃÓŚŹŻ\s]*$'; 
 
 const rules =  { 'text'  : {'func' : checkTextData},
                 'number' : {'func' : checkNumberData},
@@ -70,16 +70,11 @@ function resetErrors(form) {
     listErr.textContent = '';
 }
 
-function checkTextData(inputEl,  errors, required, pattern) {
+function checkTextData(inputEl,  errors, required, pattern = defaultPattern) {
         
     inputEl.value = inputEl.value.trim(); 
-
-    if (pattern === '') {        
-        pattern = defaultPattern; 
-    }
-    else {        
-        pattern = new RegExp(`${pattern}$`);
-    }   
+    
+    pattern = new RegExp(`${pattern}$`);
 
     if ((!pattern.test(inputEl.value)) || ((inputEl.value.length === 0) && (required))) {
 
