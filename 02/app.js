@@ -24,7 +24,7 @@ function checkData(e) {
     if(!regulAccept.checked){
         errors.push(regulAccept);
     }
-    console.log(errors);
+    //console.log(errors);
 
     errors.forEach(function(err){
         const labelEl = err.previousElementSibling;
