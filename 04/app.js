@@ -4,8 +4,7 @@ function init() {
     const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, '#000000');
 }
-//const colorEl = document.querySelector('[type = "color"]');
-//const rangeEl = document.querySelector('[type = "range"]');
+
 const boxElement = document.querySelector('.box');
 
 function changeShadow(e){
@@ -16,11 +15,9 @@ function changeShadow(e){
     console.log(color, range);
     setBoxShadow(boxElement, color, range);
     colorEl.addEventListener('change', changeShadow);
-   rangeEl.addEventListener('change', changeShadow);
+    rangeEl.addEventListener('change', changeShadow);
 }
 changeShadow(boxElement);
-//colorEl.addEventListener('change', changeShadow);
-//rangeEl.addEventListener('change', changeShadow);
 
 // drugie rozwiązanie, pierwsze podoba mi się bardziej, ale zostawiam oba
 
