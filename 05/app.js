@@ -20,7 +20,8 @@ function init() {
             {name: 'street', label: 'ulica', required: true},
             {name: 'houseNumber', label: 'Number budynku', type: 'number', required: true},
             {name: 'flatNumber', label: 'Numer mieszkania', type: 'number', required: true},
-            {name: 'zip', label: 'Kod pocztowy', pattern: "[0-9]{2}-[0-9]{3}", required: true},
+            {name: 'zip', label: 'Kod pocztowy', pattern: "[0-9]{2}-[0-9]{3}", required: true}, 
+            // lepiej -> pattern: "^[0-9]{2}-[0-9]{3}$" - aby tylko występowały zdefiniowane elementy,
             {name: 'city', label: 'Miasto', required: true},
             {name: 'voivodeship', label: 'Województwo', required: true},
         ]
@@ -44,7 +45,9 @@ function init() {
 
             if(f.pattern) {
                 const reg = new RegExp(f.pattern)
-                if(!reg.test(zipEl.value)) {
+                // błędnie (było): if(!reg.test(zipEl.value)) {
+                // poprawnie
+                if(!reg.test(value)) {
                     errors.push('Dane w polu '+ f.label +' muszą być zgodne ze wzorem:'+f.pattern);
                 }
             }
