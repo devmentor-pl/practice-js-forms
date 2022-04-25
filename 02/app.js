@@ -74,12 +74,9 @@
 const form = document.querySelector('form')
 form.noValidate = true
 form.autocomplete = 'off'
-console.log(form.noValidate)
-console.log(form.autocomplete)
 
 const handleSubmit = function(e) {
     e.preventDefault()
-    console.log('submit')
     const errors = []
 
     const label = document.querySelectorAll('label')
@@ -94,7 +91,6 @@ const handleSubmit = function(e) {
     if(!email.value.includes('@')) {
         console.log('email - brak @')
         errors.push(email)
-        console.log(errors)
     } 
 
     // password
@@ -104,19 +100,16 @@ const handleSubmit = function(e) {
     if(pass1.value.length < 6) {
         console.log('password 1 must have over 6 chars')
         errors.push(pass1)
-        console.log(errors)
     }
     if(pass2.value.length < 6) {
         console.log('password 2 must have over 6 chars')
         errors.push(pass2)
-        console.log(errors)
     }
     if(pass1.value.length >= 6 && pass2.value.length >= 6) {
         if(pass1.value !== pass2.value) {
             console.log('passwords are different')
             errors.push(pass1)
             errors.push(pass2)
-            console.log(errors)
         }
     }
 
@@ -127,7 +120,6 @@ const handleSubmit = function(e) {
     } else {
         console.log('Regulation not checked')
         errors.push(reg)
-        console.log(errors)
     }
 
     errors.forEach(item => {
