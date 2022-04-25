@@ -9,12 +9,19 @@ const handleSubmit = function(e) {
     e.preventDefault()
     console.log('submit')
 
+    const label = document.querySelectorAll('label')
+    label.forEach(lab => {
+        lab.removeAttribute('style')
+    })
+
     // email
     const email = form.login
     console.log('email:', email.value)
 
     if(!email.value.includes('@')) {
         console.log('email - brak @')
+        const errorEmail = email.previousElementSibling
+        errorEmail.style.color = 'red'
         return
     } 
 
@@ -24,14 +31,22 @@ const handleSubmit = function(e) {
 
     if(pass1.value.length < 6) {
         console.log('password 1 must have over 6 chars')
+        const errorPass1 = pass1.previousElementSibling
+        errorPass1.style.color = 'red'
         return
     }
     if(pass2.value.length < 6) {
         console.log('password 2 must have over 6 chars')
+        const errorPass2 = pass2.previousElementSibling
+        errorPass2.style.color = 'red'
         return
     }
     if(pass1.value !== pass2.value) {
         console.log('passwords are different')
+        const errorPass1 = pass1.previousElementSibling
+        const errorPass2 = pass2.previousElementSibling
+        errorPass1.style.color = 'red'
+        errorPass2.style.color = 'red'
         return
     }
 
@@ -41,6 +56,8 @@ const handleSubmit = function(e) {
         console.log('Regulation checked :)')
     } else {
         console.log('Regulation not checked')
+        const errorReg = reg.previousElementSibling
+        errorReg.style.color = 'red'
         return
     }
 
