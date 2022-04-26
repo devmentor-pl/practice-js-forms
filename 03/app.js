@@ -3,8 +3,15 @@ const fileElement = document.querySelector('input')
 
 fileElement.addEventListener('change', getData)
 
-function changeName() {
-    
+function changeName(name) {
+    const positionDot = name.indexOf('.')
+    const newName = name.slice(0, positionDot)
+    return newName
+}
+
+function changeSize(size) {
+    const newSize = (size / 1024 / 1024).toFixed(2)
+    return newSize + 'MB'
 }
 
 function getData(e) {
@@ -13,45 +20,30 @@ function getData(e) {
     console.log(files)
 
     const filesArray = Array.from(files)
-    console.log(filesArray)
-
     const imagesList = document.querySelector('.images-list')
 
     filesArray.forEach(file => {
-       const name = file.name 
-       const size = file.size 
-       const type = file.type 
-       console.log(name)
-       console.log(size)
-       console.log(type)
+       const name = changeName(file.name) 
+       const size = changeSize(file.size) 
 
        if(file.type.includes('image')) {
             const reader = new FileReader()
             reader.onload = function(event) {
-                const newImg = document.createElement('img')
-                newImg.src = event.target.result
-                document.body.appendChild(newImg)
                 const srcImg = event.target.result
                 imgToPage(imagesList, srcImg, name, size)
             }
             reader.readAsDataURL(file)
        } else {
-           console.log('File not image but', file.type)
+           console.log('File not added, type not image but', file.type)
        }
     })
-    // imagesList.firstElementChild.remove()
-
 }
 
 function imgToPage(imagesList, srcImg, name, size) {
-    console.log(imagesList)
 
     const elementLi = imagesList.firstElementChild
-    console.log(elementLi)
     const newElementLi = elementLi.cloneNode(true)
-
     newElementLi.classList.remove('images-list__item--prototype')
-    console.log(newElementLi)
 
     const nameElement = newElementLi.querySelector('.images-list__item-name')
     nameElement.innerText = name
