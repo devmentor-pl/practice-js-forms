@@ -3,18 +3,19 @@ const fileElement = document.querySelector('input')
 
 fileElement.addEventListener('change', getData)
 
-function getData(e) {
-    // const file = e.target.files[0]
+function changeName() {
+    
+}
 
-    // console.log(file.name)
-    // console.log(file.size)
-    // console.log(file.type)
+function getData(e) {
 
     const files = e.target.files
     console.log(files)
 
     const filesArray = Array.from(files)
     console.log(filesArray)
+
+    const imagesList = document.querySelector('.images-list')
 
     filesArray.forEach(file => {
        const name = file.name 
@@ -31,25 +32,25 @@ function getData(e) {
                 newImg.src = event.target.result
                 document.body.appendChild(newImg)
                 const srcImg = event.target.result
-                imgToPage(srcImg, name, size)
+                imgToPage(imagesList, srcImg, name, size)
             }
             reader.readAsDataURL(file)
        } else {
            console.log('File not image but', file.type)
        }
     })
+    // imagesList.firstElementChild.remove()
 
 }
 
-function imgToPage(srcImg, name, size) {
-    // console.log(srcImg)
+function imgToPage(imagesList, srcImg, name, size) {
+    console.log(imagesList)
 
-    const imagesList = document.querySelector('.images-list')
     const elementLi = imagesList.firstElementChild
     console.log(elementLi)
-    elementLi.classList.remove('images-list__item--prototype')
     const newElementLi = elementLi.cloneNode(true)
-    // imagesList.firstElementChild.remove()
+
+    newElementLi.classList.remove('images-list__item--prototype')
     console.log(newElementLi)
 
     const nameElement = newElementLi.querySelector('.images-list__item-name')
