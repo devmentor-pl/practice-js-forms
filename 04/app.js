@@ -37,4 +37,16 @@ function getChannelColor(colorInHex, channelName) {
     return channelColorDec; 
 }
 
+const section = document.querySelector(".panel");
+
+        
+function changeShadow(e){
+    const box = document.querySelector(".box");
+    const color = e.currentTarget.firstElementChild.value;
+    const opacity = (e.currentTarget.lastElementChild.value)/100;
+    
+    setBoxShadow(box, color, opacity)
+}
+
+section.addEventListener("change", changeShadow)
 
