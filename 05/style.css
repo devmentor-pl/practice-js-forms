@@ -1,9 +1,9 @@
-/* 
-label input {
-    margin-left: 70px;
-} */
+
+.messages {
+    list-style: none;
+    color: red;
+}
 .levelOne {
-    outline: 1px solid red;
     max-width: 300px;
     position: relative;
     padding-top: 5px;
@@ -14,7 +14,6 @@ label input {
     right: 0;
 }
 .levelTwo {
-    outline: 1px solid red;
     max-width: 300px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -27,9 +26,6 @@ label input {
     padding-bottom: 5px;
     display: flex;
     justify-content: space-between;
-}
-.levelTwo label input {
-
 }
 input[name='houseNumber'] {
     width: 80px;
@@ -49,14 +45,12 @@ select {
 
 @media screen and (min-width: 650px) {
     .levelOne {
-        outline: 1px solid blue;
         max-width: 600px;
     }
     .levelOne input, div select {
         left: 100px;
     }
     .levelTwo {
-        outline: 1px solid green;
         max-width: 750px;
         
     }
