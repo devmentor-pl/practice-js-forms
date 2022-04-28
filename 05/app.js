@@ -1,51 +1,47 @@
 
 const form = document.querySelector('form')
 const messages = document.querySelector('.messages')
-// const errors = []
+let errors = []
+
+function checkFieldText(field, name) {
+    if(field.length === 0) {
+        errors.push(name + '- pole nie może być puste')
+    } else if(!isNaN(field)) {
+        errors.push(name + '- pole musi być tekstowe')
+    }
+}
+
+function checkFielNumber(field, name) {
+    if(field.length === 0) {
+        errors.push(name +' - pole nie może być puste')
+    } else if (field <= 0) {
+        errors.push(name +' - podaj poprawną wartość')
+    }
+}
 
 function checkForm(e) {
     e.preventDefault()
-    const errors = []
+    errors = []
 
     // firstName
     const firstName = form.elements.firstName.value
-    if(firstName.length === 0) {
-        errors.push('Imie - pole nie może być puste')
-    } else if(!isNaN(firstName)) {
-        errors.push('Imię - pole musi być tekstowe')
-    }
+    checkFieldText(firstName, 'Imię')
 
     // lastName
     const lastName = form.elements.lastName.value
-    if(lastName.length === 0) {
-        errors.push('Nazwisko - pole nie może być puste')
-    } else if(!isNaN(lastName)) {
-        errors.push('Nazwisko - pole musi być tekstowe')
-    }
+    checkFieldText(lastName, 'Nazwisko')
 
     // street
     const street = form.elements.street.value
-    if(street.length === 0) {
-        errors.push('Ulica - pole nie może być puste')
-    } else if(!isNaN(street)) {
-        errors.push('Ulica - pole musi być tekstowe')
-    }
+    checkFieldText(street, 'Ulica')
 
     // houseNumber
     const houseNumber = form.elements.houseNumber.value
-    if(houseNumber.length === 0) {
-        errors.push('Numer budynku - pole nie może być puste')
-    } else if (houseNumber <= 0) {
-        errors.push('Numer budynku - podaj poprawną wartość')
-    }
+    checkFielNumber(houseNumber, 'Numer budynku')
 
     // flatNumber
     const flatNumber = form.elements.flatNumber.value
-    if(flatNumber.length === 0) {
-        errors.push('Numer mieszkania - pole nie może być puste')
-    } else if (flatNumber <= 0) {
-        errors.push('Numer mieszkania - podaj poprawną wartość')
-    }
+    checkFielNumber(flatNumber, 'Numer mieszkania')
 
     // Kod pocztowy
     const zip = form.elements.zip.value
@@ -58,11 +54,7 @@ function checkForm(e) {
 
     // Miejscowość
     const city = form.elements.city.value
-    if(city.length === 0) {
-        errors.push('Miejscowość - pole nie może być puste')
-    } else if(!isNaN(city)) {
-        errors.push('Miejscowość - pole musi być tekstowe')
-    }
+    checkFieldText(city, 'Miejscowość')
 
     // select - Województwo
     const select = form.elements.voivodeship
@@ -77,6 +69,7 @@ function checkForm(e) {
 
     // check errors array
     messages.innerText = ''
+    console.log(errors)
     if(errors.length === 0) {
         console.log('Form send')
         setTimeout(function() {
