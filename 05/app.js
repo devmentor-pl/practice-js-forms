@@ -45,7 +45,10 @@ function checkForm(e) {
 
     // Kod pocztowy
     const zip = form.elements.zip.value
-    const regex = new RegExp('^[0-9]{2}-[0-9]{3}$');
+    const pattern = form.elements.zip.pattern
+    console.log(pattern)
+    // const regex = new RegExp('^[0-9]{2}-[0-9]{3}$');
+    const regex = new RegExp('^'+pattern+'$');
     if(zip.length === 0) {
         errors.push('Kod pocztowy - pole nie może być puste')
     } else if(!regex.test(zip)) {
