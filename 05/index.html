@@ -7,12 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="author" content="Mateusz Bogolubow">
     <title>devmentor.pl - JS Forms - #05</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-    <form action="" method="post" novalidate>
-        <ul class="messages"></ul>
 
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Gratulacje, formularz został wysłany</p>
+        </div>
+    </div>
+    <form action="" method="post" novalidate>
+        <ul class="messages">
+            <li class="messages__announcement" style="list-style: none"></li>
+        </ul>
         <div>
             <label>
                 Imię:<input name="firstName" required />
