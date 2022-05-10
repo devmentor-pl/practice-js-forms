@@ -12,4 +12,8 @@ formEl.addEventListener('submit', function (e) {
         liEl.innerText = `${firstName} ${lastName}`
         list.appendChild(liEl);
     }
+
+    if (firstName === '' ||  lastName === '') {
+        alert('Wpisz imię i nazwisko')
+    }
 })
