@@ -7,7 +7,7 @@ const messagesList = document.querySelector('.messages');
 function validateForm(e) {
 
 
-    e.preventDefault();
+
 
     const errors = [];
     const firstName = e.target.elements.firstName;
@@ -48,6 +48,7 @@ function validateForm(e) {
     });
 
     if (errors.length > 0) {
+        e.preventDefault();
         errors.forEach((error) => {
             const listItem = document.createElement('li');
             listItem.innerText = error;
@@ -55,7 +56,8 @@ function validateForm(e) {
         });
     }
     else {
-        alert('Dane zostały wprowadzone w poprawny sposób!');
+        alert('Dane zostały wprowadzone w poprawny sposób!, wysyłanie formularza');
+        return true;
     }
 
 
