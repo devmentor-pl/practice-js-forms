@@ -23,6 +23,7 @@ function showFile(ewent) {
                 const newHeader = document.createElement('header');
                 const newFooter = document.createElement('footer');
                 const imgSrc = readerEvent.target.result;
+                const fileSize = file.size / 1048576;
 
 
                 imagesListEl.appendChild(newLi);
@@ -38,7 +39,7 @@ function showFile(ewent) {
 
                 newLi.appendChild(newFooter);
                 newFooter.classList.add('images-list__item-size');
-                newFooter.innerText = Number(file.size);
+                newFooter.innerText = fileSize.toFixed(2) + ' MB';
             };
 
             reader.readAsDataURL(file);
