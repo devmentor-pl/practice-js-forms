@@ -2,75 +2,78 @@ document.addEventListener('DOMContentLoaded',init)
 
 
 function init(){
-    console.log('DOM')
-
-const input=document.querySelector('input')
-
-
-input.addEventListener('change',readFile);
+   const input=document.querySelector('input')
+if(input){
+    input.addEventListener('change',handleChange)
+}
 }
 
-const protoClon=document.querySelector('.images-list__item--prototype')
-const headerEl=protoClon.querySelector('header')
-const footerEl=protoClon.querySelector('footer')
+
+
+function handleChange(e){
+const prototypeEl=document.querySelector('.images-list__item--prototype')
+
+
 const ulEl=document.querySelector('.images-list')
-const imgEl=document.querySelector('img')
-function readFile(e){
-    const imgList=Array.from(e.target.files);
-    
-    imgList.forEach(img =>{
-        console.log(img)
-    })
-    
-    if(img && file.type.includes('image')){
-        const reader= new FileReader();
-        reader.onload=function(e){
-            const newImg=e.target.result;
-        imgEl.src=newImg;
-       
-        }
-        reader.readAsDataURL(newImg)
-    
+
+
+    const fileList=Array.from(e.target.files);
+fileList.forEach(file=>{
+   console.log(file);
+    if(file.type.indexOf('image') >=0){
+const liElement=prototypeEl.cloneNode(true)
+const headerEl=liElement.querySelector('header')
+const footerEl=liElement.querySelector('footer')
+const imgEl=liElement.querySelector('img')
+headerEl.innerText=file.name;
+footerEl.innerText=(file.size /(1024*1024)).toFixed(2)+'mb';
+liElement.classList.remove('images-list__item--prototype')
+ulEl.appendChild(liElement)  
+
+const reader= new FileReader();
+reader.addEventListener('load',function(e){
+
+const image=e.target.result;
+imgEl.src=image;
+})
+reader.readAsDataURL(file)
+    }else{
+        alert('no')
     }
-            const clone=protoClone.cloneNode(true)
-            headerEl.innerText=file.name
-            footerEl.innerText=file.size/(1024*1024).toFixed(2)
-             clone.classList.remove('')
-            ulEl.appendChild(clone)
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+})
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
