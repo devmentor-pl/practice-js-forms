@@ -3,7 +3,27 @@ document.addEventListener('DOMContentLoaded', init);
 function init() {
     const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, '#000000');
+
+    const range = document.querySelector('input[name="opacity"]');
+const color =document.querySelector('input[name="color"]')
+color.addEventListener('change',function(){
+    const colorElement=color.value
+setBoxShadow(boxElement,colorElement,range.value)
+
+})
+range.addEventListener("change",function (){
+const opacity =range.value/100
+setBoxShadow(boxElement,color.value,opacity)
+} )
+range.addEventListener("mousemove",function (){
+const opacity =range.value / 100
+setBoxShadow(boxElement,color.value,opacity)
+} )
+
+
+
 }
+
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
     const colorInRGBA = `rgba(
