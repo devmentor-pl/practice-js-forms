@@ -2,10 +2,18 @@ document.addEventListener('DOMContentLoaded', init);
 
 function init() {
     const boxElement = document.querySelector('.box');
-    setBoxShadow(boxElement, '#000000');
+    const panelEl = document.querySelector('.panel');
+    panelEl.addEventListener('input', function() { setBoxShadow(boxElement)});
+    setBoxShadow(boxElement);
 }
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
+    const colorPickerEl = document.querySelector('[name="color"]');
+    const rangeEl = document.querySelector('[name="opacity"]');
+
+    colorInHex = colorPickerEl.value;
+    opacity = rangeEl.value / 100;
+
     const colorInRGBA = `rgba(
         ${getChannelColor(colorInHex, 'red')}, 
         ${getChannelColor(colorInHex, 'green')}, 
@@ -36,5 +44,3 @@ function getChannelColor(colorInHex, channelName) {
 
     return channelColorDec; 
 }
-
-
