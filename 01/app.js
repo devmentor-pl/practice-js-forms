@@ -1,3 +1,9 @@
+document.addEventListener('DOMContentLoaded', init);
+
+function init() {
+	console.log('DOM');
+}
+
 const formEl = document.querySelector('form');
 const firstName = document.querySelector("input[name='firstName']");
 const lastName = document.querySelector("input[name='lastName']");
