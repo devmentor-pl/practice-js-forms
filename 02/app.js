@@ -1,3 +1,9 @@
+document.addEventListener('DOMContentLoaded', init);
+
+function init() {
+	console.log('DOM');
+}
+
 const formEl = document.querySelector('form');
 
 function registerUser(e) {
