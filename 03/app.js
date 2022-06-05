@@ -1,3 +1,9 @@
+document.addEventListener('DOMContentLoaded', init);
+
+function init() {
+	console.log('DOM');
+}
+
 const input = document.querySelector('input');
 const pEl = document.createElement('p');
 
