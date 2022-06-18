@@ -39,7 +39,5 @@ function readFile(e) {
             liElementItem.children[2].innerText = 'Size: ' + (Math.round(imgSize / 1024 / 1024 * 100)) / 100 + 'MB'
         }
         reader.readAsDataURL(imgFiles[k])
-
-
     }
 }
