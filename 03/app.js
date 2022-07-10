@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', init)
 
-const inputEl = document.querySelector('input')
-
 function init() {    
+    const inputEl = document.querySelector('input')
     if(inputEl) {
         inputEl.addEventListener('change', showImages)
     }    
