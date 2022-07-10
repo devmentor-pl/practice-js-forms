@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', init)
 
-const formEl = document.querySelector('form')
-const messagesList = formEl.querySelector('.messages')
-
-let errors = []
-
 function init() {    
+    const formEl = document.querySelector('form')
+    const messagesList = formEl.querySelector('.messages')
+
+    let errors = []
+
     if(formEl) {
         formEl.setAttribute('novalidate', true)
         formEl.addEventListener('submit', handleSubmit)
