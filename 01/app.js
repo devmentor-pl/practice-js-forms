@@ -10,12 +10,12 @@ function handleSubmit(e) {
 	const firstNameValue = firstNameEl.value;
 	const lastNameValue = lastNameEl.value;
 
-	if ((firstNameValue !== "") & (lastNameValue !== "")) {
+	if ((firstNameValue !== "") && (lastNameValue !== "")) {
 		const newLi = document.createElement("li");
 		ulEl.appendChild(newLi);
 		newLi.classList.add("users-list__person");
 		newLi.innerText = firstNameValue + " " + lastNameValue;
 	} else {
-		return alert("Wypełnij wszystkie pola!");
+		 alert("Wypełnij wszystkie pola!");
 	}
 }

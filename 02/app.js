@@ -10,9 +10,9 @@ let errors = [];
 
 function handleSubmit(e) {
 	e.preventDefault();
-	checkEmail(e);
-	checkPasswords(e);
-	checkCheckbox(e);
+	checkEmail(e, errors);
+	checkPasswords(e, errors);
+	checkCheckbox(e, errors);
 	if (errors.length > 0) {
 		errors.forEach((el) => {
 			el.style.border = "1px solid red";
@@ -24,7 +24,7 @@ function handleSubmit(e) {
 	}
 }
 
-const checkEmail = (e) => {
+const checkEmail = (e, errors) => {
 	const login = e.target.elements.login;
 	const loginValue = login.value;
 	const reExpCorrectEmail = /\S+@\S+\.\S+/;
@@ -32,25 +32,25 @@ const checkEmail = (e) => {
 	if (reExpCorrectEmail.exec(loginValue)) {
 		login.style.border = "none";
 	} else {
-		return errors.push(login);
+		errors.push(login);
 	}
 };
 
-const checkPasswords = (e) => {
+const checkPasswords = (e, errors) => {
 	const pass1Value = pass1.value;
 	const pass2Value = pass2.value;
 	if (pass1Value === pass2Value && pass1Value !== "" && pass2 !== "") {
 		pass1.style.border = "none";
 		pass2.style.border = "none";
 	} else {
-		return errors.push(pass1, pass2);
+		errors.push(pass1, pass2);
 	}
 };
-const checkCheckbox = (e) => {
+const checkCheckbox = (e, errors) => {
 	const checkBox = e.target.elements["accept"];
 	if (checkBox.checked) {
 		checkBox.previousElementSibling.style.border = "none";
 	} else {
-		return errors.push(checkBox.previousElementSibling);
+		errors.push(checkBox.previousElementSibling);
 	}
 };
