@@ -19,7 +19,7 @@ function setBoxShadow(element, colorInHex, opacity = 1) {
 
 function getChannelColor(colorInHex, channelName) {
     let start;
-    switch(channelName) {
+    switch (channelName) {
         case 'red':
             start = 1;
             break;
@@ -34,7 +34,12 @@ function getChannelColor(colorInHex, channelName) {
     const channelColorHex = colorInHex.substr(start, 2);
     const channelColorDec = parseInt(channelColorHex, 16);
 
-    return channelColorDec; 
+    return channelColorDec;
 }
+
+const colorInputEl = document.querySelector('input[type=color]');
+const rangeInputEl = document.querySelector('input[type=range]');
+console.log(colorInputEl)
+console.log(rangeInputEl)
 
 
