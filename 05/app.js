@@ -2,8 +2,6 @@ const formEl = document.querySelector('form')
 const messages = document.querySelector('ul');
 formEl.addEventListener('submit', checkData);
 
-const errors = [];
-
 function checkData(e) {
 	e.preventDefault();
 
