@@ -2,6 +2,27 @@ document.addEventListener('DOMContentLoaded', init);
 
 function init() {
     const boxElement = document.querySelector('.box');
+    const colorInputEl = document.querySelector('input[type=color]');
+    const rangeInputEl = document.querySelector('input[type=range]');
+
+    colorInputEl.addEventListener('change', function () {
+        const color = colorInputEl.value;
+        console.log(color);
+        setBoxShadow(boxElement, color, rangeInputEl.value);
+    });
+
+    rangeInputEl.addEventListener('change', function () {
+        const opacity = rangeInputEl.value/100;
+        console.log(opacity)
+        setBoxShadow(boxElement, colorInputEl.value, opacity);
+    });
+
+    rangeInputEl.addEventListener('mousemove', function () {
+        const opacity = rangeInputEl.value/100;
+        console.log(opacity)
+        setBoxShadow(boxElement, colorInputEl.value, opacity);
+    });
+
     setBoxShadow(boxElement, '#000000');
 }
 
@@ -36,10 +57,3 @@ function getChannelColor(colorInHex, channelName) {
 
     return channelColorDec;
 }
-
-const colorInputEl = document.querySelector('input[type=color]');
-const rangeInputEl = document.querySelector('input[type=range]');
-console.log(colorInputEl)
-console.log(rangeInputEl)
-
-
