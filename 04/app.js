@@ -7,19 +7,16 @@ function init() {
 
     colorInputEl.addEventListener('change', function () {
         const color = colorInputEl.value;
-        console.log(color);
         setBoxShadow(boxElement, color, rangeInputEl.value);
     });
 
     rangeInputEl.addEventListener('change', function () {
         const opacity = rangeInputEl.value/100;
-        console.log(opacity)
         setBoxShadow(boxElement, colorInputEl.value, opacity);
     });
 
     rangeInputEl.addEventListener('mousemove', function () {
         const opacity = rangeInputEl.value/100;
-        console.log(opacity)
         setBoxShadow(boxElement, colorInputEl.value, opacity);
     });
 
