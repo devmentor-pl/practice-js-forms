@@ -1,65 +1,109 @@
-const formEL = document.querySelector('form');
-const messagesUlEl = document.querySelector('.messages');
+document.addEventListener('DOMContentLoaded', init);
 
-formEL.addEventListener('submit', validateData);
+function init() {
+    const formEl = document.querySelector('form');
+    const ulEl = document.querySelector('ul');
 
-function validateData(e) {
-
-    e.preventDefault();
-    const errors = [];
-
-    const firstName = e.target.elements.firstName;
-    const lastName = e.target.elements.lastName;
-    const streetName = e.target.elements.street;
-    const houseNumber = e.target.elements.houseNumber;
-    const flatNumber = e.target.elements.flatNumber;
-    const zip = e.target.elements.zip;
-    const city = e.target.elements.city;
-    const voivodeship = e.target.elements.voivodeship;
-
-    if (firstName.value.length === 0) {
-        errors.push('Field Imię is required')
+    if (formEl) {
+        formEl.addEventListener('submit', validateData);
     }
 
-    if (lastName.value.length === 0) {
-        errors.push('Field Nazwisko is required')
-    }
+    function validateData(e) {
+        e.preventDefault();
 
-    if (houseNumber.value.length === 0 || Number(houseNumber.value) === NaN) {
-        errors.push('House has to have a numeric value')
-    }
+        const errors = [];
 
-    if (Number(flatNumber.value) === NaN) {
-        errors.push('Flat has to have a numeric value')
-    }
+        const fields = [
+            {
+                name: 'firstName',
+                label: 'imię',
+                required: true,
+                pattern: '^[a-zA-Z –-]+$',
+            },
+            {
+                name: 'lastName',
+                label: 'nazwisko',
+                required: true,
+                pattern: '^[a-zA-Z –-]+$',
+            },
+            {
+                name: 'street',
+                label: 'ulica',
+                required: true
+            },
+            {
+                name: 'houseNumber',
+                label: 'numer budynku',
+                type: 'number',
+                required: true,
+            },
+            {
+                name: 'flatNumber',
+                label: 'numer mieszkania',
+                type: 'number'
+            },
+            {
+                name: 'zip',
+                label: 'kod pocztowy',
+                pattern: '^[0-9]{2}-[0-9]{3}$',
+                required: true,
+            },
+            {
+                name: 'city',
+                label: 'miasto',
+                required: true,
+                pattern: '^[a-zA-Z –-]+$',
+            },
+            {
+                name: 'voivodeship',
+                label: 'województwo',
+                required: true
+            }
+        ];
 
-    const zipPattern = /[0-9]{2}-[0-9]{3}/
-    if (zip.value.length === 0 || zipPattern.test(zip.value) === false) {
-        errors.push('Zip code is required')
-    }
+        fields.forEach(function (field) {
+            const value = formEl.elements[field.name].value;
 
-    if (streetName.value.length === 0) {
-        errors.push('Field Ulica is required')
-    }
+            if (field.required) {
+                if (value.length === 0) {
+                    errors.push('Filling in the field ' + field.label + ' is required.');
+                }
+            }
 
-    if (city.value.length === 0) {
-        errors.push('Field Miasto is required')
-    }
+            if (field.type === 'number') {
+                if (Number.isNaN(Number(value))) {
+                    errors.push(
+                        'Field ' + field.label + ' has to have a numeric value.'
+                    );
+                }
+            }
 
-    if (voivodeship.value.length === 0) {
-        errors.push('Selection of voivodesip is required')
-    }
+            if (field.pattern) {
+                const reg = new RegExp(field.pattern);
+                if (!reg.test(value)) {
+                    errors.push(
+                        'The field ' +
+                        field.label +
+                        ' contains incorrect input values.'
+                    );
+                }
+            }
+        });
 
-    messagesUlEl.innerText = '';
+        ulEl.innerHTML = '';
+        if (errors.length === 0) {
+            alert('The form has been submitted correctly!');
 
-    if (errors.length === 0) {
-        alert('Form sent correctly!')
-    } else {
-        errors.forEach(function (error) {
-            const newLi = document.createElement('li');
-            newLi.innerText = error;
-            messagesUlEl.appendChild(newLi);
-        })
+            fields.forEach(function (el) {
+                formEl[el.name].value = '';
+            });
+        } else {
+            errors.forEach(function (text) {
+                const liEl = document.createElement('li');
+                liEl.innerText = text;
+
+                ulEl.appendChild(liEl);
+            });
+        }
     }
 }
-
