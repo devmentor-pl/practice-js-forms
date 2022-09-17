@@ -9,15 +9,8 @@ function readFile(e){
     const files = e.target.files;
     
     for(let file of files){
-        
-        console.log(file.type);
-
         if(file && file.type.includes('image')){
-            console.log(file.size);
-            console.log(file.name);
-            console.log(file.type);
             const reader = new FileReader();
-
             reader.onload = function(readerEvent){
 
                 const clone = itemPrototype.cloneNode(true);
@@ -27,7 +20,6 @@ function readFile(e){
                 clone.classList.remove('images-list__item--prototype');
                 const imgSrc = readerEvent.target.result;
                 cloneName.innerText = file.name;
-                console.log(file.size);
                 cloneSize.innerText = (file.size /(1024*1024)).toFixed(2) + "MB";
                 cloneImg.setAttribute('src', imgSrc);
                 list.appendChild(clone);
