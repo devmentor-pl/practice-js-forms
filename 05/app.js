@@ -55,9 +55,9 @@ function checkData(e){
             required: true,
         },
     ];
-
+    
     fields.forEach(function(field){
-        const {name, label, required, type, pattern} = field;
+        const {name, label, required = false, type = 'text', pattern = null} = field;
 
         const value = form.elements[name].value;
 
