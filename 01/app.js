@@ -9,7 +9,12 @@ formEl.addEventListener('submit', function(e){
     const last = e.target.elements.lastName;
     console.log(first.value);
     console.log(last.value);
-});
+    if(first && last){
+        const classEl = document.createElement('li');
+        classEl.classList.add('user-list__person');
+}});
+
+
 
 
 
