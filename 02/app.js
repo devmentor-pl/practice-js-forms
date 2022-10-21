@@ -1,9 +1,7 @@
-
 const formEl = document.querySelector('form')
-
 formEl.addEventListener('submit', checkData);
-
 function checkData(e) {
+    e.preventDefault();
     const email = e.target.elements.login;
     const password1 = e.target.elements.pass1;
     const password2 = e.target.elements.pass2;
@@ -24,7 +22,7 @@ function checkData(e) {
         errors.push(email)
     };
 
-    if(password1.value.length !== 6) {
+    if(password1.value.length < 6) {
         errors.push(password1)
     }
 
@@ -39,10 +37,10 @@ function checkData(e) {
         errors.push(regulations)
     };
 
-    if(errors.length < 0){
-        e.preventDefault();
+    if(errors.length > 0){
         errors.forEach(function(err) {
         err.previousElementSibling.style.color = 'red'
+        console.log(err);
     })} else {
         console.log('done')
     }
