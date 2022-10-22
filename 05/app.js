@@ -13,9 +13,6 @@ if(formEl) {
 function stopSubmit(e) {
     e.preventDefault();
 
-
-
-
 const nameEl = formEl.elements.firstName;
 const lastNameEl = formEl.elements.lastName;
 const streetEl = formEl.elements.street;
@@ -25,40 +22,46 @@ const zipNr = formEl.elements.zip;
 const cityName = formEl.elements.city;
 const voivodeshipName = formEl.elements.voivodeship;
 
+
+
 const errors = [];
 
-if(nameEl.value.lenght === 0) {
-    errors.push('Error');
+
+if(nameEl.value.length === 0) {
+    errors.push('Dane w polu imienia są niepoprawne');
 }
 
-if(lastNameEl.value.lenght === 0) {
-    errors.push('Error Last');
+if(lastNameEl.value.length === 0) {
+    errors.push('Dane w polu nazwiska są niepoprawne');
 }
 
-if(streetEl.value.lenght === 0) {
-    errors.push('Error Street ');
+if(streetEl.value.length === 0) {
+    errors.push('Dane w polu ulica są niepoprawne');
 }
 
-if(houseNr.value.lenght === 0) {
-    errors.push('Error House ');
+if(houseNr.value.length === 0) {
+    errors.push('Dane w polu numer domu są niepoprawne');
 }
 
-if(flatNr.value.lenght === 0) {
-    errors.push('Error Flat ');
+if(flatNr.value.length === 0) {
+    errors.push('Dane w polu numer piętra są niepoprawne');
 }
 
-if(zipNr.value.lenght === 0) {
-    errors.push('Error Zip ');
+if(zipNr.value.length === 0) {
+    errors.push('Dane w polu kod pocztowy są niepoprawne');
 }
 
-if(cityName.value.lenght === 0) {
-    errors.push('Error City ');
+if(cityName.value.length === 0) {
+    errors.push('Dane w polu nazwa miasta są niepoprawne');
 }
 
-if(voivodeshipName.value.lenght === 0) {
-    errors.push('Error voivodeship ');
+if(voivodeshipName.value.length === 0) {
+    errors.push('Dane w polu województwo są niepoprawne');
 }
 
 console.log(errors);
+
 };
+
+
 

@@ -11,24 +11,19 @@
 
 //Wyświetl rozmiar pliku w Mb z dwoma miejscami po przecinku oraz nazwę
 
-document.addEventListener('DOMContentLoaded' , init);
+//document.addEventListener('DOMContentLoaded' , init);
 
 function init() {
     const elInput = document.querySelector('input');
     if(elInput) {
-        elInput.addEventListener('change' ,showFiles);
-        
+        elInput.addEventListener('change', handleChange);
     }
 }
 
 
-function showFiles(e) {
+function handleChange(e) {
     console.log(e.target);
-    const fileList = e.target.files;
-    fileList.forEach(function(file) {
-        console.log(file);
-    })
-    }
+}
     
         
    
