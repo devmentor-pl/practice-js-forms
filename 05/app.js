@@ -9,6 +9,8 @@ if(formEl) {
     formEl.addEventListener('submit', stopSubmit);
 }
 
+const ulEl = document.querySelector('ul');
+
 
 function stopSubmit(e) {
     e.preventDefault();
@@ -21,7 +23,6 @@ const flatNr = formEl.elements.flatNumber;
 const zipNr = formEl.elements.zip;
 const cityName = formEl.elements.city;
 const voivodeshipName = formEl.elements.voivodeship;
-
 
 
 const errors = [];
@@ -61,7 +62,15 @@ if(voivodeshipName.value.length === 0) {
 
 console.log(errors);
 
-};
 
+if(errors.length === 0) {
+    alert('Dane są poprawne');
+} else {
+    errors.forEach(function(text){
+        const liEl = document.createElement('li');
+        liEl.innerText = text;
 
-
+        ulEl.appendChild(liEl);
+    })
+}
+}
