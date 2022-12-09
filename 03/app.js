@@ -1,36 +1,29 @@
 const inputEl = document.querySelector('input');
-inputEl.addEventListener('change', showImg);
+inputEl.addEventListener('change', handleChange);
 
-const ulEl = document.querySelector('ul');
-const liEl = document.querySelector('.images-list__item--prototype');
+function handleChange(e) {
+    const prototype = document.querySelector('.images-list__item--prototype');
+    const ulEl = document.querySelector('.images-list');
+    const filesList = Array.from(e.target.files);
+    filesList.forEach(function(file) {
+        
+        const liEl = prototype.cloneNode(true);
+        const header = liEl.querySelector('header');
+        const footer = liEl.querySelector('footer');
+        const imgEl = liEl.querySelector('img');
 
-function showImg(e) {
-    const filesNumber = inputEl.files.length;
-    for(let i=0; i < filesNumber; i++) {
-        const file = e.target.files[i];
-        if(file && file.type.includes('image')) {
-            const newLiEl = function checkImg(file) {
-                const newLiEl = liEl.cloneNode(true);
-                newLiEl.classList.remove('images-list__item--prototype');
-                ulEl.appendChild(newLiEl);
-                const imgName = file.name;
-                const imgSize = file.size;
-                const headerEl = newLiEl.querySelector('header');
-                const footerEl = newLiEl.querySelector('footer');
-                headerEl.innerText = imgName;
-                footerEl.innerText = imgSize;
-
-                return newLiEl;
-            }
+        header.innerText = file.name;
+        footer.innerText = file.size;
+        liEl.classList.remove('.images-list__item--prototype')
+        ulEl.appendChild(liEl);
 
         const reader = new FileReader();
-        reader.onload = function(readerEvent) {
-            const imgFile = newLiEl.querySelector('img');
-            imgFile.src = readerEvent.target.result;
-        }
+        reader.addEventListener('load', function(e) {
+            const img = e.target.result;
+            imgEl.src = img;
+        });
 
         reader.readAsDataURL(file);
 
-        }
-    }
+    });
 }
