@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', init);
+const colorInput = document.querySelector('input[type=color]');
+const rangeInput = document.querySelector('input[type=range]');
 
 function init() {
     const boxElement = document.querySelector('.box');
@@ -14,12 +16,13 @@ function setBoxShadow(element, colorInHex, opacity = 1) {
     )`;
 
     element.style.boxShadow = `0 0 5px 5px ${colorInRGBA}`;
+
 }
 
 
 function getChannelColor(colorInHex, channelName) {
     let start;
-    switch(channelName) {
+    switch (channelName) {
         case 'red':
             start = 1;
             break;
@@ -34,7 +37,16 @@ function getChannelColor(colorInHex, channelName) {
     const channelColorHex = colorInHex.substr(start, 2);
     const channelColorDec = parseInt(channelColorHex, 16);
 
-    return channelColorDec; 
+    return channelColorDec;
 }
 
 
+colorInput.addEventListener('input', function (e) {
+    const boxElement = document.querySelector('.box');
+    setBoxShadow(boxElement, this.value)
+});
+
+rangeInput.addEventListener('input', function (e) {
+    const boxElement = document.querySelector('.box');
+    setBoxShadow(boxElement, colorInput.value, this.value / 100)
+});
