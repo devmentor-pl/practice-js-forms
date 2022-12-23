@@ -1,7 +1,9 @@
 const formEl = document.querySelector('form');
 const ul = document.querySelector('.users-list');
 
-formEl.addEventListener('submit', function (e) {
+formEl.addEventListener('submit', createUser);
+
+function createUser(e) {
 	e.preventDefault();
 
 	const userName = e.target.elements.firstName.value;
@@ -18,4 +20,4 @@ formEl.addEventListener('submit', function (e) {
 	} else {
 		alert('Proszę wypełnić pola!');
 	}
-});
+}
