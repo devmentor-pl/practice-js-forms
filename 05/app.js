@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', init);
 function init() {
 	const formEl = document.querySelector('form');
 	const ulEl = document.querySelector('.messages');
-	const submitEl = document.querySelector('input[type="submit"]');
+	formEl.noValidate = true;
 
 	if (formEl) {
 		formEl.addEventListener('submit', handleSubmit);
@@ -14,57 +14,85 @@ function init() {
 
 		let errors = [];
 
-		const nameEl = e.target.elements.firstName;
-		const lastNameEl = e.target.elements.lastName;
-		const streetNameEl = e.target.elements.street;
-		const houseNumberEl = e.target.elements.houseNumber;
-		const flatNumberEl = e.target.elements.flatNumber;
-		const zipCodeEl = e.target.elements.zip;
-		const cityEl = e.target.elements.city;
-		const voivodeshipEl = e.target.elements.voivodeship;
+		const fields = [
+			{ name: 'firstName', label: 'Imię', required: true },
+			{ name: 'lastName', label: 'Nazwisko', required: true },
+			{ name: 'street', label: 'Ulica', required: true },
+			{
+				name: 'houseNumber',
+				label: 'Numer budynku',
+				required: true,
+				type: 'number',
+			},
+			{
+				name: 'flatNumber',
+				label: 'Numer mieszkania',
+				type: 'number',
+			},
+			{
+				name: 'zip',
+				label: 'Kod pocztowy',
+				required: true,
+				pattern: '[0-9]{2}-[0-9]{3}',
+			},
+			{ name: 'city', label: 'Miejscowość', required: true },
+			{ name: 'voivodeship', label: 'Województwo', required: true },
+		];
 
-		if (nameEl.value === '') {
-			errors.push('Dane w polu Imię są niepoprawne!');
-		}
-		if (lastNameEl.value === '') {
-			errors.push('Dane w polu Nazwisko są niepoprawne!');
-		}
-		if (streetNameEl.value === '') {
-			errors.push('Dane w polu Ulica są niepoprawne!');
-		}
-		if (houseNumberEl.value === '' || Number.isNaN(houseNumberEl.value)) {
-			errors.push('Dane w polu Numer Budynku są niepoprawne!');
-		}
-		if (Number.isNaN(flatNumberEl.value)) {
-			errors.push('Dane w polu Numer Mieszkania są niepoprawne!');
-		}
-		if (zipCodeEl.value === '' || !/[0-9]{2}-[0-9]{3}/.test(zipCodeEl.value)) {
-			errors.push('Dane w polu Kod pocztowy są niepoprawne!');
-		}
-		if (cityEl.value === '') {
-			errors.push('Dane w polu Miejscowość są niepoprawne!');
-		}
-		if (voivodeshipEl.value === '') {
-			errors.push('Dane w polu Województwo są niepoprawne!');
-		}
+		checkDataInArray(fields, errors);
 
 		ulEl.innerHTML = '';
 
 		if (errors.length === 0) {
 			alert('Dane zostały wysłane prawidłowo!');
-			const arrFromForm = Array.from(formEl.elements);
-			arrFromForm.forEach(function (el) {
-				if (el !== submitEl) {
-					el.value = '';
-				}
-			});
+			clearInputsValue(fields);
 		} else {
-			errors.forEach(function (err) {
-				const liEl = document.createElement('li');
-				liEl.innerText = err;
-				ulEl.appendChild(liEl);
-			});
-			errors = [];
+			createErrorsList(errors);
 		}
+	}
+
+	function checkDataInArray(arr, errorsBox) {
+		arr.forEach(function (arrEl) {
+			const {
+				name,
+				label,
+				type = 'text',
+				required = false,
+				pattern = null,
+			} = arrEl;
+			const inputValue = formEl.elements[name].value;
+
+			if (required) {
+				if (inputValue === '') {
+					errorsBox.push(`Dane w polu ${label} są wymagane!`);
+				}
+			}
+
+			if (type === 'number') {
+				if (Number.isNaN(Number(inputValue))) {
+					errorsBox.push(`Dane w polu ${label} muszą być liczbą!`);
+				}
+			}
+			if (pattern) {
+				const reg = new RegExp(pattern);
+				if (!reg.test(inputValue)) {
+					errorsBox.push(`Dane w polu ${label} nie są w odpowiednim formacie!`);
+				}
+			}
+		});
+	}
+
+	function createErrorsList(errorsBox) {
+		errorsBox.forEach(function (err) {
+			const liEl = document.createElement('li');
+			liEl.innerText = err;
+			ulEl.appendChild(liEl);
+		});
+	}
+
+	function clearInputsValue(arr) {
+		arr.forEach(function (el) {
+			formEl[el.name].value = '';
+		});
 	}
 }
