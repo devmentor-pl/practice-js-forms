@@ -1,4 +1,5 @@
 const formEl = document.querySelector('form');
+const submitEl = document.querySelector('input[type="submit"]');
 formEl.noValidate = true;
 
 formEl.addEventListener('submit', checkData);
@@ -11,23 +12,20 @@ function checkData(e) {
 	const accept = e.target.elements.accept;
 	const errors = [];
 
-	email.previousElementSibling.style.color = 'black';
-	pass1.previousElementSibling.style.color = 'black';
-	pass2.previousElementSibling.style.color = 'black';
-	accept.previousElementSibling.style.color = 'black';
-
 	if (!email.value.includes('@')) {
 		errors.push(email);
 	}
 	if (pass1.value.length < 6) {
 		errors.push(pass1);
 	}
-	if (pass1.value !== pass2.value) {
+	if (pass1.value !== pass2.value || pass2.value === '') {
 		errors.push(pass1, pass2);
 	}
 	if (!accept.checked) {
 		errors.push(accept);
 	}
+
+	resetLabelColor();
 
 	if (errors.length > 0) {
 		errors.forEach(function (err) {
@@ -36,5 +34,13 @@ function checkData(e) {
 		});
 	} else {
 		console.log('Done');
+	}
+}
+
+function resetLabelColor() {
+	for (const el of formEl.elements) {
+		if (el !== submitEl) {
+			el.previousElementSibling.style.color = 'black';
+		}
 	}
 }
