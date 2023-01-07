@@ -5,25 +5,25 @@ function init() {
     setBoxShadow(boxElement, '#000000');
 
     const colorInput = boxElement.previousElementSibling.children[0];
-    colorInput.addEventListener('change', changeColor)
     const rangeInput = boxElement.previousElementSibling.children[1];
+
+    colorInput.addEventListener('change', function (e) {
+        const colorValue = e.target.value;
+        setBoxShadow(boxElement, colorValue)
+    });
     rangeInput.addEventListener('mousemove', changeShadow);
     rangeInput.addEventListener('change', changeShadow);
-
-
-    function changeColor(e) {
-        setBoxShadow(boxElement, e.target.value)
-    }
 
     function changeShadow(e) {
         const isMouseMoveEvent = e.type === 'mousemove';
         const isMouseLeftButtonPress = e.buttons === 1;
         if (isMouseMoveEvent && isMouseLeftButtonPress || !isMouseMoveEvent) {
-            const range = e.target.value / 100;
-            // setBoxShadow(boxElement, null, range) NIE DZIAŁA
+            const rangeValue = e.target.value / 100;
+            setBoxShadow(boxElement, colorInput.value, rangeValue);
         }
     }
 }
+
 function setBoxShadow(element, colorInHex, opacity = 1) {
     const colorInRGBA = `rgba(
         ${getChannelColor(colorInHex, 'red')}, 
