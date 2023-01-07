@@ -1,5 +1,4 @@
 const formEl = document.querySelector('form');
-const submitEl = document.querySelector('input[type="submit"]');
 formEl.noValidate = true;
 
 formEl.addEventListener('submit', checkData);
@@ -39,7 +38,7 @@ function checkData(e) {
 
 function resetLabelColor() {
 	for (const el of formEl.elements) {
-		if (el !== submitEl) {
+		if (el.type !== 'submit') {
 			el.previousElementSibling.style.color = 'black';
 		}
 	}
