@@ -9,7 +9,7 @@ function init() {
 
     colorInput.addEventListener('change', function (e) {
         const colorValue = e.target.value;
-        setBoxShadow(boxElement, colorValue)
+        setBoxShadow(boxElement, colorValue, rangeInput.value)
     });
     rangeInput.addEventListener('mousemove', changeShadow);
     rangeInput.addEventListener('change', changeShadow);
