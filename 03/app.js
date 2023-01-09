@@ -29,8 +29,7 @@ function getFile(e) {
 
 const ImgFile = function (initFile, initNewImg) {
     this.fileName = initFile.name;
-    // Nie jestem pewien co do wartości, bo teoretycznie o ile dobrze pamiętam powinno się to dzielić przez 1024, ale wtedy wychodzi inna wartość niż rozmiar obrazka, który podpowiada mi system
-    this.fileSize = parseFloat((initFile.size / 1000) / 1000).toFixed(2) + ' MB';
+    this.fileSize = parseFloat((initFile.size / 1024) / 1024).toFixed(2) + ' MB';
     this.fileImg = initNewImg;
     this.fileSrc = initNewImg.src;
     this.showImgList();
