@@ -1,63 +1,82 @@
-const formEl = document.querySelector('form');
-const messagesList = document.querySelector('.messages');
-formEl.noValidate = true;
+document.addEventListener('DOMContentLoaded', init);
 
-if (formEl) {
-    formEl.addEventListener('submit', checkData)
-}
+function init() {
+    const formEl = document.querySelector('form');
+    const messagesList = document.querySelector('.messages');
+    formEl.noValidate = true;
 
-function createMessageItem(message) {
-    const listItem = document.createElement('li');
-
-    listItem.classList.add('messages__item');
-    listItem.innerText = message;
-
-    return listItem;
-}
-
-function checkData(e) {
-    e.preventDefault();
-
-    const messages = [];
-
-    for (const key of formEl) {
-        const label = key.previousSibling;
-        const labelParent = key.parentElement;
-
-        if (key.hasAttribute('required') && key.value.length === 0) {
-            labelParent.style.color = 'red';
-            messages.push(`Pole: ${label.textContent} jest wymagane!`);
-        } else {
-            labelParent.style.color = 'black';
-        }
-        if (key.type === 'number' && key.value.length > 0 && key.value <= 0) {
-            labelParent.style.color = 'red';
-            messages.push(`Podaj poprawny ${label.textContent}!`);
-        }
-        if (key.name === 'zip') {
-            const value = key.value;
-            const isValidZip = /^[0-9]{2}(?:-[0-9]{3})?$/.test(value);
-
-            if (!isValidZip) {
-                labelParent.style.color = 'red';
-                messages.push(`Podaj poprawny ${label.textContent}!`)
-            }
-        }
+    if (formEl) {
+        formEl.addEventListener('submit', handleSubmit)
     }
 
-    if (messages.length > 0) {
+    function handleSubmit(e) {
+        e.preventDefault();
 
-        messagesList.innerHTML = '';
-        messages.forEach(function (message) {
-            const error = createMessageItem(message);
+        const messages = [];
 
-            messagesList.appendChild(error);
+        const fields = [
+            { name: 'firstName', label: 'Imię', required: true, },
+            { name: 'lastName', label: 'Nazwisko', required: true, },
+            { name: 'street', label: 'Ulica', required: true, },
+            {
+                name: 'houseNumber',
+                label: 'Number budynku',
+                type: 'number',
+                required: true,
+            },
+            { name: 'flatNumber', label: 'Number mieszkania', type: 'number', },
+            {
+                name: 'zip',
+                label: 'Kod pocztowy',
+                pattern: '^[0-9]{2}(?:-[0-9]{3})?$',
+                required: true,
+                clear: true,
+            },
+            { name: 'city', label: 'Miasto', required: true, clear: true, },
+            { name: 'voivodeship', label: 'Województwo', required: true, clear: true, },
+        ];
+
+        fields.forEach(function (field) {
+            const value = formEl.elements[field.name].value;
+
+            if (field.required) {
+                if (value.length === 0) {
+                    messages.push(`Dane w polu ${field.label} są wymagane.`);
+                }
+            }
+
+            if (field.type === 'Number') {
+                if (Number.isNaN(Number(value))) {
+                    messages.push(`Dane w polu ${field.label} muszą być liczbą.`);
+                }
+            }
+
+            if (field.pattern) {
+                const reg = new RegExp(field.pattern);
+                if (!reg.test(value)) {
+                    messages.push(`Dane w polu ${field.label} zawierają niedozwolone znaki, lub nie są zgodne z przyjętym w Polsce wzorem.`);
+                }
+            }
         });
-    } else if (messages.length === 0) {
+
+
         messagesList.innerHTML = '';
 
-        const info = createMessageItem('Pomyślnie wysłano formularz.');
+        if (messages.length === 0) {
+            alert('Dane zostały wypełnione prawidłowo!');
 
-        messagesList.appendChild(info);
+            fields.forEach(function (el) {
+                if (!el.clear) {
+                    formEl[el.name].value = '';
+                }
+            });
+        } else {
+            messages.forEach(function (message) {
+                const listItem = document.createElement('li');
+                listItem.innerText = message;
+
+                messagesList.appendChild(listItem);
+            });
+        }
     }
 }
