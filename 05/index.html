@@ -15,12 +15,18 @@
 
         <div>
             <label>
-                Imię <input name="firstName" required />
+                Imię <input name="firstName" pattern="^[a-zA-ZąćęłńóśźżĄĘŁŃÓŚŹŻ –-]+$" required />
             </label>
         </div>
         <div>
             <label>
-                Nazwisko <input name="lastName" required />
+                Nazwisko <input name="lastName" pattern="^[a-zA-ZąćęłńóśźżĄĘŁŃÓŚŹŻ–-]+$" required />
+            </label>
+        </div>
+        <div>
+            <label>
+                Numer telefonu komórkowego <input name="mobileNumber" type="number" pattern="^[1-9][0-9]{8}$"
+                    required />
             </label>
         </div>
         <div>
@@ -28,10 +34,10 @@
                 Ulica <input name="street" required />
             </label>
             <label>
-                Numer budynku <input name="houseNumber" type="number" required />
+                Numer budynku <input name="houseNumber" pattern="^[1-9]\d*(?:[ -]?(?:[a-zA-Z]+|[1-9]\d*))?" required />
             </label>
             <label>
-                Numer mieszkania <input name="flatNumber" type="number" />
+                Numer mieszkania <input name="flatNumber" pattern="^[1-9]\d*(?:[ -]?(?:[a-zA-Z]+|[1-9]\d*))?" />
             </label>
         </div>
         <div>
