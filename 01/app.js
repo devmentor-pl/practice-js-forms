@@ -4,20 +4,12 @@ const formEl = document.querySelector('form');
 const checkData = function (currElList, inputArr) {
     for (let i = 0; i < currElList.length - 1; i++) {
         const currEl = currElList[i];
-        const check = isNotEmpty(currEl);
 
-        if (check) {
+        if (currEl.value.length === 0) {
+            alert(`Wprowadziłeś błędne dane w polu ${currEl.previousSibling.textContent.trim().slice(0, -1)}`);
+        } else {
             inputArr.push(currEl.value);
-            clearInput(currEl);
         }
-    }
-}
-
-const isNotEmpty = function (currEl) {
-    if (currEl.value.length === 0) {
-        alert(`Wprowadziłeś błędne dane w polu ${currEl.previousSibling.textContent.trim().slice(0, -1)}`);
-    } else {
-        return true;
     }
 }
 
@@ -31,8 +23,11 @@ const printData = function (inputArr) {
     usersList.appendChild(listItem);
 }
 
-const clearInput = function (currEl) {
-    currEl.value = '';
+const clearInput = function (currElList) {
+    for (let j = 0; j < currElList.length - 1; j++) {
+        console.log(currElList[j]);
+        currElList[j].value = '';
+    }
 }
 
 const getData = function (e) {
@@ -44,6 +39,7 @@ const getData = function (e) {
     checkData(currElList, inputArr)
     if (inputArr.length === currElList.length - 1) {
         printData(inputArr);
+        clearInput(currElList);
     }
 }
 
