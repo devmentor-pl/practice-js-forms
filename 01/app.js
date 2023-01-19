@@ -1,16 +1,30 @@
-const formEl = document.querySelector('form')
-const ulEl = document.querySelector('ul')
-formEl.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const firstName = e.target.elements.value
-    const lastName = e.target.elements.value
-    if(firstName.length === 0) {
-        alert('Please, get text')
-    } else {
-        userName = firstName + ' ' + lastName;
-        const newLi = document.createElement('li');
-        newLi.classList.add('user-list__person');
-        newLi.innerText = userName;
-        ulEl.appendChild(newLi)
+document.addEventListener('DOMContentLoaded', init);
+
+function init() {
+    console.log('DOM');
+
+    const formEl = document.querySelector('form')
+    console.log(formEl);
+    
+    if(formEl) {
+        formEl.addEventListener('submit', handleSubmit)
     }
-})
+}
+function handleSubmit(e) {
+    e.preventDefault();
+    
+    const firstName = e.target.elements.firstName.value;
+    const lastName = e.target.elements.lastName.value;
+
+    if(firstName !== '' && lastName !== '') {
+        const liElement = document.createElement('li');
+        liElement.classList.add('users-list__person');
+        liElement.innerText = firstName + ' ' + lastName;
+
+        const ulElement = e.target.nextElementSibling;
+        ulElement.appendChild(liElement)
+    } else {
+        alert('Wprowadź dane');
+    }
+
+}
