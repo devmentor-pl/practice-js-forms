@@ -13,7 +13,7 @@ rangePanel.addEventListener("change", changeOpacity);
 
 function changeColor(e) {
 	const color = e.target.value;
-	setBoxShadow(boxElement, color, rangePanel.value);
+	setBoxShadow(boxElement, color, rangePanel.value / 100);
 }
 
 function changeOpacity(e) {
