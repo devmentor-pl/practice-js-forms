@@ -21,6 +21,7 @@ function register(e) {
 	).value;
 
 	const checkedElement = document.querySelector('input[name="accept"]');
+	const labelsList = document.querySelectorAll("label");
 
 	const errors = [];
 
@@ -32,7 +33,7 @@ function register(e) {
 		errors.push(password1Element, password2Element);
 	}
 
-	if (password1ElementValue.length || password2ElementValue.length <= 6) {
+	if (password1ElementValue.length <= 6 || password2ElementValue.length <= 6) {
 		errors.push(password1Element, password2Element);
 	}
 
@@ -40,13 +41,14 @@ function register(e) {
 		errors.push(checkedElement);
 	}
 
-	console.log(errors);
+	labelsList.forEach(function (label) {
+		label.style.color = "black";
+	});
 
 	if (errors.length === 0) {
 		console.log("done");
 	} else {
 		errors.forEach(function (error) {
-			console.log(error);
 			error.previousElementSibling.style.color = "red";
 		});
 	}
