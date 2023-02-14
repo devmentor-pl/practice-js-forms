@@ -24,9 +24,7 @@ function addFiles(e) {
 			const reader = new FileReader();
 
 			reader.onload = function (readerEvent) {
-				const newImg = document.createElement("img");
-				newImg.src = readerEvent.target.result;
-				imgElement.children[1].setAttribute("src", newImg.src);
+				imgElement.children[1].setAttribute("src", readerEvent.target.result);
 			};
 			reader.readAsDataURL(file);
 		}
