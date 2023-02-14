@@ -47,7 +47,7 @@ function handleData(e) {
 		errors.push("Podaj numer mieszkania");
 	}
 
-	if (zipElement.value === "" || !/[0-9]{2}-[0-9]{3}/.test(zipCodeEl.value)) {
+	if (zipElement.value === "" || !/[0-9]{2}-[0-9]{3}/.test(zipElement.value)) {
 		errors.push("Podaj prawidłlowy kod");
 	}
 

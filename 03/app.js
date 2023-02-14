@@ -9,12 +9,14 @@ function addFiles(e) {
 
 	filesListArray.forEach(function (file) {
 		if (file && file.type.includes("image")) {
-			createIMGElement(file);
+			const newImgElement = createIMGElement(file);
 
 			const reader = new FileReader();
-
-			reader.onload = function (readerEvent, imgElement) {
-				imgElement.children[1].setAttribute("src", readerEvent.target.result);
+			reader.onload = function (readerEvent) {
+				newImgElement.children[1].setAttribute(
+					"src",
+					readerEvent.target.result
+				);
 			};
 			reader.readAsDataURL(file);
 		}
