@@ -55,7 +55,7 @@ if (formElement) {
 
 			if (field.type === "number") {
 				if (Number.isNaN(Number(value))) {
-					errors.push("W tym polu wpisz liczbę.");
+					errors.push("Dane w polu " + field.label + " muszą być liczbą.");
 				}
 			}
 
