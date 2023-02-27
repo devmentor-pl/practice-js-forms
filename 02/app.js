@@ -4,10 +4,11 @@ console.log(errors)
 
 formEl.addEventListener('submit', function (e) {
 	e.preventDefault()
+
 	checkEmail(e)
 	checkPassword(e)
 	acceptRegulations(e)
-	checkErrors(e)
+	showErrors(e)
 })
 
 function checkEmail(e) {
@@ -16,7 +17,7 @@ function checkEmail(e) {
 	const email = inpEmail.value
 	const validEmail = email.match(re)
 	if (validEmail) {
-		console.log('Email OK')
+		clearErrors(inpEmail)
 	} else {
 		errors.push(inpEmail)
 	}
@@ -29,7 +30,8 @@ function checkPassword(e) {
 	const pass2 = inpPass2.value
 
 	if (pass1.length > 6 && pass1 === pass2) {
-		console.log('Hasło jest ok')
+		clearErrors(inpPass1)
+		clearErrors(inpPass2)
 	} else if (pass1.length > 6 && pass1 !== pass2) {
 		console.log('Hasła do siebie nie pasują!')
 		errors.push(inpPass1, inpPass2)
@@ -44,15 +46,26 @@ function acceptRegulations(e) {
 	const checked = inpAccept.checked
 
 	if (checked) {
-		console.log('Regulamin ok')
+		clearErrors(inpAccept)
 	} else {
 		errors.push(inpAccept)
 	}
 }
 
-function checkErrors(e) {
+function showErrors() {
 	errors.forEach(function (el) {
 		const label = el.previousElementSibling
 		label.style.color = 'red'
 	})
+
+	if (errors.length >= 1) {
+		errors.splice(0, errors.length)
+	} else {
+		console.log('done')
+	}
+}
+
+function clearErrors(el) {
+	const label = el.previousElementSibling
+	label.style.color = 'black'
 }
