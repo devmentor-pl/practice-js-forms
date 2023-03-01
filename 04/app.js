@@ -45,7 +45,7 @@ inpRange.addEventListener('mousemove', setOpacity)
 function setColor(e) {
 	const boxElement = document.querySelector('.box')
 	const colorValue = e.target.value
-	setBoxShadow(boxElement, colorValue)
+	setBoxShadow(boxElement, colorValue, inpRange.value / 100)
 }
 
 function setOpacity(e) {
