@@ -1,62 +1,106 @@
-const formEl = document.querySelector('form')
-const messageList = document.querySelector('.messages')
+document.addEventListener('DOMContentLoaded', init)
 
-formEl.addEventListener('submit', function (e) {
-	e.preventDefault()
-	checkCorrectForm(e)
-})
+function init() {
+	const formEl = document.querySelector('form')
+	const messageList = document.querySelector('.messages')
 
-function checkCorrectForm(e) {
-	const errors = []
-	const firstName = e.target.elements.firstName.value
-	const lastName = e.target.elements.lastName.value
-	const street = e.target.elements.street.value
-	const houseNumber = e.target.elements.houseNumber.value
-	const flatNumber = e.target.elements.flatNumber.value
-	const zipCode = e.target.elements.zip.value
-	const pattern = /[0-9]{2}-[0-9]{3}/
-	const validZipCode = zipCode.match(pattern)
-	const city = e.target.elements.city.value
-	const voivodeship = e.target.elements.voivodeship.value
-
-	if (firstName === '') {
-		errors.push('Proszę podać imię')
-	}
-	if (lastName === '') {
-		errors.push('Proszę podać nazwisko')
-	}
-	if (street === '') {
-		errors.push('Proszę podać ulicę')
-	}
-	if (houseNumber === '') {
-		errors.push('Proszę podać poprawny numer budynku')
-	}
-	if (flatNumber === '') {
-		errors.push('Proszę podać poprawny numer mieszkania')
-	}
-	if (zipCode === '' || validZipCode === null) {
-		errors.push('Proszę podać poprawny kod pocztowy')
-	}
-	if (city === '') {
-		errors.push('Proszę podać miejscowość')
-	}
-	if (voivodeship === '') {
-		errors.push('Proszę wybrać województwo')
+	if (formEl) {
+		formEl.addEventListener('submit', function (e) {
+			e.preventDefault()
+			handleSubmit(e)
+		})
 	}
 
-	if (errors.length > 0) {
+	function handleSubmit(e) {
+		const errors = []
+
+		const fields = [
+			{
+				name: 'firstName',
+				label: 'Imię',
+				required: true,
+				pattern: '^[a-zA-Z --]+$',
+			},
+			{
+				name: 'lastName',
+				label: 'Nazwisko',
+				required: true,
+				pattern: '^[a-zA-Z --]+$',
+			},
+			{
+				name: 'street',
+				label: 'Ulica',
+				required: true,
+			},
+			{
+				name: 'houseNumber',
+				label: 'Numer budynku',
+				required: true,
+				type: 'number',
+			},
+			{
+				name: 'flatNumber',
+				label: 'Numer mieszkania',
+
+				type: 'number',
+			},
+			{
+				name: 'zip',
+				label: 'Kod pocztowy',
+				pattern: '^[0-9]{2}-[0-9]{3}$',
+				required: true,
+			},
+			{
+				name: 'city',
+				label: 'Miasto',
+				pattern: '^[a-zA-Z –-]+$',
+				required: true,
+			},
+			{
+				name: 'voivodeship',
+				label: 'Województwo',
+				required: true,
+			},
+		]
+
+		fields.forEach(function (field) {
+			const value = formEl.elements[field.name].value
+
+			if (field.required === true) {
+				if (value.length === 0) {
+					errors.push(`Dane w polu '${field.label}' są wymagane`)
+				}
+			}
+
+			if (field.type === 'number') {
+				if (Number.isNaN(Number(value))) {
+					errors.push(`Dane w polu '${field.label}' muszą być liczbą!`)
+				}
+			}
+
+			if (field.pattern) {
+				const reg = new RegExp(field.pattern)
+
+				if (!reg.test(value)) {
+					errors.push(
+						`Dane w polu '${field.label}' zawierają niedozwolone znaki. `
+					)
+				}
+			}
+		})
+
 		messageList.innerHTML = ''
-		showErrors(errors)
-	} else {
-		alert('Formularz wypełniony prawidłowo!')
+		if (errors.length === 0) {
+			alert('Dane zostały wypełnione prawidłowo')
+			fields.forEach(function (el) {
+				formEl[el.name].value = ''
+			})
+		} else {
+			errors.forEach(function (text) {
+				const liEl = document.createElement('li')
+				liEl.innerText = text
+				messageList.appendChild(liEl)
+			})
+		}
 	}
-}
-
-function showErrors(arr) {
-	arr.forEach(function (el) {
-		const liItem = document.createElement('li')
-		liItem.textContent = el
-
-		messageList.appendChild(liItem)
-	})
 }
