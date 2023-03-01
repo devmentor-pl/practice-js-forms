@@ -18,7 +18,7 @@ function showInfoFile(e) {
 			imgSize.textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB'
 			imgName.textContent = file.name
 
-			getSrc(file, liItem)
+			insertSrcFromFile(file, liItem)
 			imgList.appendChild(liItem)
 		} else {
 			console.log('Please select only image files')
@@ -26,7 +26,7 @@ function showInfoFile(e) {
 	}
 }
 
-function getSrc(file, item) {
+function insertSrcFromFile(file, item) {
 	const reader = new FileReader()
 
 	reader.onload = function (readerEvent) {
