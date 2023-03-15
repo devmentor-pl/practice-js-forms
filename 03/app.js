@@ -14,7 +14,7 @@ function showImg(e) {
 
       reader.onload = function (readerEvent) {
         const newLi = liEl.cloneNode(true);
-        newLi.style.display = "block";
+        newLi.classList.remove("images-list__item--prototype");
         ulEl.appendChild(newLi);
         newLi.children[1].src = readerEvent.target.result;
       };

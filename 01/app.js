@@ -14,5 +14,5 @@ formEl.addEventListener("submit", function (e) {
     list.setAttribute("class", "users-list__person");
     ulEl.appendChild(list);
     list.innerText = firstName + " " + lastName;
-  }
+  } else alert("Proszę wypełnić pola formularza");
 });

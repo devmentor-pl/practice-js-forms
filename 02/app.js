@@ -1,4 +1,5 @@
 const formEl = document.querySelector("form");
+const inputList = document.querySelectorAll("input");
 formEl.noValidate = true;
 
 formEl.addEventListener("submit", formValidate);
@@ -15,7 +16,7 @@ function formValidate(e) {
   if (!email.includes("@")) {
     errors.push(e.target["login"]);
   }
-  if ((pass1.length < 6 && pass1 !== pass2) || pass1.length === 0) {
+  if ((pass1.length <= 6 && pass1 !== pass2) || pass1.length === 0) {
     errors.push(e.target["pass1"]);
   }
 
@@ -28,7 +29,13 @@ function formValidate(e) {
     console.log("done");
   }
 
-  errors.forEach(function (err) {
-    err.style.border = "1px solid red ";
+  inputList.forEach(function (err) {
+    err.style.border = "";
   });
+
+  if (errors.length > 0) {
+    errors.forEach(function (err) {
+      err.style.border = "1px solid red ";
+    });
+  }
 }
