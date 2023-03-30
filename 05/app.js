@@ -23,7 +23,7 @@ const fields = [
         required: true,
         options: ["", "male","female"],
     },
-    {name: "value", type:"submit", label: ""}
+    {name: "submit", type:"submit", label: ""}
 ]
 
 //execute form creation
@@ -156,7 +156,9 @@ function checkFieldsData(e) {
             console.log('done');
         //cleans form fields
             fields.forEach(function(el) {
-                formEl[el.name].value = ''
+                if(el.name!=="submit") {
+                    formEl[el.name].value = '';
+                }
             })
         } 
     }
