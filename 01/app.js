@@ -5,10 +5,10 @@ function init() {
 
     // console.log('DOM')
 
-    const formE1 = document.querySelector('form')
+    const formEl = document.querySelector('form')
 
-    if (formE1) {
-        formE1.addEventListener('submit', handleSubmit)
+    if (formEl) {
+        formEl.addEventListener('submit', handleSubmit)
     }
 }
 
@@ -18,11 +18,11 @@ function handleSubmit(e) {
     
     // console.log(e.target.elements)
 
-    const firstNameE1 = e.target.elements.firstName
-    const lastNameE1 = e.target.elements.lastName
+    const firstNameEl = e.target.elements.firstName
+    const lastNameEl = e.target.elements.lastName
 
-    const firstName = firstNameE1.value
-    const lastName = lastNameE1.value
+    const firstName = firstNameEl.value
+    const lastName = lastNameEl.value
 
     // console.log(firstName, lastName)
 
@@ -34,8 +34,8 @@ function handleSubmit(e) {
     const ulElement = e.target.nextElementSibling
     ulElement.appendChild(liElement)
 
-    firstNameE1.value = ''
-    lastNameE1.value = ''
+    firstNameEl.value = ''
+    lastNameEl.value = ''
 
     }else{
         alert('Wprowadź dane do formularza')
