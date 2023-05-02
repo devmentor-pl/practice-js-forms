@@ -1,8 +1,34 @@
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
-    const boxElement = document.querySelector('.box');
+    
+
+    const boxElement = document.querySelector('.box')
+    const colorEl = document.querySelector('input[type=color]')
+    const rangeEl = document.querySelector('input[type=range]')
+
     setBoxShadow(boxElement, '#000000');
+
+    // console.log(colorEl, rangeEl)
+
+    colorEl.addEventListener('change', function(){
+        const color = colorEl.value
+        // console.log(color)
+        setBoxShadow(boxElement, color, rangeEl.value)
+    })
+    
+    rangeEl.addEventListener('change', handleRange)
+    rangeEl.addEventListener('mousemove', handleRange)
+
+
+
+
+    function handleRange() {
+        const opacity = rangeEl.value / 100
+        // console.log(opacity)
+        setBoxShadow(boxElement, colorEl.value, opacity)
+    }
+
 }
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
