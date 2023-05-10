@@ -13,6 +13,8 @@ function openFile(e) {
 
 			reader.onload = () => createItemWithData(file, reader.result);
 			reader.readAsDataURL(file);
+		} else {
+			alert('załadowany plik nie jest plikiem graficznym!');
 		}
 	});
 }
