@@ -24,12 +24,7 @@ const checkPasswords = function () {
   const password1 = passwordInputs[0].value;
   const password2 = passwordInputs[1].value;
   console.log("passw if: ", password1.length < 6 || password1 !== password2);
-  if (
-    password1.length < 6 ||
-    password1 !== password2 ||
-    password1 !== "" ||
-    password2 !== ""
-  ) {
+  if (password1.length < 6 && password1 !== password2) {
     if (errors.indexOf(passwordInputs[0]) === -1) {
       errors.push(...passwordInputs);
     }
