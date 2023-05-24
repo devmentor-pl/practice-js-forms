@@ -7,12 +7,21 @@ function init() {
   console.log(colorPicker);
   const slider = document.querySelector('input[type="range"]');
   colorPicker.addEventListener("change", pickColor);
-  slider.addEventListener("change", showValue);
-  slider.addEventListener("mousemove", showValue);
+  slider.addEventListener("change", setOpacity);
+  slider.addEventListener("mousemove", setOpacity);
 
   function pickColor(e) {
     const color = e.target.value;
-    console.log(color);
+    setBoxShadow(boxElement, color, slider.value / 100);
+  }
+
+  function setOpacity(e) {
+    const isMouseMoveEvent = e.type === "mousemove";
+    const isMouseLeftButtonPress = e.buttons === 1;
+    if ((isMouseMoveEvent && isMouseLeftButtonPress) || !isMouseMoveEvent) {
+      const value = e.target.value / 100;
+      setBoxShadow(boxElement, colorPicker.value, value);
+    }
   }
 }
 
