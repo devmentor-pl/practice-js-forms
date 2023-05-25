@@ -2,7 +2,24 @@ document.addEventListener('DOMContentLoaded', init);
 
 function init() {
     const boxElement = document.querySelector('.box');
+    const colorPicker = document.querySelector('input[type="color"]')
+    const rangeSlider = document.querySelector('input[type="range"]')
+
     setBoxShadow(boxElement, '#000000');
+    
+    
+    colorPicker.addEventListener('change', function(){
+        const color = colorPicker.value;
+        setBoxShadow(boxElement, color, rangeSlider.value / 100);
+    })
+    
+    const handleChange = function(e){
+        const opacity = rangeSlider.value / 100;
+        setBoxShadow(boxElement, colorPicker.value, opacity);
+    }
+    
+    rangeSlider.addEventListener('change', handleChange);
+    rangeSlider.addEventListener('mousemove', handleChange);
 }
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
