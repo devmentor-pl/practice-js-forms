@@ -16,7 +16,7 @@ function showFile(e) {
         const listImage = listItem.querySelector(".images-list__item-img");
         const imageHeader = listItem.querySelector(".images-list__item-name");
         const imageFooter = listItem.querySelector(".images-list__item-size");
-        const bitToMB = 8388608;
+        const bitToMB = 1048576;
         imageHeader.innerText = file.name;
         imageFooter.innerText = (file.size / bitToMB).toFixed(2) + " MB";
         listImage.src = readerEvent.target.result;
