@@ -58,8 +58,7 @@ function checkInputs(e) {
   } else {
     errors.push(city);
   }
-  //nie wiem dlaczego ten if nie działa
-  if (!isInputEmpty(voivodeship.value)) {
+  if (!isInputEmpty(voivodeship)) {
     styleSuccess(voivodeship);
   } else {
     errors.push(voivodeship);
