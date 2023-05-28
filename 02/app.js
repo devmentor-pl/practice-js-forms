@@ -24,14 +24,14 @@ const checkPasswords = function () {
   const password1 = passwordInputs[0].value;
   const password2 = passwordInputs[1].value;
   console.log("passw if: ", password1.length < 6 || password1 !== password2);
-  if (password1.length < 6 && password1 !== password2) {
+  if (password1.length < 6 || password1 !== password2) {
     if (errors.indexOf(passwordInputs[0]) === -1) {
       errors.push(...passwordInputs);
     }
   } else {
     const password1Index = errors.indexOf(passwordInputs[0]);
-    const password2Index = errors.indexOf(passwordInputs[1]);
     errors.splice(errors.indexOf(password1Index), 1);
+    const password2Index = errors.indexOf(passwordInputs[1]);
     errors.splice(errors.indexOf(password2Index), 1);
     setLabelColorToBlack(passwordInputs[0]);
     setLabelColorToBlack(passwordInputs[1]);
