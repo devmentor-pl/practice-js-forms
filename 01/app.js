@@ -5,13 +5,17 @@ const userList = document.querySelector(".users-list");
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
-  //   console.log(e.target);
-  const firstNameInput = firstName.value;
-  const lastNameInput = lastName.value;
-  if (lastName && firstName && isNaN(firstName) && isNaN(lastName)) {
+  const firstNameValue = firstName.value;
+  const lastNameValue = lastName.value;
+  if (
+    lastNameValue &&
+    firstNameValue &&
+    isNaN(firstNameValue) &&
+    isNaN(lastNameValue)
+  ) {
     const liTag = document.createElement("li");
     liTag.classList.add("user-list__person");
-    liTag.textContent = firstNameInput + " " + lastNameInput;
+    liTag.textContent = firstNameValue + " " + lastNameValue;
     userList.appendChild(liTag);
   }
 });
