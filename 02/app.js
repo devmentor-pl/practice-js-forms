@@ -1,6 +1,7 @@
 const form = document.querySelector('form')
 
 if (form) {
+    form.noValidate = true
     form.addEventListener('submit', handleSubmit)
 
     function checkInput(condition, element) {
