@@ -1,7 +1,7 @@
 const form = document.querySelector('form')
+
 let correctElements = []
 let incorrectElements = []
-
 
 if (form) {
     form.noValidate = true
@@ -19,13 +19,10 @@ function handleSubmit(e) {
 
     for (let i = 0; i < formElements.length; i++) {
         const formElement = formElements[i]
-
         resetInputAndLabel(formElement)
-
-        checkCondition(formElement, formElement.type)
+        checkCondition(formElement)
     }
     checkFormValidation()
-
 }
 
 function resetMessagesList() {
@@ -38,47 +35,39 @@ function resetInputAndLabel(element) {
     element.style.borderColor = "black"
 }
 
-function checkCondition(element, type) {
+function checkCondition(element) {
     if (element.name == "zip") {
         const pattern = /[0-9]{2}-[0-9]{3}/
         if (!pattern.test(element.value)) {
-            incorrectElements.push(element)
             const elementName = element.parentElement.textContent
             const error = `Pole "${elementName}" nie może być puste. Wymagany format: XX-XXX (X-cyfra)`
-            createErrorItem(error)
+            createErrorItem(error, element)
         }
-    } else if (type === 'text') {
+    } else if (element.type === 'text') {
         if (!(element.value.trim().length > 0)) {
-            incorrectElements.push(element)
             const elementName = element.parentElement.textContent
             const error = `Pole "${elementName}" nie może być puste. `
-            createErrorItem(error)
+            createErrorItem(error, element)
         }
     } else if (element.name === 'houseNumber') {
         if (element.value <= 0 || element.value.trim().length === 0) {
-            incorrectElements.push(element)
             const elementName = element.parentElement.textContent
             const error = `Pole "${elementName}" nie może być puste i musi być większe od 0.`
-            createErrorItem(error)
+            createErrorItem(error, element)
         }
-    }
-    else if (element.name === 'flatNumber') {
+    } else if (element.name === 'flatNumber') {
         if (element.value < 0 || element.value === '0') {
-            incorrectElements.push(element)
             const elementName = element.parentElement.textContent
             const error = `Pole "${elementName}" musi być większe od 0.`
-            createErrorItem(error)
+            createErrorItem(error, element)
         }
     } else if (element.tagName === "SELECT") {
         if (element.selectedIndex === 0) {
-            incorrectElements.push(element)
             const elementName = element.parentElement.innerText.split(' ')[0]
             const error = `Pole "${elementName}" musi zostać wybrane.`
-            createErrorItem(error)
+            createErrorItem(error, element)
         }
     }
-
-
 }
 
 function checkFormValidation() {
@@ -91,7 +80,8 @@ function checkFormValidation() {
     }
 }
 
-function createErrorItem(message) {
+function createErrorItem(message, element) {
+    incorrectElements.push(element)
     const messagesList = document.querySelector('.messages')
 
     if (messagesList) {
