@@ -18,16 +18,16 @@ const clearError = input => {
 
 const checkForm = input => {
 	input.forEach(el => {
-		if (el.value === '' ) {
+		if (el.value === '') {
 			showError(el)
-		}else {
+		} else {
 			clearError(el)
 		}
 	})
 }
 
 const checkLength = (input, min) => {
-	if (input.value.length <= min) {
+	if (input.value.length >= min) {
 		showError(input, min)
 	} else {
 		clearError(input, min)
@@ -51,27 +51,28 @@ const checkEmail = email => {
 }
 const checkAccept = el => {
 	if (el.checked === false) {
-	showError(el)
-	}else{
-        clearError(el)
-    }
-}
-
-const checkErrors = () => {
-    const allInputs=document.querySelectorAll('label')
-	let errorCount = 0
-    
-	allInputs.forEach(el => {
-        if (el.style.color==='red') {
-			errorCount++
-            console.log(el,errorCount);
-		}
-	})
-	if (errorCount === 0) {
-	clearError(el)
-		console.log('done')
+		showError(el)
+	} else {
+		clearError(el)
 	}
 }
+
+// const checkErrors = () => {
+// 	let errorCount = 0;
+// 	const allInputs = document.querySelectorAll('label');
+  
+// 	allInputs.forEach(el => {
+// 	  if (el.style.color === 'red') {
+// 		errorCount++;
+// 		console.log(el, errorCount);
+// 	  }
+// 	});
+  
+// 	if (errorCount === 0) {
+// 	  clearError();
+// 	  console.log('done');
+// 	}
+//   };
 registerForm.addEventListener('submit', e => {
 	e.preventDefault()
 	checkAccept(checkbox)
@@ -80,7 +81,5 @@ registerForm.addEventListener('submit', e => {
 	checkPassword(pass, pass2)
 	checkEmail(email)
 	checkForm([pass, pass2, email])
-    checkErrors()
-	
+	// checkErrors()
 })
-

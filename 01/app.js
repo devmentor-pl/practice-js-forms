@@ -7,9 +7,12 @@ formEl.addEventListener('submit', function (e) {
 	const name = e.target.elements.firstName.value
 	const surname = e.target.elements.lastName.value
 	const data = name + ' ' + surname
-
-	const li = document.createElement('li')
-	li.classList.add('user-list__person')
-	li.textContent = data
-	ul.appendChild(li)
+	if (name === '' || surname === '') {
+		alert('Wpisz dane')
+	} else {
+		const li = document.createElement('li')
+		li.classList.add('user-list__person')
+		li.textContent = data
+		ul.appendChild(li)
+	}
 })

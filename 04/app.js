@@ -9,11 +9,15 @@ function init() {
 
   colorInput.addEventListener("change", function (e) {
     const chosenColor = this.value;
-    setBoxShadow(boxElement, chosenColor);
+    const colorInHex = e.target.value;
+    console.log(colorInHex);
+    setBoxShadow(boxElement,colorInHex, chosenColor);
   });
   rangeInput.addEventListener("mousemove", function (e) {
     let boxOpacity = (boxElement.style.opacity = this.value / 100);
-    setBoxShadow(boxElement, boxOpacity);
+    const colorInHex = e.target.value;
+    console.log(colorInHex);
+    setBoxShadow(boxElement,colorInHex, boxOpacity);
   });
 }
 
