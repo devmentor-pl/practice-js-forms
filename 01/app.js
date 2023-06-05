@@ -1,31 +1,30 @@
 const form = document.querySelector("form")
 
-
 if (form) {
     form.addEventListener('submit', handleSubmit)
+}
 
-    function addItemToList(user) {
-        const list = document.querySelector('ul')
-        if (list) {
-            list.appendChild(user)
-        }
-    }
+function handleSubmit(event) {
+    event.preventDefault()
 
-    function createUserItem(firstName, lastName) {
-        const item = document.createElement('li')
-        item.classList.add('users-list__person')
-        item.textContent = firstName + ' ' + lastName
-        addItemToList(item)
-    }
+    const firstName = form.elements[0].value
+    const lastName = form.elements[1].value
 
-    function handleSubmit(event) {
-        event.preventDefault()
+    if (firstName.trim() && lastName.trim()) {
+        createUserItem(firstName, lastName)
+    } else alert("Niepoprawne dane")
+}
 
-        const firstName = form.elements[0].value
-        const lastName = form.elements[1].value
+function createUserItem(firstName, lastName) {
+    const item = document.createElement('li')
+    item.classList.add('users-list__person')
+    item.textContent = firstName + ' ' + lastName
+    addItemToList(item)
+}
 
-        if (firstName.trim() && lastName.trim()) {
-            createUserItem(firstName, lastName)
-        } else alert("Niepoprawne dane")
+function addItemToList(user) {
+    const list = document.querySelector('ul')
+    if (list) {
+        list.appendChild(user)
     }
 }

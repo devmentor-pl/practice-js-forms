@@ -1,51 +1,105 @@
 const form = document.querySelector('form')
 
+let errors = []
+
+const fields = [
+    {
+        name: 'login',
+        type: 'email',
+        label: 'formLogin',
+        errorMessage: 'must include "@" sign',
+        getElement: function () { return form.elements[this.name] },
+        isValid: function () {
+            const element = this.getElement()
+            return element.value.includes('@')
+        }
+    },
+    {
+        name: 'pass1',
+        type: 'password',
+        label: 'formPass1',
+        errorMessage: 'must be longer than 6 letters',
+        getElement: function () { return form.elements[this.name] },
+        isValid: function () {
+            const element = this.getElement()
+            return element.value.length > 6
+        }
+    },
+    {
+        name: 'pass2',
+        type: 'password',
+        label: 'formPass2',
+        errorMessage: 'must be equal to "password1',
+        getElement: function () { return form.elements[this.name] },
+        isValid: function () {
+            const password1 = form.elements.pass1
+            const element = this.getElement()
+            return element.value === password1.value && element.value.length > 6
+        }
+    },
+    {
+        name: 'accept',
+        type: 'checkbox',
+        label: 'formAccept',
+        errorMessage: 'must be marked',
+        getElement: function () { return form.elements[this.name] },
+        isValid: function () {
+            const element = this.getElement()
+            return element.checked
+        }
+    },
+]
+
 if (form) {
     form.noValidate = true
     form.addEventListener('submit', handleSubmit)
+}
 
-    function checkInput(condition, element) {
-        if (condition) {
-            return true
-        } else {
-            element.previousElementSibling.style.color = "red"
+function handleSubmit(e) {
+    e.preventDefault()
 
-            return false
-        }
+    errors = []
+
+    fields.forEach(function (field) {
+        resetMarkedLabel(field)
+        checkInputIsValid(field)
+    })
+    console.log(errors)
+
+    if (errors.length === 0) {
+        console.log("done")
+        resetInput()
     }
+}
 
-    const resetFontColor = function (e) {
-        const formElements = e.target.elements
-        const formElementsArr = [...formElements]
-        formElementsArr.forEach(function (element) {
-            if (element.previousElementSibling) {
-                element.previousElementSibling.style.color = 'black'
-            }
-        })
+function checkInputIsValid(field) {
+    if (!field.isValid()) {
+        errors.push(field.type + ' ' + field.errorMessage)
+
+        const label = field.getElement().previousElementSibling
+
+        markByRedBorder(label)
     }
+}
 
-    function handleSubmit(e) {
-        e.preventDefault()
 
-        resetFontColor(e)
+function markByRedBorder(element) {
+    element.style.color = "red"
+}
 
-        const email = e.target.elements["login"]
-        const password1 = e.target.elements["pass1"]
-        const password2 = e.target.elements["pass2"]
-        const checkbox = e.target.elements["accept"]
+function resetMarkedLabel(field) {
+    const siblingElement = field.getElement().previousElementSibling
 
-        const emailCondition = email.value.includes('@')
-        const password1LengthCondition = password1.value.length > 6
-        const passwordIdentityCondition = password1.value === password2.value && password2.value !== ''
-        const checkboxCondition = checkbox.checked
-
-        const isEmailValidate = checkInput(emailCondition, email)
-        const isPassword1LengthValidate = checkInput(password1LengthCondition, password1)
-        const isPasswordValidate = checkInput(passwordIdentityCondition, password2)
-        const isCheckboxValidate = checkInput(checkboxCondition, checkbox)
-
-        if (isEmailValidate && isPasswordValidate && isPassword1LengthValidate && isCheckboxValidate) {
-            console.log("done")
-        }
+    if (siblingElement) {
+        siblingElement.style.color = 'black'
     }
+}
+
+function resetInput() {
+    fields.forEach(function (field) {
+        const element = field.getElement()
+        if (field.type === 'checkbox') {
+            element.checked = false
+        } else element.value = '';
+    });
 }

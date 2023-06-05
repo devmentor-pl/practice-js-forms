@@ -1,6 +1,6 @@
 const form = document.querySelector('form')
 
-let correctElements = []
+// let correctElements = []
 let incorrectElements = []
 
 if (form) {
@@ -12,7 +12,7 @@ function handleSubmit(e) {
     e.preventDefault()
 
     resetMessagesList()
-    correctElements = []
+    // correctElements = []
     incorrectElements = []
 
     const formElements = form.elements
