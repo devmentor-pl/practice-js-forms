@@ -55,7 +55,7 @@ function checkCondition(element, field) {
             createErrorItem(error, element)
         }
     }
-    if (field.name === "zip") {
+    if (field.pattern) {
         const pattern = /[0-9]{2}-[0-9]{3}/
         if (!pattern.test(element.value)) {
             const error = `"${field.label}" - wymagany format: XX-XXX (X-cyfra)`

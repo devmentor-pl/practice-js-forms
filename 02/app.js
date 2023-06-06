@@ -7,46 +7,21 @@ const fields = [
         name: 'login',
         type: 'email',
         label: 'formLogin',
-        errorMessage: 'must include "@" sign',
-        getElement: function () { return form.elements[this.name] },
-        isValid: function () {
-            const element = this.getElement()
-            return element.value.includes('@')
-        }
     },
     {
         name: 'pass1',
         type: 'password',
         label: 'formPass1',
-        errorMessage: 'must be longer than 6 letters',
-        getElement: function () { return form.elements[this.name] },
-        isValid: function () {
-            const element = this.getElement()
-            return element.value.length > 6
-        }
     },
     {
         name: 'pass2',
         type: 'password',
         label: 'formPass2',
-        errorMessage: 'must be equal to "password1',
-        getElement: function () { return form.elements[this.name] },
-        isValid: function () {
-            const password1 = form.elements.pass1
-            const element = this.getElement()
-            return element.value === password1.value && element.value.length > 6
-        }
     },
     {
         name: 'accept',
         type: 'checkbox',
         label: 'formAccept',
-        errorMessage: 'must be marked',
-        getElement: function () { return form.elements[this.name] },
-        isValid: function () {
-            const element = this.getElement()
-            return element.checked
-        }
     },
 ]
 
@@ -61,8 +36,11 @@ function handleSubmit(e) {
     errors = []
 
     fields.forEach(function (field) {
-        resetMarkedLabel(field)
-        checkInputIsValid(field)
+        const formElement = form.elements[field.name]
+        const label = formElement.previousElementSibling
+
+        resetMarkedLabel(label)
+        validate(field, formElement, label)
     })
     console.log(errors)
 
@@ -72,32 +50,39 @@ function handleSubmit(e) {
     }
 }
 
-function checkInputIsValid(field) {
-    if (!field.isValid()) {
-        errors.push(field.type + ' ' + field.errorMessage)
+function validate(field, element, label) {
 
-        const label = field.getElement().previousElementSibling
-
-        markByRedBorder(label)
+    if (field.type === "email") {
+        if (!element.value.includes('@')) {
+            errors.push(`${field.type} must include "@" sign`)
+            markByRedBorder(label)
+        }
+    } if (field.type === "password") {
+        const password2 = form.elements.pass2
+        const password1 = form.elements.pass1
+        if (element.value.length <= 6 || (element.value !== password2.value || element.value !== password1.value)) {
+            errors.push(`${field.type} must be longer than 6 letters`)
+            markByRedBorder(label)
+        }
+    } if (field.type === "checkbox") {
+        if (!element.checked) {
+            errors.push(`${field.type} must be marked`)
+            markByRedBorder(label)
+        }
     }
 }
-
 
 function markByRedBorder(element) {
     element.style.color = "red"
 }
 
-function resetMarkedLabel(field) {
-    const siblingElement = field.getElement().previousElementSibling
-
-    if (siblingElement) {
-        siblingElement.style.color = 'black'
-    }
+function resetMarkedLabel(element) {
+    element.style.color = 'black'
 }
 
 function resetInput() {
     fields.forEach(function (field) {
-        const element = field.getElement()
+        const element = form.elements[field.name]
         if (field.type === 'checkbox') {
             element.checked = false
         } else element.value = '';
