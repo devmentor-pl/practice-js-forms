@@ -56,8 +56,8 @@ function checkCondition(element, field) {
         }
     }
     if (field.pattern) {
-        const pattern = /[0-9]{2}-[0-9]{3}/
-        if (!pattern.test(element.value)) {
+        const reg = new RegExp(field.pattern)
+        if (!reg.test(element.value)) {
             const error = `"${field.label}" - wymagany format: XX-XXX (X-cyfra)`
             createErrorItem(error, element)
         }
