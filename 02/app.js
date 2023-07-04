@@ -10,90 +10,93 @@ const validations = {
   login: { validation: validateEmail, errorMsg: "Email is not valid" },
   pass1: {
     validation: checkPassword,
-    errorMsg: `password should have ${PASSWORD_LENGTH} characters or more`,
+    errorMsg: `password must have ${PASSWORD_LENGTH} characters or more`,
   },
-  // pass2: validatePasswords,
-  // accept: validateCheckbox,
+  pass2: {
+    validation: checkMatchingPasswords,
+    errorMsg: "passwords do not match",
+  },
+  accept: {
+    validation: validateCheckbox,
+    errorMsg: "regulations must be accepted",
+  },
 };
 
 function handleSubmit(e) {
-  e.preventDefault();
-
+  const errors = [];
   const self = e.target;
   const inputs = self.elements;
-  console.log(inputs);
-  //   const email = self.elements.login.value.trim();
-  //   const pass1 = self.elements.pass1.value.trim();
-  //   const pass2 = self.elements.pass2.value.trim();
-  //   const checkboxRegulations = self.elements.accept;
-  const errors = [];
+  checkInputs(inputs, validations, errors);
 
-  //   const { isValidEmail, errorMsg: errorMsgEmail } = validateEmail(email);
-  //   if (!isValidEmail) {
-  //     errors.push(errorMsgEmail);
-  //   }
-
-  //   const { isValidPassLength, errorMsg: errorMsgPassLength } =
-  //     checkPassword(pass1);
-  //   if (!isValidPassLength) errors.push(errorMsgPassLength);
-
-  //   const { isPass2Match, errorMsg: errorMsgConfirmPass } = validatePasswords(
-  //     pass1,
-  //     pass2
-  //   );
-  //   if (!isPass2Match) errors.push(errorMsgConfirmPass);
-
-  //   const { isChecked, errorMsg: errorMsgRegulations } = validateCheckbox(
-  //     checkboxRegulations,
-  //     "Regulations must be accepted"
-  //   );
-  //   if (!isChecked) errors.push(errorMsgRegulations);
-
-  checkErrors(errors);
+  checkErrors(e, errors);
+  // skoro jest formularz wysłany, czy powinienem czyścić inputy?
 }
 
-function validateEmail(email) {
-  const isValidEmail = regexEmail.test(email);
-  return {
-    isValidEmail,
-    errorMsg: "Email is not valid",
-  };
+function checkInputs(inputs, validations, errorArr) {
+  for (const element of inputs) {
+    const keys = Object.keys(validations);
+    if (keys.includes(element.name)) {
+      // nie wiem jak zrobić to zgrabniej
+      // problem z tym, że pass2 musi mieć dwa argumenty
+      // może przekazywać argumenty w obiekcie?
+      let isElValid;
+      if (element.name === "pass2") {
+        isElValid = validations[element.name].validation(element, inputs.pass1);
+      } else {
+        isElValid = validations[element.name].validation(element);
+      }
+
+      if (!isElValid) {
+        errorArr.push({
+          element,
+          errorMsg: validations[element.name].errorMsg,
+        });
+        // wydaje mi się, że zmiana styli również nie powinna być w tym miejscu
+        element.previousElementSibling.style.color = "red";
+      } else {
+        element.previousElementSibling.style.color = "black";
+      }
+    }
+  }
+}
+
+function validateEmail(emailInputEl) {
+  const isValidEmail = regexEmail.test(emailInputEl.value);
+  return isValidEmail;
 }
 
 function checkPassword(password) {
-  const isString = typeof password === "string";
+  const isString = typeof password.value === "string";
   if (!isString) throw new Error("not string type");
 
-  const isValidPassLength = password.length > PASSWORD_LENGTH;
-  return {
-    isValidPassLength,
-    errorMsg: `password should have ${PASSWORD_LENGTH} characters or more`,
-  };
+  const isValidPassLength = password.value.length > PASSWORD_LENGTH;
+  return isValidPassLength;
 }
 
-function validatePasswords(pass1, pass2) {
-  const isPass2Match = pass1 === pass2;
-  return {
-    isPass2Match,
-    errorMsg: "Passwords do not match ",
-  };
+function checkMatchingPasswords(pass2InputEl, pass1InputEl) {
+  const isPass2ValidLength = checkPassword(pass2InputEl);
+  const doesPassMatch = pass1InputEl.value === pass2InputEl.value;
+  const isPass2Valid = isPass2ValidLength && doesPassMatch;
+  return isPass2Valid;
 }
 
-function validateCheckbox(checkbox, errorMsg) {
-  const isCheckbox = typeof checkbox === "checkbox";
-  console.log(isCheckbox);
+function validateCheckbox(checkboxInputEl) {
+  const isCheckbox = checkboxInputEl.type === "checkbox";
+  if (!isCheckbox) throw new Error("input should be of type checkbox");
 
-  const isChecked = checkbox.isChecked;
-  return {
-    isChecked,
-    errorMsg,
-  };
+  const isChecked = checkboxInputEl.checked;
+  return isChecked;
 }
 
-function checkErrors(errorsArr) {
+function checkErrors(e, errorsArr) {
   const isArray = Array.isArray(errorsArr);
   if (!isArray) throw new Error("not an array type");
 
   const clear = errorsArr.length === 0;
-  if (!clear) throw new Error("form not valid");
+  if (!clear) {
+    e.preventDefault();
+    return;
+  } else {
+    console.log("done");
+  }
 }
