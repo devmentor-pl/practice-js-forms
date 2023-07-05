@@ -29,7 +29,9 @@ function handleSubmit(e) {
   checkInputs(inputs, validations, errors);
 
   checkErrors(e, errors);
-  // skoro jest formularz wysłany, czy powinienem czyścić inputy?
+  if (errors.length === 0) {
+    Array.from(formEl.elements).forEach((el) => (el.value = ""));
+  }
 }
 
 function checkInputs(inputs, validations, errorArr) {
