@@ -7,8 +7,8 @@ function init() {
   setBoxShadow(boxElement, "#000000");
 
   colorEl.addEventListener("change", (e) => setColor(e, boxElement));
-  ["mousemove", "change"].forEach((el) => {
-    rangeEl.addEventListener(el, (e) => showValue(e, boxElement, colorEl));
+  ["mousemove", "change"].forEach((UIEvent) => {
+    rangeEl.addEventListener(UIEvent, (e) => showValue(e, boxElement, colorEl));
   });
 }
 
