@@ -98,6 +98,7 @@ function checkErrors(e, errorsArr) {
 
     return;
   } else {
+    e.target.reset();
     alert("formularz został wsłany");
   }
 }
@@ -108,7 +109,7 @@ function printErrors(errorsArr, inputs) {
 
   [...inputs].forEach((input) => {
     if (input.type !== "submit") {
-      input.previousElementSibling.style.color = "green";
+      input.previousElementSibling.style.color = "black";
     }
   });
 
