@@ -15,6 +15,7 @@ const validations = {
   pass2: {
     validation: checkMatchingPasswords,
     errorMsg: "passwords do not match",
+    compareWith: "pass1",
   },
   accept: {
     validation: validateCheckbox,
@@ -23,29 +24,30 @@ const validations = {
 };
 
 function handleSubmit(e) {
+  e.preventDefault();
   const errors = [];
   const self = e.target;
   const inputs = self.elements;
   checkInputs(inputs, validations, errors);
 
-  checkErrors(e, errors);
-  if (errors.length === 0) {
-    Array.from(formEl.elements).forEach((el) => (el.value = ""));
-  }
+  printErrors(errors, inputs);
+  checkErrors(e, errors, inputs);
 }
 
 function checkInputs(inputs, validations, errorArr) {
   for (const element of inputs) {
     const keys = Object.keys(validations);
     if (keys.includes(element.name)) {
-      // nie wiem jak zrobić to zgrabniej
-      // problem z tym, że pass2 musi mieć dwa argumenty
-      // może przekazywać argumenty w obiekcie?
+      const inputName = element.name;
+      const hasCompareKey = "compareWith" in validations[inputName];
       let isElValid;
-      if (element.name === "pass2") {
-        isElValid = validations[element.name].validation(element, inputs.pass1);
+
+      if (hasCompareKey) {
+        const validationObj = validations[inputName];
+        const elToCompare = inputs[validationObj.compareWith];
+        isElValid = validations[inputName].validation(element, elToCompare);
       } else {
-        isElValid = validations[element.name].validation(element);
+        isElValid = validations[inputName].validation(element);
       }
 
       if (!isElValid) {
@@ -53,10 +55,6 @@ function checkInputs(inputs, validations, errorArr) {
           element,
           errorMsg: validations[element.name].errorMsg,
         });
-        // wydaje mi się, że zmiana styli również nie powinna być w tym miejscu
-        element.previousElementSibling.style.color = "red";
-      } else {
-        element.previousElementSibling.style.color = "black";
       }
     }
   }
@@ -97,8 +95,24 @@ function checkErrors(e, errorsArr) {
   const clear = errorsArr.length === 0;
   if (!clear) {
     e.preventDefault();
+
     return;
   } else {
-    console.log("done");
+    alert("formularz został wsłany");
   }
+}
+
+function printErrors(errorsArr, inputs) {
+  const isArray = Array.isArray(errorsArr);
+  if (!isArray) throw new Error("not an array type");
+
+  [...inputs].forEach((input) => {
+    if (input.type !== "submit") {
+      input.previousElementSibling.style.color = "green";
+    }
+  });
+
+  errorsArr.forEach((error) => {
+    error.element.previousElementSibling.style.color = "red";
+  });
 }
