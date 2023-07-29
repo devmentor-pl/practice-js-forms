@@ -27,14 +27,19 @@ function init() {
             errors.push(checkboxEl);
         }
         
+        const label = formEl.querySelectorAll('label');
+        label.forEach(el => {
+            el.style.color = 'black';
+        })
+
         errors.forEach(el => {
             const err = el.previousElementSibling;
             err.style.color = 'red';
         })
 
-        console.log('errors', errors);
         if(errors.length === 0) {
             console.log('done');
         }
+
     }
 }
