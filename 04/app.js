@@ -5,12 +5,10 @@ function init() {
     const rangeEl = document.querySelector('input[type=range]');
     colorEl.addEventListener('change', function (e) {
         const color = e.target.value;
-        console.log('rangeEl.value', rangeEl.value);
         setBoxShadow(boxElement, color, rangeEl.value);
     });
     rangeEl.addEventListener('change', function (e) {
         const opacity = e.target.value * 0.01;
-        console.log('colorEl.value', colorEl.value);
         setBoxShadow(boxElement, colorEl.value, opacity);
     })
 
