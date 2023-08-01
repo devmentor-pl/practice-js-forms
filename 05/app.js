@@ -46,48 +46,60 @@ function init() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const errors = [];
     
-    fields.forEach(function (field) {
-        const value = form.elements[field.name].value;
-        validate(field, value);
-    })
 
-    ulMessages.innerText = '';
-    if(errors.length === 0) {
-        ulMessages.innerText = 'Dane zostaly wypelnione prawidlowo';
-        fields.forEach(function (field) {
-        form.elements[field.name].value = '';
-      });
-    } else {
-        errors.forEach(err => {
-            const li = document.createElement('li');
-            li.innerText = err;
-            ulMessages.appendChild(li);
-        })
-    }
+  const errors = validate(fields, form.elements);
+  // teraz robisz z błędami co chcesz
+  // w ten sposób możesz wykorzystać walidację w wielu miejscach 
 
-
-    function validate(field, value) {
-      if (field.required) {
-            if (value.length === 0) {
-                errors.push('Dane w polu ' + field.label + ' są wymagane.');
-            }
-        }
-
-        if (field.type === 'number') {
-            if(typeof Number(value) !== 'number') {
-                errors.push('Dane w polu ' + field.label + ' musza byc liczba.');
-            }
-        }
-
-        if(field.pattern) {
-            const regex = new RegExp(field.pattern);
-            if(!regex.test(value)) {
-                errors.push('Dane w polu ' + field.label + ' nie sa poprawne. Wpisz wg wzoru 00-000');
-            }
-        }
-    }
+  ulMessages.innerText = '';
+      if(errors.length === 0) {
+          ulMessages.innerText = 'Dane zostaly wypelnione prawidlowo';
+          fields.forEach(function (field) {
+          form.elements[field.name].value = '';
+        });
+      } else {
+          errors.forEach(err => {
+              const li = document.createElement('li');
+              li.innerText = err;
+              ulMessages.appendChild(li);
+          })
+      }
 
   }
 }
+
+function validate(fields, data) {
+      const errors = [];
+      
+      fields.forEach(function (field) {
+              const value = data[field.name].value; // pobieram wartość dla konkretnego pola
+
+              if (field.required) {
+                  if (value.length === 0) {
+                      errors.push('Dane w polu ' + field.label + ' są wymagane.');
+                  }
+              }
+
+              if (field.type === 'number') {
+                  if (Number.isNaN(Number(value))) {
+                      errors.push(
+                          'Dane w polu ' + field.label + ' muszą być liczbą.'
+                      );
+                  }
+              }
+
+              if (field.pattern) {
+                  const reg = new RegExp(field.pattern);
+                  if (!reg.test(value)) {
+                      errors.push(
+                          'Dane w polu ' +
+                              field.label +
+                              ' zawierają niedozwolone znaki lub nie są zgodne z przyjętym w Polsce wzorem.'
+                      );
+                  }
+              }
+      });
+          
+      return errors;
+  }
