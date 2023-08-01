@@ -50,7 +50,26 @@ function init() {
     
     fields.forEach(function (field) {
         const value = form.elements[field.name].value;
-        if (field.required) {
+        validate(field, value);
+    })
+
+    ulMessages.innerText = '';
+    if(errors.length === 0) {
+        ulMessages.innerText = 'Dane zostaly wypelnione prawidlowo';
+        fields.forEach(function (field) {
+        form.elements[field.name].value = '';
+      });
+    } else {
+        errors.forEach(err => {
+            const li = document.createElement('li');
+            li.innerText = err;
+            ulMessages.appendChild(li);
+        })
+    }
+
+
+    function validate(field, value) {
+      if (field.required) {
             if (value.length === 0) {
                 errors.push('Dane w polu ' + field.label + ' są wymagane.');
             }
@@ -68,17 +87,6 @@ function init() {
                 errors.push('Dane w polu ' + field.label + ' nie sa poprawne. Wpisz wg wzoru 00-000');
             }
         }
-    })
-
-    ulMessages.innerText = '';
-    if(errors.length === 0) {
-        ulMessages.innerText = 'Dane zostaly wypelnione prawidlowo';
-    } else {
-        errors.forEach(err => {
-            const li = document.createElement('li');
-            li.innerText = err;
-            ulMessages.appendChild(li);
-        })
     }
 
   }
