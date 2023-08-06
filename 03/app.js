@@ -14,7 +14,6 @@ function showInfoFiles(e) {
 
 			const fileName = liElemClone.querySelector('.images-list__item-name');
 			const fileNameWithoutExtension = file.name.split('.').slice(0, -1).join();
-			console.log(fileNameWithoutExtension);
 			fileName.textContent = fileNameWithoutExtension;
 
 			const fileSize = liElemClone.querySelector('.images-list__item-size');
