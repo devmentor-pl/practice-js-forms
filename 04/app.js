@@ -4,11 +4,11 @@ function init() {
 	const boxElement = document.querySelector('.box');
 	const inputColor = document.querySelector('input[type="color"]');
 	const inputRange = document.querySelector('input[type="range"]');
-	
-    let color = '#000000';
+
+	let color = inputColor.value;
 	let range = 1;
-	
-    inputColor.addEventListener('change', function () {
+
+	inputColor.addEventListener('change', function () {
 		color = inputColor.value;
 		setBoxShadow(boxElement, inputColor.value);
 	});
