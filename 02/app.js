@@ -36,17 +36,24 @@ function validation(e) {
 	if (!validateEmail(email)) {
 		formEmail.style.color = 'red';
 		isValid = false;
+	} else {
+		formEmail.style.color = 'black';
 	}
 
 	if (!validatePasswords(pass1, pass2)) {
 		formPass1.style.color = 'red';
 		formPass2.style.color = 'red';
 		isValid = false;
+	} else {
+		formPass1.style.color = 'black';
+		formPass2.style.color = 'black';
 	}
 
 	if (!checkbox) {
 		formCheckbox.style.color = 'red';
 		isValid = false;
+	} else {
+		formCheckbox.style.color = 'black';
 	}
 
 	if (isValid) {
@@ -61,5 +68,3 @@ function validation(e) {
 		e.target.elements.accept.checked = false;
 	}
 }
-
-
