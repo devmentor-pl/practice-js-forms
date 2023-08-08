@@ -1,50 +1,99 @@
-const formEl = document.querySelector('form');
-const messages = document.querySelector('.messages');
+document.addEventListener('DOMContentLoaded', scripts);
+function scripts() {
+	const formEl = document.querySelector('form');
+	const ulEl = document.querySelector('.messages');
 
-const selectEl = formEl.querySelector('select');
-const inputsEl = formEl.querySelectorAll('label input');
-const postalCodeInput = formEl.querySelector('input[name="zip"]');
+	formEl.noValidate = true;
+	if (formEl) {
+		formEl.addEventListener('submit', handleCheck);
+	}
 
-formEl.noValidate = true;
+	function handleCheck(e) {
+		e.preventDefault();
 
-formEl.addEventListener('submit', function (e) {
-	e.preventDefault();
+		const errors = [];
+		const inputs = [
+			{
+				name: 'firstName',
+				label: 'Imię',
+				required: true,
+				pattern: '^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ -]+$',
+			},
+			{
+				name: 'lastName',
+				label: 'Naziwsko',
+				required: true,
+				pattern: '^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ -]+$',
+			},
+			{
+				name: 'street',
+				label: 'Ulica',
+				required: true,
+				pattern: '^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ -]+$',
+			},
+			{
+				name: 'houseNumber',
+				label: 'Numer budynku',
+				required: true,
+				type: 'Number',
+			},
+			{
+				name: 'flatNumber',
+				label: 'Numer mieszkania',
+				required: true,
+				type: 'Number',
+			},
+			{
+				name: 'city',
+				label: 'Miejscowość',
+				required: true,
+				type: 'Number',
+			},
+			{
+				name: 'zip',
+				label: 'Kod pocztowy',
+				required: true,
+				pattern: '^[0-9]{2}-[0-9]{3}$',
+			},
+			{
+				name: 'voivodeship',
+				label: 'Województwo',
+				required: true,
+			},
+		];
 
-	messages.innerHTML = '';
-	const postalCode = postalCodeInput.value;
-	const regex = /^[0-9]{2}-[0-9]{3}$/;
-	let allInputsFilled = true;
-	let emptyInputIndexes = [];
+		inputs.forEach(function (input) {
+			const value = formEl.elements[input.name].value;
 
-	for (let i = 0; i < inputsEl.length; i++) {
-		const input = inputsEl[i];
-		console.log(i);
-		if (input.value.trim() === '') {
-			allInputsFilled = false;
-			emptyInputIndexes.push(i);
+			if (input.required) {
+				if (value.length === 0) {
+					errors.push(`Dane w poli ${input.label} sa wymagane`);
+				}
+			}
+			if (input.type === 'number') {
+				if (isNaN(value)) {
+					errors.push(`Dane w polu ${input.label} muszą być liczbą`);
+				}
+			}
+			if (input.pattern) {
+				const regex = new RegExp(input.pattern);
+				if (!regex.test(value)) {
+					errors.push(`Dane w polu ${input.label} są wypełnione nieprawidłowo`);
+				}
+			}
+		});
+		ulEl.innerHTML = '';
+		if (errors.length === 0) {
+			inputs.forEach(function (el) {
+				formEl[el.name].value = '';
+			});
+			alert('Dane zostały wypełnione prawidłowo!');
+		} else {
+			errors.forEach(function (error) {
+				const liElem = document.createElement('li');
+				liElem.textContent = error;
+				ulEl.append(liElem);
+			});
 		}
 	}
-
-	if (selectEl.selectedIndex == 0) {
-		allInputsFilled = false;
-		err('wybierz wojewodztwo');
-	}
-	if (!regex.test(postalCode)) {
-		allInputsFilled = false;
-		err('wpisz poprawny kod pocztowy');
-	}
-
-	if (allInputsFilled) {
-		alert('przeslano');
-	} else {
-		for (const index of emptyInputIndexes) {
-			err(`pole o indexie ${index + 1} nie zostalo wypelnione, lub jest wypelnione niepoprawnie`);
-		}
-	}
-});
-
-function err(info) {
-	const liElem = document.createElement('li');
-	liElem.textContent = info;
-	messages.appendChild(liElem);
 }
