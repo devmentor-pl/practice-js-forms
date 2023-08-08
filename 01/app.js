@@ -4,6 +4,7 @@ const namesUlList = document.querySelector('.users-list');
 formEl.addEventListener('submit', recordUser);
 
 function recordUser(e) {
+	e.preventDefault();
 	const firstName = e.target.elements.firstName.value;
 	const lastName = e.target.elements.lastName.value;
 
@@ -12,8 +13,6 @@ function recordUser(e) {
 		e.target.elements.firstName.value = '';
 		e.target.elements.lastName.value = '';
 	}
-
-	e.preventDefault();
 }
 function listingUser(firstName, surname) {
 	const liElem = document.createElement('li');
