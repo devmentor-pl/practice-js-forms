@@ -15,5 +15,7 @@ formEl.addEventListener('submit', function(e) {
         const newLi = userListLi.cloneNode(true);
         newLi.textContent = fullName;
         userList.appendChild(newLi);
+        firstName.value = "";
+        lastName.value = "";
     }
 })
