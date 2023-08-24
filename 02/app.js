@@ -12,7 +12,7 @@ function handleSubmit(e) {
     errors.push(email)
  } 
  if (pass1.value.length === 0 || pass1.value.length < 6) {
-    errors.push(pass1)
+    errors.push(pass1);
  } 
  if (pass2.value.length === 0 || pass2.value.length < 6)  {
     errors.push(pass2)
