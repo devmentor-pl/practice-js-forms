@@ -10,9 +10,6 @@ formEl.addEventListener('submit', function(e) {
     if (firstName.value === "" || lastName.value === "") {
         console.log('The input field is empty');
     }
-    else if (!isNaN(firstName.value) || !isNaN(lastName.value)) {
-        console.log('letters only !!!')
-    }
     else {
         const fullName =`${firstName.value} ${lastName.value}`;
         const newLi = userListLi.cloneNode(true);
