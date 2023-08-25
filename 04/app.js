@@ -15,7 +15,6 @@ function init() {
 function updateColor () {
     const opacity = parseFloat(inputOpacity.value);
     const color = inputColor.value;
-    console.log(color)
     setBoxShadow(box, color, opacity);
 }
 function setBoxShadow(element, colorInHex, opacity = 1) {
