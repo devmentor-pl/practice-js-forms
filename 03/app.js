@@ -6,23 +6,32 @@ const setImage = function (e) {
   if (file && file.type.includes("image")) {
     const reader = new FileReader();
     reader.onload = function (readerEvent) {
-      const imagesListItem = imagesList.querySelector("li");
-      const newImagesListItem = imagesListItem.cloneNode(true);
-      newImagesListItem.classList.remove("images-list__item--prototype");
-      const image = newImagesListItem.querySelector("img");
-      image.src = readerEvent.target.result;
-      imagesList.appendChild(newImagesListItem);
+      const imageSrc = readerEvent.target.result;
       const name = file["name"];
       const size = file["size"];
-      const TotalSizeMB = bytesToMB(size);
-      const header = newImagesListItem.firstElementChild;
-      const footer = newImagesListItem.lastElementChild;
-      header.innerHTML = `${name}`;
-      footer.innerHTML = `${TotalSizeMB.toFixed(2)} MB`;
+      createElement(imageSrc, name, size);
     };
     reader.readAsDataURL(file);
   }
 };
+
+function createElement(imageSrc, name, size) {
+  const imagesListItem = imagesList.querySelector("li");
+  const newImagesListItem = imagesListItem.cloneNode(true);
+  newImagesListItem.classList.remove("images-list__item--prototype");
+  const image = newImagesListItem.querySelector("img");
+  image.src = imageSrc;
+  imagesList.appendChild(newImagesListItem);
+  addTextContentToElement(newImagesListItem, name, size);
+}
+
+function addTextContentToElement(listItem, name, size) {
+  const header = listItem.firstElementChild;
+  const footer = listItem.lastElementChild;
+  const TotalSizeMB = bytesToMB(size);
+  header.innerHTML = `${name}`;
+  footer.innerHTML = `${TotalSizeMB.toFixed(2)} MB`;
+}
 
 function bytesToMB(bytes) {
   var mb = bytes / (1024 * 1024);
