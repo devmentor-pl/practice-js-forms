@@ -23,6 +23,8 @@ function addNewUserData(name, lastName) {
   const ulEl = document.querySelector('ul');
   newLi.classList.add('user-list__person');
   ulEl.appendChild(newLi);
+  nameInput.value = '';
+  lastNameInput.value = '';
 }
 
 function capitalizeFirstLetter(string) {
