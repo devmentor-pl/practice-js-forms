@@ -1,4 +1,5 @@
 'use strict';
+
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
@@ -8,11 +9,9 @@ function init() {
   if (formEl) {
     formEl.addEventListener('submit', handleSubmit);
   }
+
   function handleSubmit(e) {
     e.preventDefault();
-
-    const errors = [];
-
     const fields = [
       { name: 'firstName', label: 'Imię', required: true },
       { name: 'lastName', label: 'Nazwisko', required: true },
@@ -29,20 +28,29 @@ function init() {
       { name: 'voivodeship', label: 'Województwo', required: true },
     ];
 
+    const errors = validate(fields);
+
+    ulEl.innerHTML = '';
+    if (errors.length === 0) {
+      alert('Dane zostały wypełnione prawidłowo!');
+      fields.forEach(function (el) {
+        formEl[el.name].value = '';
+        formEl[el.name].style.border = '';
+      });
+    } else {
+      showErrors(errors);
+    }
+  }
+
+  function validate(fields) {
+    const errors = [];
+
     fields.forEach(function (field) {
       const inputElement = formEl.elements[field.name];
       const value = formEl.elements[field.name].value;
       if (field.required) {
         if (value.length === 0) {
-          errors.push('Dane w polu ' + field.label + ' są wymagane.');
-          inputElement.style.border = '1px solid red';
-        } else {
-          inputElement.style.border = '1px solid green';
-        }
-      }
-      if (field.type === 'number') {
-        if (Number.isNaN(Number(value))) {
-          errors.push('Dane w polu ' + field.label + ' muszą być liczbą.');
+          errors.push(`Dane w polu ${field.label} są wymagane`);
           inputElement.style.border = '1px solid red';
         } else {
           inputElement.style.border = '1px solid green';
@@ -52,9 +60,7 @@ function init() {
         const reg = new RegExp(field.pattern);
         if (!reg.test(value)) {
           errors.push(
-            'Dane w polu ' +
-              field.label +
-              ' zawierają niedozwolone znaki, lub nie są zgodne z przyjętym w Polsce wzorem.'
+            `Dane w polu ${field.label} zawierają niedozwolone znaki, lub nie są zgodne z przyjętym w Polsce wzorem.`
           );
           inputElement.style.border = '1px solid red';
         } else {
@@ -62,20 +68,16 @@ function init() {
         }
       }
     });
-    ulEl.innerHTML = '';
-    if (errors.length === 0) {
-      alert('Dane zostały wypełnione prawidłowo!');
-      fields.forEach(function (el) {
-        formEl[el.name].value = '';
-        formEl[el.name].style.border = '';
-      });
-    } else {
-      errors.forEach(function (text) {
-        const message = document.querySelector('.messages');
-        const liEl = document.createElement('li');
-        liEl.innerText = text;
-        message.appendChild(liEl);
-      });
-    }
+
+    return errors;
+  }
+
+  function showErrors(errors) {
+    errors.forEach(function (text) {
+      const message = document.querySelector('.messages');
+      const liEl = document.createElement('li');
+      liEl.innerText = text;
+      message.appendChild(liEl);
+    });
   }
 }
