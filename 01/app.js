@@ -13,9 +13,9 @@ function stopForm(event) {
       const list = document.querySelector("ul");
       list.appendChild(createLi);
 
-      document.querySelector("#error-message").textContent = '';
+      document.querySelector(".error").textContent = '';
     } else {
-      document.querySelector("#error-message").textContent = 'Wypełnij oba pola'; 
+      document.querySelector(".error").textContent = 'Wypełnij oba pola'; 
     }
   }
 
