@@ -1,11 +1,10 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', init);
+const formEl = document.querySelector('form');
 
 function init() {
-  const formEl = document.querySelector('form');
   const ulEl = document.querySelector('ul');
-
   if (formEl) {
     formEl.addEventListener('submit', handleSubmit);
   }
@@ -33,10 +32,7 @@ function init() {
     ulEl.innerHTML = '';
     if (errors.length === 0) {
       alert('Dane zostały wypełnione prawidłowo!');
-      fields.forEach(function (el) {
-        formEl[el.name].value = '';
-        formEl[el.name].style.border = '';
-      });
+      resetForm(fields);
     } else {
       showErrors(errors);
     }
@@ -68,16 +64,24 @@ function init() {
         }
       }
     });
-
     return errors;
   }
+}
 
-  function showErrors(errors) {
-    errors.forEach(function (text) {
-      const message = document.querySelector('.messages');
-      const liEl = document.createElement('li');
-      liEl.innerText = text;
-      message.appendChild(liEl);
-    });
-  }
+// Functions section
+function showErrors(errors) {
+  errors.forEach(function (text) {
+    const message = document.querySelector('.messages');
+    const liEl = document.createElement('li');
+    liEl.innerText = text;
+    message.appendChild(liEl);
+  });
+}
+
+function resetForm(fields) {
+  fields.forEach(function (el) {
+    const inputElement = formEl.elements[el.name];
+    inputElement.value = '';
+    inputElement.style.border = '';
+  });
 }
