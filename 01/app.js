@@ -9,8 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const newLi = document.createElement("li");
 
         newLi.classList.add("user-list__person");
-        // newLi.innerHTML = firstName;
-        // newLi.innerHTML = lastName;
 
         newLi.textContent = firstName + " " + lastName;
 
