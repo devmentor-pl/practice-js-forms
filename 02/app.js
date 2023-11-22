@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const acceptEl = e.target.elements.accept;
 
         const errors = [];
-        if (loginEl.value.indexOf("@") === -1) {
+        if (!loginEl.value.includes("@")) {
             errors.push(loginEl.previousElementSibling);
         }
         if (pass1El.value !== pass2El.value || pass1El.value.length <= 6) {
