@@ -5,14 +5,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const firstName = e.target.elements.firstName.value;
         const lastName = e.target.elements.lastName.value;
+        if (firstName !== "" && lastName !== "") {
+            const newLi = document.createElement("li");
 
-        const newLi = document.createElement("li");
+            newLi.classList.add("user-list__person");
 
-        newLi.classList.add("user-list__person");
+            newLi.textContent = firstName + " " + lastName;
 
-        newLi.textContent = firstName + " " + lastName;
-
-        const ulLi = document.querySelector(".users-list");
-        ulLi.appendChild(newLi);
+            const ulLi = document.querySelector(".users-list");
+            ulLi.appendChild(newLi);
+        } else {
+            alert("Wprowadź dane do formularza");
+        }
     });
 });
