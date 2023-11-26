@@ -1,6 +1,13 @@
 document.addEventListener('DOMContentLoaded', init);
+const colorInput = document.querySelector('input[type="color"]')
+const opacityInput = document.querySelector('input[type="range"]')
+
+colorInput.addEventListener('input', getChannelColor);
+opacityInput.addEventListener('input', setBoxShadow);
+
 
 function init() {
+    
     const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, '#000000');
 }
