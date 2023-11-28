@@ -5,6 +5,7 @@ const message = document.querySelector('.messages');
 
 
 const checkData = function(e) {
+    message.innerText = ''
     e.preventDefault();
     
     const firstName = form.elements.firstName.value;

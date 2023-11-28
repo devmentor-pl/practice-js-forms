@@ -1,5 +1,8 @@
 const fileEl = document.querySelector('input');
-const imgList = document.querySelector('.images-list__item--prototype')
+
+const proto = document.querySelector('.images-list__item--prototype')
+const imgList = proto.cloneNode(true);
+imgList.classList.remove('images-list__item--prototype')
 fileEl.addEventListener('change', readFile);
 function readFile(e){
     const file = e.target.files[0]
