@@ -23,7 +23,7 @@ function checkData(e) {
   if (!email.value.includes('@')) {
     errors.push(email);
   }
-  if (password1.value.length < 5) {
+  if (password1.value.length < 6) {
     errors.push(password1);
   }
   if (password1.value !== password2.value) {
