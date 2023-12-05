@@ -1,6 +1,8 @@
 const fileEl = document.querySelector('input[type="file"]');
 const imagesUl = document.querySelector('.images-list');
+
 fileEl && fileEl.addEventListener('change', showFileData);
+
 function showFileData(e) {
   const files = [...e.target.files];
   files.forEach((file) => {
@@ -12,16 +14,18 @@ function showFileData(e) {
         );
         const addedItem = itemProto.cloneNode(true);
         addedItem.classList.remove('images-list__item--prototype');
-        const image = addedItem.querySelector('.images-list__item-img');
-        image.src = readerEvent.target.result;
-        const header = addedItem.querySelector('.images-list__item-name');
-        header.innerText = file.name;
-        const footer = addedItem.querySelector('.images-list__item-size');
-        footer.innerText = (file.size / (1024 * 1024)).toFixed(2) + 'MB';
-        imagesUl.appendChild(addedItem);
-        console.log(addedItem);
+        createThumb(addedItem, readerEvent, file);
       };
       reader.readAsDataURL(file);
     }
   });
+}
+function createThumb(addedItem, readerEvent, file) {
+  const image = addedItem.querySelector('.images-list__item-img');
+  image.src = readerEvent.target.result;
+  const header = addedItem.querySelector('.images-list__item-name');
+  header.innerText = file.name;
+  const footer = addedItem.querySelector('.images-list__item-size');
+  footer.innerText = (file.size / (1024 * 1024)).toFixed(2) + 'MB';
+  imagesUl.appendChild(addedItem);
 }
