@@ -1,94 +1,162 @@
 
+const bodyEl = document.querySelector('body')
 const formEl = document.querySelector('form');
 const messagesList = formEl.querySelector('.messages')
+const form = document.createElement('form')
 
-if(formEl) {
-  formEl.noValidate = true;
-  formEl.addEventListener('submit', handleSubmit);
-}
+formEl.remove()
 
-
-function handleSubmit (e) {
-  e.preventDefault();
-
-  const errorsArr = [];
-
-  const formInputs = [
-    { name: 'firstName',
+const createNewForm = function() {
+  const formFields = [
+    {
+      name: 'firstName',
       label: 'Imię',
-      pattern: '/^[a-zA-Z ]{2,20}$/',
-      required: true
-    },
-    { name: 'lastName',
-      label: 'Nazwisko',
-      pattern: '/^[a-zA-Z ]{2,20}$/',
-      required: true
-    },
-    { name: 'street',
-      label: 'Ulica',
-      pattern: '',
-      required: true
-    },
-    { name: 'houseNumber',
-      label: 'Numer budynku',
-      pattern: '',
       required: true,
-      type: 'number'
+      pattern: '^[a-zA-Z]+$',
     },
-    { name: 'flatNumber',
-      label: 'Numer Mieszkania',
-      pattern: '',
-      required: false,
-      type: 'number'
+    {
+      name: 'lastName',
+      label: 'Nazwisko',
+      required: true,
+      pattern: '^[a-zA-Z]+$'
     },
-    { name: 'zip',
+    {
+      name: 'street',
+      label: 'Ulica',
+      required: true,
+      pattern: '^[a-zA-Z]+$'
+    },
+    {
+      name: 'houseNumber',
+      label: 'Numer budynku',
+      type: 'number',
+      required: true,
+    },
+    {
+      name: 'flatNumber',
+      label: 'Numer mieszkania',
+      type: 'number',
+    },
+    {
+      name: 'zip',
       label: 'Kod pocztowy',
-      pattern: '[0-9]{2}-[0-9]{3}',
-      required: true
+      required: true,
+      pattern: '^[0-9]{2}-[0-9]{3}$',
     },
-    { name: 'city',
+    {
+      name: 'city',
       label: 'Miasto',
-      pattern: '/^[a-zA-Z ]{2,20}$/', 
-      required: true
+      required: true,
+      pattern: '^^[a-zA-Z]+$'
     },
-    { name: 'voivodeship',
+    {
+      name: 'voivodeship',
       label: 'Województwo',
-      pattern: '',
-      required: true
-    },
+      reguired: false,
+      type: 'select',
+      option: ['dolnoślaskie', 'inne']
+    }
   ]
 
-  // formInputs.forEach(function(el) {
-  //   const formElement = formEl.elements[el.name];
-  //   checkForm(formInputs, formElement);
-  // })
+  form.addEventListener('submit', handleSubmit)
+  form.setAttribute('novalidate', '')
 
-  formInputs.forEach(function(el) {
-    const formElValue = formEl.elements[el.name].value;
-    checkForm(formInputs, formElValue);
+  formFields.forEach (el => {
+    const label = document.createElement('label')
+    label.innerText = el.label
+
+    const fieldEl = el.type === 'select' ?
+      document.createElement('select')
+      : document.createElement('input')
+     
+    
+    fieldEl.setAttribute('type', el.type || 'text')
+    fieldEl.setAttribute('name', el.name)
+    fieldEl.setAttribute('required', el.required || false)
+
+    if (el.pattern) {
+      fieldEl.setAttribute('pattern', el.pattern)
+    }
+
+    label.appendChild(fieldEl)
+    form.appendChild(label)
+
+    if (el.type === 'select') {
+      const selectEl = form.querySelector('select')
+
+      optionList = el.option
+      optionList.forEach(option => {
+        const optionEl = document.createElement('option')
+        optionEl.innerText = option
+        selectEl.append(optionEl)
+      })
+    }    
   })
- 
+
+  const submitBtn = document.createElement('button')
+  submitBtn.innerText = "Prześlij"
+  submitBtn.type = 'submit'
+  submitBtn.classList.add('button')
+
+  form.appendChild(submitBtn)
+
+  const ulEl = document.createElement('ul')
+  document.body.append(ulEl)
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    const errors = []
+
+    const formArr = Array.from(form)
+    
+    formArr.forEach(el => {
+      const elValue = [el][0].value
+      const labelEl = el.parentElement.innerText
+      const elReq = el.getAttribute('required')
+      const elPatternAtribute = el.hasAttribute('pattern')
+      
+      if (elReq === 'true' && elValue === '') {
+        errors.push(`Wprowadź dane w polu ${labelEl}`)
+        }
+    
+      if (elPatternAtribute === true) {
+        const reg = new RegExp(el.pattern)
+        if (!reg.test(elValue)) {
+          errors.push(`Wprowadź właściwy format danych w polu ${labelEl}`)
+        }
+      }
+    })
+   
+    ulEl.innerHTML = ''
+    if (errors.length === 0) {
+      alert('Dane wypełnine prawidłowo')
+
+      formArr.forEach(element => {
+        [element][0].value = ''
+      })
+    } else {
+      errors.forEach(error => {
+        const liEl = document.createElement('li')
+        liEl.innerText = error
+
+        ulEl.appendChild(liEl)
+      })
+    }
+  } 
 }
 
-function checkForm(formInputs, formElValue){
-  console.log(formInputs);
-  console.log(formElValue)
-  
-  // if (formElement.pattern) {
-  //   const reg = new RegExp(formInputs.pattern)
-  //   if(!reg.test(formElement)) {
-  //     errorsArr.push(`Niedozwolone znaki`)
-  //     console.log(errorsArr)
-  //   }
+bodyEl.addEventListener('DOMContentLoaded', createNewForm)
+createNewForm()
 
-  // }
-}
+bodyEl.append(form)
 
-// tu troche namieszałem, bo zacząłem od wyrażenia regularnego, a chyba powinienem zacząć
-// od łatwiejszego sprawdzania. 
 
-// Na obecną chwilę chciałem napisać funkję ( lub kilka do sprawdzania).
-// nie wiem jak połączyć pola wprowadzane z założonym w formInputs schemtem poprawności danych.
+
+
+
+
+
+
 
 
 
