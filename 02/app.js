@@ -12,4 +12,16 @@ function register(e) {
     const checkedEl = document.querySelector('input[name="accept"]');
     const labelList = document.querySelector("label");
     const errors = [];
+
+    if (!emailElValue.includes("@")) {
+        errors.push(emailEl);
+    }
+
+    if (pass1ElValue !== pass2ElValue) {
+        errors.push(pass1El, pass2El);
+    }
+
+    
+
+
 }
