@@ -1,5 +1,5 @@
 //second version of my code 
-const form = document.querySelector('form');
+const form = document.querySelector("form");
 form.addEventListener("submit", register);
 
 function register(e) {
