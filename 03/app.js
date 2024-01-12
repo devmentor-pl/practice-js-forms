@@ -1,9 +1,5 @@
-/* const liEl = document.querySelector('.images-list__item--prototype');
-const inpFile = document.querySelector('input');
-const imgList = document.querySelector('.images-list');
+//Dodałem bezpieczne sprawdzenie czy plik jest faktycznie plikiem graficznym
 
-function 
-*/
 document.addEventListener("DOMContentLoaded", init);
 
 function init() {
@@ -19,7 +15,7 @@ function changeHandler(e) {
   const filesList = Array.from(e.target.files);
 
   filesList.forEach((file) => {
-    if (file.type.indexOf("image") >= 0) {
+    if (file.type.indexOf("image") >= 0 || isImageFile(file.name)) {
       const liEl = protEl.cloneNode(true);
       const headerEl = liEl.querySelector("header");
       const footerEl = liEl.querySelector("footer");
@@ -29,9 +25,7 @@ function changeHandler(e) {
 
       reader.addEventListener("load", (e) => {
         headerEl.innerText = file.name;
-        footerEl.innerText = `${(file.size / (1024 * 1024)).toFixed(
-          2
-        )} MB`;
+        footerEl.innerText = `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
         liEl.classList.remove("images-list__item--prototype");
         ulEl.appendChild(liEl);
 
@@ -45,8 +39,18 @@ function changeHandler(e) {
   });
 }
 
+function isImageFile(fileName) {
+  const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp"];
+  const extension = fileName.split(".").pop().toLowerCase();
+  return imageExtensions.includes(extension);
+}
+
 function showAlert(file) {
-  alert(
-    "This file " + file.name + " its not a graphic file!"
-  );
+  const errorDiv = document.createElement("div");
+  errorDiv.innerText = `This file "${file.name}" is not a graphic file!`;
+  errorDiv.style.color = "red";
+  document.body.appendChild(errorDiv);
+  setTimeout(() => {
+    document.body.removeChild(errorDiv);
+  }, 3000);
 }
