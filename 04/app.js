@@ -2,6 +2,10 @@ document.addEventListener('DOMContentLoaded', init);
 
 function init() {
     const boxElement = document.querySelector('.box');
+    const colorInp = document.querySelector('input[type="color"]');
+    const rangeInp = document.querySelector('input[type="range"]');
+    const rangeInpEv = ['mousemove', 'change'];
+
     setBoxShadow(boxElement, '#000000');
 }
 
