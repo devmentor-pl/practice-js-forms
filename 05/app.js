@@ -13,6 +13,13 @@ const fields = [
   
   document.addEventListener('DOMContentLoaded', init);
   
+  function init() {
+    if (form) {
+        form.addEventListener('submit', isValid);
+    };
+};
+
+
 /*code for testing but - its working ;-)
 
 document.addEventListener('DOMContentLoaded', function () {
