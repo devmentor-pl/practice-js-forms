@@ -22,8 +22,13 @@ inputEl.addEventListener('change', function(e) {
             prototypeClone.querySelector('.images-list__item-img').src = URL.createObjectURL(capturedImg);
 
             prototypeClone.classList.remove('images-list__item--prototype');
-            prototypeClone.classList.add('images-list__item-img');
+            prototypeClone.classList.add('images-list__item');
             imagesList.appendChild(prototypeClone);
         }
     }
+});
+
+imagesList.addEventListener('click', function(e) {
+    const clickedItem = e.target.closest('.images-list__item');
+    clickedItem.classList.toggle('images-list__item-img');
 });
