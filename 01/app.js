@@ -10,14 +10,16 @@ formEl.addEventListener('submit', function(e) {
     const firstName = e.target.elements.firstName.value;
     const lastName = e.target.elements.lastName.value;
 
-    // Stwórz nowy element <li> za pomocą funkcji pomocniczej
-    const newLi = createLi(firstName, lastName);
+    if (firstName && lastName ) {
+        // Stwórz nowy element <li> za pomocą funkcji pomocniczej
+        const newLi = createLi(firstName, lastName);
 
-    // Znajdź listę <ul>, do której chcesz dodać nowy element <li>
-    const userLi = document.querySelector('ul');
+        // Znajdź listę <ul>, do której chcesz dodać nowy element <li>
+        const userLi = document.querySelector('ul');
 
-    // Dodaj utworzony element <li> do listy <ul>
-    userLi.appendChild(newLi);
+        // Dodaj utworzony element <li> do listy <ul>
+        userLi.appendChild(newLi);
+    }
 });
 
 // Funkcja pomocnicza tworząca element <li> i dodająca klasy oraz dane użytkownika
