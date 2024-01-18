@@ -20,16 +20,8 @@ inputEl.addEventListener('change', function(e) {
             const fileSize = capturedImg.size;
             const fileSizeMb = (fileSize / (1024 * 1024)).toFixed(2);
 
-            // Sklonuj prototyp i dostosuj jego zawartość
-            const prototypeClone = prototypeItem.cloneNode(true);
-            prototypeClone.querySelector('.images-list__item-name').textContent = fileName;
-            prototypeClone.querySelector('.images-list__item-size').textContent = fileSizeMb + ' MB ';
-            prototypeClone.querySelector('.images-list__item-img').src = URL.createObjectURL(capturedImg);
-
-            // Usuń klasę prototypu, dodaj klasę dla elementu listy, i dodaj do listy obrazów
-            prototypeClone.classList.remove('images-list__item--prototype');
-            prototypeClone.classList.add('images-list__item');
-            imagesList.appendChild(prototypeClone);
+            // Wywołaj funkcję pomocniczą
+            clonePrototype(fileName, fileSizeMb, capturedImg, prototypeItem, imagesList);
         }
     }
 });
@@ -39,3 +31,24 @@ imagesList.addEventListener('click', function(e) {
     const clickedItem = e.target.closest('.images-list__item');
     clickedItem.classList.toggle('images-list__item-img');
 });
+
+
+
+// Funkcja pomocnicza: Sklonuj prototyp elementu listy, dostosuj jego zawartość na podstawie przekazanych danych,
+// usuń klasę prototypu, dodaj klasę dla elementu listy i dodaj go do listy obrazów.
+function clonePrototype(itemName, itemSizeMb, itemImg, prototypeItem, imagesList) {
+    // Sklonuj prototyp elementu listy
+    const prototypeClone = prototypeItem.cloneNode(true);
+    
+    // Dostosuj zawartość sklonowanego elementu na podstawie przekazanych danych
+    prototypeClone.querySelector('.images-list__item-name').textContent = itemName;
+    prototypeClone.querySelector('.images-list__item-size').textContent = itemSizeMb + ' MB ';
+    prototypeClone.querySelector('.images-list__item-img').src = URL.createObjectURL(itemImg);
+    
+    // Usuń klasę prototypu, dodaj klasę dla elementu listy i dodaj go do listy obrazów
+    prototypeClone.classList.remove('images-list__item--prototype');
+    prototypeClone.classList.add('images-list__item');
+    imagesList.appendChild(prototypeClone);
+    return prototypeClone;
+}
+

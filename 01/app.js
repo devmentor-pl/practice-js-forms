@@ -9,7 +9,8 @@ formEl.addEventListener('submit', function(e) {
     // Pobierz dane z pól formularza
     const firstName = e.target.elements.firstName.value;
     const lastName = e.target.elements.lastName.value;
-
+    
+    // Sprawdź czy wartości nie są puste
     if (firstName && lastName ) {
         // Stwórz nowy element <li> za pomocą funkcji pomocniczej
         const newLi = createLi(firstName, lastName);
