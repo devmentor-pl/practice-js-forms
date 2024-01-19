@@ -20,6 +20,8 @@ formEl.addEventListener('submit', function(e) {
 
         // Dodaj utworzony element <li> do listy <ul>
         userLi.appendChild(newLi);
+    } else {
+        alert("Wprowadź poprawne dane");
     }
 });
 
