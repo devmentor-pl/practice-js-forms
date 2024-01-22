@@ -4,7 +4,7 @@ const passwordInputEl = document.getElementById("formPass1");
 const secondPasswordInputEl = document.getElementById("formPass2");
 const checkBoxEl = document.getElementById("formAccept");
 
-const errors = [];
+let errors = [];
 
 //walidacja mail:
 
