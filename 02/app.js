@@ -48,7 +48,10 @@ const handleError = () => {
 
 	// Oznacz błędne etykiety na czerwono
 	errors.forEach((selector) => {
-		const label = document.querySelector(`${selector} + label`);
+		
+		const label = document
+			.querySelector(`${selector}`)
+			.parentElement.querySelector("label");
 		if (label) {
 			label.style.color = "red";
 		}
@@ -64,7 +67,6 @@ const handleError = () => {
 	}
 };
 
-// nie wiem dlaczego nie zaznacza mi się błąd dla odpowiedniego <label> na czerwono? Tą funkcję robię przy pomocy chata gpt, ale nie rozumiem o co mu chodzi.
 
 
 
@@ -74,5 +76,6 @@ formEl.addEventListener('submit', (e)=>{
     firstPasswordValidation()
     secondPasswordValidation()
     handleError()
+	regulationsValidation();
 
 })
