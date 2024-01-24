@@ -17,37 +17,53 @@ const messageList = document.querySelector(".messages");
 function validateCity(){
 	if(cityInputEl.value.trim() === ''){
 		displayErrorMessage('Proszę podać miejscowość')
+		return false
 	}else{
 		displaySuccessMessage('pole poprawnie wypełnione')
+
+		return true
 	}
 }
+
+console.log('Walidacja miasta', validateCity())
 
 function validateHouseNumber(){
 	if(houseNumberInput.value.trim() ===''){
 		displayErrorMessage('Proszę podać numer budynku')
+		return  false
 	}else{
 		displaySuccessMessage("pole poprawnie wypełnione");
+		return true
 	}
 }
+
+console.log('walidacja numeru mieszkania', validateHouseNumber())
 
 function validateNameAndSurname() {
 	if(inputNameEl.value.trim() === '' || inputSurnameEl.value.trim() === ''){
 		displayErrorMessage('Proszę podać imię i nazwisko')
+		return false
 		
 	}else{
 		displaySuccessMessage("pole poprawnie wypełnione");
+		return true
+		
 	}
 }
 
+console.log('walidacja imienia i nazwiska', validateNameAndSurname());
 
 function validateStreetAndFlatNumbers(){
 	if(inputStreetEl.value.trim() === "" || flatNumberInput.value.trim() ===""){
 		displayErrorMessage('Proszę podać numer ulicy i mieszkania')
+		return false
 	}else{
 		displaySuccessMessage("pole poprawnie wypełnione");
+		return true
 	}
 }
 
+console.log('walidacja numeru ulicy i mieszkania', validateStreetAndFlatNumbers());
 // Czyszczenie komunikatów przed ponowną walidacją
 messageList.innerText = "";
 
