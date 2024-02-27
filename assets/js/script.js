@@ -33,11 +33,20 @@ const file = evt.target.files[0];
 
   reader.readAsText(file);
 }
+
+// /[^"]*[^","]|[^"]*[^"]\r\n/g
+/*       const resultNoCommas = result.match(/("[^"]*"|[^,\r\n]+)/g).map(item => item.replace(/"/g, '')); */
+
+// (?<=((?<="),(?=")))
+// only , between elements: (?<="),(?=")
 /* 
 Problem:
+Write a regular expression to select the "," pattern, then split the text. After splitting, remove the quotation marks only from the beginning and end of the resulting strings. This ensures that when "" is used inside a description, it doesn't split the words between them.
 */
     function extractData (result) {
-      const resultNoCommas = result.match(/("[^"]*"|[^,\r\n]+)/g).map(item => item.replace(/"/g, ''));
+      const resultNoCommas = result.replace(/(?<="),(?=")|\r\n/g, 'elementsToDelete').split('elementsToDelete').map(item => {
+        return item.replace(/^"|"$/g, '');
+      });
       console.log(resultNoCommas);
     }
 
