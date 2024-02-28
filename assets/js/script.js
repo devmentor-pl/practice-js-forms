@@ -4,17 +4,13 @@ const txt = `"1","Ogrodzieniec","Zamek Ogrodzieniec – ruiny zamku leżącego n
 console.log(txt.split(/[\r\n]+/gm));
 
 const panelForm = document.querySelector(".panel__form");
-const excursions = panelForm.querySelector(".uploader__input");
+const excursionsFile = panelForm.querySelector(".uploader__input");
+excursionsFile.addEventListener("change", readExcursionsFile);
+const excursionsContainer = document.querySelector(".excursions");
+excursionsContainer.addEventListener("submit", toBasket);
 
-excursions.addEventListener("change", readExcursionsFile);
 
 function readExcursionsFile(evt) {
-  /*   const id
-  const place
-  const description
-  const adultPrice
-  const childPrice */
-
   const file = evt.target.files[0];
   if (file) {
     const reader = new FileReader();
@@ -79,7 +75,6 @@ function insertData(arrangedData) {
 
 function toBasket(evt) {
   evt.preventDefault();
-    console.log("BlaBlahBlah");
   const basket = [];
   const adultNumber = evt.target;
   console.log(adultNumber);
