@@ -5,7 +5,11 @@ console.log(txt.split(/[\r\n]+/gm));
 
 const panelForm = document.querySelector(".panel__form");
 const excursionsFile = panelForm.querySelector(".uploader__input");
-excursionsFile.addEventListener("change", showExcursions);
+
+let arrangedFileData;
+excursionsFile.addEventListener("change", readFile);
+document.addEventListener("fileRead", initOperations);
+
 const excursionsContainer = document.querySelector(".excursions");
 excursionsContainer.addEventListener("submit", toBasket);
 
@@ -23,8 +27,8 @@ function readExcursionsFile(evt) {
 
     reader.readAsText(file);
   }
-} */
-
+}
+ */
 function extractData(result) {
   const eachExcursion = result.split(/[\r\n]+/g);
   const arrangedData = eachExcursion.map((excursion) => {
@@ -76,29 +80,30 @@ function toBasket(evt) {
   const basket = [];
   const adultNumber = evt.target;
   console.log(adultNumber);
-/* 
+  /* 
 1. Name, adultPrice, childPrice.
 
    */
 }
 
-function showExcursions(evt) {
-  const arrangedData = readExcursionFile(evt);
-  console.log(arrangedData);
+function initOperations(evt) {
+  insertData(arrangedFileData);
 }
-//Problem: I HAVE TO push extractedData to arrangedData!
-function readExcursionFile(evt) {
+
+function readFile(evt) {
   const file = evt.target.files[0];
   if (file) {
     const reader = new FileReader();
-    const arrangedData = [];
     reader.readAsText(file);
     reader.onload = (evt) => {
       const result = evt.target.result;
-      const extractedData = extractData(result);
-      console.log(extractedData);
-      arrangedData.push(extractedData);
+      arrangedFileData = extractData(result);
+      fireFileRead();
     };
-    return arrangedData;
   }
+}
+// Great solution for asynchronous reader.onload
+function fireFileRead() {
+  const newEvent = new CustomEvent("fileRead", { bubbles: false });
+  document.dispatchEvent(newEvent);
 }
