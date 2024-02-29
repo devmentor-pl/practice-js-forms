@@ -5,11 +5,11 @@ console.log(txt.split(/[\r\n]+/gm));
 
 const panelForm = document.querySelector(".panel__form");
 const excursionsFile = panelForm.querySelector(".uploader__input");
-excursionsFile.addEventListener("change", readExcursionsFile);
+excursionsFile.addEventListener("change", showExcursions);
 const excursionsContainer = document.querySelector(".excursions");
 excursionsContainer.addEventListener("submit", toBasket);
 
-
+/* 
 function readExcursionsFile(evt) {
   const file = evt.target.files[0];
   if (file) {
@@ -22,10 +22,8 @@ function readExcursionsFile(evt) {
     };
 
     reader.readAsText(file);
-
-    // If excursions have shown on the site, add event listener.
   }
-}
+} */
 
 function extractData(result) {
   const eachExcursion = result.split(/[\r\n]+/g);
@@ -82,4 +80,25 @@ function toBasket(evt) {
 1. Name, adultPrice, childPrice.
 
    */
+}
+
+function showExcursions(evt) {
+  const arrangedData = readExcursionFile(evt);
+  console.log(arrangedData);
+}
+//Problem: I HAVE TO push extractedData to arrangedData!
+function readExcursionFile(evt) {
+  const file = evt.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    const arrangedData = [];
+    reader.readAsText(file);
+    reader.onload = (evt) => {
+      const result = evt.target.result;
+      const extractedData = extractData(result);
+      console.log(extractedData);
+      arrangedData.push(extractedData);
+    };
+    return arrangedData;
+  }
 }
