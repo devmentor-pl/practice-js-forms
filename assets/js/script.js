@@ -10,28 +10,9 @@ let arrangedFileData;
 excursionsFile.addEventListener("change", readFile);
 document.addEventListener("fileRead", initOperations);
 
-const excursionsContainer = document.querySelector(".excursions");
-excursionsContainer.addEventListener("submit", toBasket);
-
-/* 
-function readExcursionsFile(evt) {
-  const file = evt.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-
-    reader.onload = (evt) => {
-      const result = evt.target.result;
-      const arrangedData = extractData(result);
-      insertData(arrangedData);
-    };
-
-    reader.readAsText(file);
-  }
-}
- */
 function extractData(result) {
-  const eachExcursion = result.split(/[\r\n]+/g);
-  const arrangedData = eachExcursion.map((excursion) => {
+  const excursionList = result.split(/[\r\n]+/g);
+  const excursionData = excursionList.map((excursion) => {
     return excursion
       .replace(/(?<="),(?=")|\r\n/g, "elementsToDelete")
       .split("elementsToDelete")
@@ -40,13 +21,13 @@ function extractData(result) {
       });
   });
 
-  return arrangedData;
+  return excursionData;
 }
 
-function insertData(arrangedData) {
+function showExcursions(arrangedFileData) {
   const panelExcursions = document.querySelector(".panel__excursions");
-  const readyData = [];
-  arrangedData.forEach((excursion) => {
+  const excursionsHTML = [];
+  arrangedFileData.forEach((excursion) => {
     const excursionTemplate = document
       .querySelector(".excursions__item--prototype")
       .cloneNode(true);
@@ -65,29 +46,71 @@ function insertData(arrangedData) {
     adultPrice.innerText = excursion[3];
     childPrice.innerText = excursion[4];
 
-    readyData.push(excursionTemplate);
+    excursionsHTML.push(excursionTemplate);
   });
   while (panelExcursions.firstChild) {
     panelExcursions.removeChild(panelExcursions.firstChild);
   }
-  readyData.forEach((item) => {
+  excursionsHTML.forEach((item) => {
     panelExcursions.appendChild(item);
   });
 }
-
+//Tutaj skończyłem!
 function toBasket(evt) {
   evt.preventDefault();
-  const basket = [];
-  const adultNumber = evt.target;
-  console.log(adultNumber);
-  /* 
-1. Name, adultPrice, childPrice.
 
-   */
+  const adultNumber = evt.target.querySelector(`input[name = "adults"]`).value;
+  const childNumber = evt.target.querySelector(
+    `input[name = "children"]`
+  ).value;
+// Problem: Validation type
+// What would be the best way to validate number of tickets?
+  if (!toBasketValidate(adultNumber, childNumber)) {
+    return alert('invalid');
+  }
+  //Validation:
+  //1. only numbers
+  //2. no 0 nor '';
+
+  // title, adultprice, childprice, number of tickets
+  const basket = [];
+
+  const summary = document.querySelector(".summary");
+  const summaryItemTemplate = summary
+    .querySelector(".summary__item--prototype")
+    .cloneNode(true);
+  summaryItemTemplate.classList.remove("summary__item--prototype");
+  console.log(summaryItemTemplate);
+
+  const summaryPrices = summaryItemTemplate.querySelector(".summary__prices");
+  let summaryAdultPrices;
+  let summaryChildPrices;
+
+  if (adultNumber > 0) {
+    const adultPrice = arrangedFileData[evt.target.parentNode.id - 1][3];
+    summaryAdultPrices = `dorośli: ${adultNumber} x ${adultPrice}PLN`;
+  }
+
+  if (childNumber > 0) {
+    const childPrice = arrangedFileData[evt.target.parentNode.id - 1][4];
+    summaryChildPrices = `dzieci: ${childNumber} x ${childPrice}PLN`;
+  }
+
+  if (summaryAdultPrices && summaryChildPrices) {
+    summaryPrices.innerText = summaryAdultPrices + "," + summaryChildPrices;
+  } else if (summaryAdultPrices) {
+    summaryPrices.innerText = summaryAdultPrices;
+  } else if (summaryChildPrices) {
+    summaryPrices.innerText = summaryChildPrices;
+  }
+
+  console.log(summaryPrices);
 }
 
 function initOperations(evt) {
-  insertData(arrangedFileData);
+  showExcursions(arrangedFileData);
+  const excursionsContainer = document.querySelector(".excursions");
+  excursionsContainer.addEventListener("submit", toBasket);
 }
 
 function readFile(evt) {
@@ -106,4 +129,13 @@ function readFile(evt) {
 function fireFileRead() {
   const newEvent = new CustomEvent("fileRead", { bubbles: false });
   document.dispatchEvent(newEvent);
+}
+
+function toBasketValidate (adultNumber, childNumber) {
+  const adultString = adultNumber.toString();
+  const childString = childNumber.toString();
+  const rule = /^[0-9]*$/;
+  if (rule.test(adultString) || rule.test(childString)) {
+    return true;
+  }
 }
