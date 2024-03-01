@@ -63,15 +63,13 @@ function toBasket(evt) {
   const childNumber = evt.target.querySelector(
     `input[name = "children"]`
   ).value;
-// Problem: Validation type
-// What would be the best way to validate number of tickets?
-  if (!toBasketValidate(adultNumber, childNumber)) {
-    return alert('invalid');
+//Problem solution:
+  if (isNaN(adultNumber) || isNaN(childNumber) || (adultNumber === '' && childNumber === '') ||
+  (adultNumber === '0' || childNumber === '0')) {
+    evt.target.querySelector(`input[name = "adults"]`).value = "";
+    evt.target.querySelector(`input[name = "children"]`).value = "";
+    return alert("Fill fields correctly");
   }
-  //Validation:
-  //1. only numbers
-  //2. no 0 nor '';
-
   // title, adultprice, childprice, number of tickets
   const basket = [];
 
@@ -110,6 +108,16 @@ function toBasket(evt) {
 function initOperations(evt) {
   showExcursions(arrangedFileData);
   const excursionsContainer = document.querySelector(".excursions");
+  const ticketsInputList = excursionsContainer.querySelectorAll(
+    'input[name="adults"], input[name="children"]'
+  );
+
+  ticketsInputList.forEach((input) => {
+    input.addEventListener("keyup", validateNumberTickets);
+  });
+  ticketsInputList.forEach((input) => {
+    input.addEventListener("paste", validateNumberTickets);
+  });
   excursionsContainer.addEventListener("submit", toBasket);
 }
 
@@ -130,12 +138,32 @@ function fireFileRead() {
   const newEvent = new CustomEvent("fileRead", { bubbles: false });
   document.dispatchEvent(newEvent);
 }
+//Problem solution:
+function validateNumberTickets(evt) {
+  if (evt.type === "paste") {
+    evt.preventDefault();
+    return alert(
+      `It's just a number. Do you really need to paste something in here? ☺️`
+    );
+  }
 
-function toBasketValidate (adultNumber, childNumber) {
-  const adultString = adultNumber.toString();
-  const childString = childNumber.toString();
-  const rule = /^[0-9]*$/;
-  if (rule.test(adultString) || rule.test(childString)) {
-    return true;
+  // protection againts pasting
+  // can't start with 0
+  // has to be a number
+  const value = evt.target.value;
+
+  if (isNaN(value)) {
+    evt.target.value = value.match(/^[0-9]*/);
+    alert("Input has to be a number!");
+  }
+
+  if (/^0/.test(value)) {
+    evt.target.value = "";
+    alert("You can't order 0 number of tickets.");
+  }
+
+  if (value > 100) {
+    evt.target.value = "";
+    alert("We can't sell more than 100 tickets.");
   }
 }
