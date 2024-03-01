@@ -55,54 +55,60 @@ function showExcursions(arrangedFileData) {
     panelExcursions.appendChild(item);
   });
 }
-//Tutaj skończyłem!
+
 function toBasket(evt) {
   evt.preventDefault();
-
   const adultNumber = evt.target.querySelector(`input[name = "adults"]`).value;
   const childNumber = evt.target.querySelector(
     `input[name = "children"]`
   ).value;
-//Problem solution:
-  if (isNaN(adultNumber) || isNaN(childNumber) || (adultNumber === '' && childNumber === '') ||
-  (adultNumber === '0' || childNumber === '0')) {
+
+/*   if (
+    isNaN(adultNumber) ||
+    isNaN(childNumber) ||
+    (adultNumber === "" && childNumber === "") ||
+    adultNumber === "0" ||
+    childNumber === "0"
+  ) {
     evt.target.querySelector(`input[name = "adults"]`).value = "";
     evt.target.querySelector(`input[name = "children"]`).value = "";
     return alert("Fill fields correctly");
-  }
+  } */
   // title, adultprice, childprice, number of tickets
-  const basket = [];
+  const fileData = arrangedFileData[evt.target.parentNode.id - 1];
+  const basket = {};
+  basket.title = fileData[1];
+  basket.adultPrice = fileData[3];
+  basket.adultNumber = adultNumber;
+  basket.childPrice = fileData[4];
+  basket.childNumber = childNumber;
 
   const summary = document.querySelector(".summary");
   const summaryItemTemplate = summary
     .querySelector(".summary__item--prototype")
     .cloneNode(true);
   summaryItemTemplate.classList.remove("summary__item--prototype");
-  console.log(summaryItemTemplate);
 
+  const title = summaryItemTemplate.querySelector(".summary__name");
+  const summaryTotalPrice = summaryItemTemplate.querySelector(
+    ".summary__total-price"
+  );
   const summaryPrices = summaryItemTemplate.querySelector(".summary__prices");
-  let summaryAdultPrices;
-  let summaryChildPrices;
+  title.innerText = basket.title;
+  summaryTotalPrice.innerText =
+    basket.adultNumber * basket.adultPrice +
+    basket.childNumber * basket.childPrice +
+    "PLN";
 
-  if (adultNumber > 0) {
-    const adultPrice = arrangedFileData[evt.target.parentNode.id - 1][3];
-    summaryAdultPrices = `dorośli: ${adultNumber} x ${adultPrice}PLN`;
+  if (basket.adultNumber && basket.childNumber) {
+    summaryPrices.innerText = `dorośli: ${basket.adultNumber} x ${basket.adultPrice}PLN, dzieci: ${basket.childNumber} x ${basket.childPrice}PLN.`;
+  } else if (basket.adultNumber) {
+    summaryPrices.innerText = `dorośli: ${basket.adultNumber} x ${basket.adultPrice}PLN.`;
+  } else if (basket.childNumber) {
+    summaryPrices.innerText = `dzieci: ${basket.childNumber} x ${basket.childPrice}PLN.`;
   }
 
-  if (childNumber > 0) {
-    const childPrice = arrangedFileData[evt.target.parentNode.id - 1][4];
-    summaryChildPrices = `dzieci: ${childNumber} x ${childPrice}PLN`;
-  }
-
-  if (summaryAdultPrices && summaryChildPrices) {
-    summaryPrices.innerText = summaryAdultPrices + "," + summaryChildPrices;
-  } else if (summaryAdultPrices) {
-    summaryPrices.innerText = summaryAdultPrices;
-  } else if (summaryChildPrices) {
-    summaryPrices.innerText = summaryChildPrices;
-  }
-
-  console.log(summaryPrices);
+  summary.appendChild(summaryItemTemplate);
 }
 
 function initOperations(evt) {
@@ -138,7 +144,7 @@ function fireFileRead() {
   const newEvent = new CustomEvent("fileRead", { bubbles: false });
   document.dispatchEvent(newEvent);
 }
-//Problem solution:
+
 function validateNumberTickets(evt) {
   if (evt.type === "paste") {
     evt.preventDefault();
@@ -151,19 +157,25 @@ function validateNumberTickets(evt) {
   // can't start with 0
   // has to be a number
   const value = evt.target.value;
-
+//Problem attempt
   if (isNaN(value)) {
-    evt.target.value = value.match(/^[0-9]*/);
     alert("Input has to be a number!");
+    setTimeout(() => {
+      evt.target.value = value.match(/^[0-9]*/);
+    }, 100);
   }
 
   if (/^0/.test(value)) {
-    evt.target.value = "";
     alert("You can't order 0 number of tickets.");
+    setTimeout(() => {
+      evt.target.value = "";
+    }, 100);
   }
 
   if (value > 100) {
-    evt.target.value = "";
     alert("We can't sell more than 100 tickets.");
+    setTimeout(() => {
+      evt.target.value = "";
+    }, 100);
   }
 }
