@@ -7,6 +7,7 @@ const panelForm = document.querySelector(".panel__form");
 const excursionsFile = panelForm.querySelector(".uploader__input");
 
 let arrangedFileData;
+const basket = [];
 excursionsFile.addEventListener("change", readFile);
 document.addEventListener("fileRead", initOperations);
 
@@ -56,6 +57,11 @@ function showExcursions(arrangedFileData) {
   });
 }
 
+function manageBasket(evt) {
+  toBasket(evt);
+  showBasket(evt);
+}
+
 function toBasket(evt) {
   evt.preventDefault();
   const adultNumber = evt.target.querySelector(`input[name = "adults"]`).value;
@@ -63,27 +69,54 @@ function toBasket(evt) {
     `input[name = "children"]`
   ).value;
 
-/*   if (
-    isNaN(adultNumber) ||
-    isNaN(childNumber) ||
-    (adultNumber === "" && childNumber === "") ||
-    adultNumber === "0" ||
-    childNumber === "0"
-  ) {
-    evt.target.querySelector(`input[name = "adults"]`).value = "";
-    evt.target.querySelector(`input[name = "children"]`).value = "";
-    return alert("Fill fields correctly");
-  } */
+  if (!validateTicketsNumberSubmit(evt, adultNumber, childNumber)) {
+    return;
+  }
+
   // title, adultprice, childprice, number of tickets
   const fileData = arrangedFileData[evt.target.parentNode.id - 1];
-  const basket = {};
-  basket.title = fileData[1];
-  basket.adultPrice = fileData[3];
-  basket.adultNumber = adultNumber;
-  basket.childPrice = fileData[4];
-  basket.childNumber = childNumber;
 
-  const summary = document.querySelector(".summary");
+  // Use it on showBasket to tell that 100 tickets is max.
+/*   const moreThanHundred = basket.some(item => {
+    if (item.adultNumber && item.childNumber) {
+      return parseInt(item.adultNumber) + parseInt(item.childNumber) > 100;
+    } else if (item.adultNumber) {
+      return item.adultNumber > 100;
+    }
+  });
+
+  console.log(moreThanHundred); */
+
+  const isTripInBasket = basket.some((item) => {
+    return item.title === fileData[1];
+  });
+
+  if (isTripInBasket) {
+    basket.forEach((item) => {
+      if (item.title === fileData[1]) {
+        item.adultNumber =
+          item.adultNumber === ""
+            ? adultNumber
+            : (parseInt(item.adultNumber) + parseInt(adultNumber)).toString();
+        item.childNumber =
+          item.childNumber === ""
+            ? childNumber
+            : (parseInt(item.childNumber) + parseInt(childNumber)).toString();
+      }
+    });
+  } else {
+    const summaryItemObj = {
+      title: fileData[1],
+      adultPrice: fileData[3],
+      adultNumber: adultNumber,
+      childPrice: fileData[4],
+      childNumber: childNumber,
+    };
+    basket.push(summaryItemObj);
+  }
+
+  console.log(basket);
+  /*   const summary = document.querySelector(".summary");
   const summaryItemTemplate = summary
     .querySelector(".summary__item--prototype")
     .cloneNode(true);
@@ -108,8 +141,10 @@ function toBasket(evt) {
     summaryPrices.innerText = `dzieci: ${basket.childNumber} x ${basket.childPrice}PLN.`;
   }
 
-  summary.appendChild(summaryItemTemplate);
+  summary.appendChild(summaryItemTemplate); */
 }
+
+function showBasket(evt) {}
 
 function initOperations(evt) {
   showExcursions(arrangedFileData);
@@ -119,12 +154,14 @@ function initOperations(evt) {
   );
 
   ticketsInputList.forEach((input) => {
-    input.addEventListener("keyup", validateNumberTickets);
+    input.addEventListener("keyup", validateTicketsNumber);
   });
   ticketsInputList.forEach((input) => {
-    input.addEventListener("paste", validateNumberTickets);
+    input.addEventListener("paste", validateTicketsNumber);
   });
-  excursionsContainer.addEventListener("submit", toBasket);
+// Problem solution: Divide one toBasket function to smaller ones. manageBasket is the main function.
+// I should validate number of tickets because I claimed 100 is max but client can insert more than 100!
+  excursionsContainer.addEventListener("submit", manageBasket);
 }
 
 function readFile(evt) {
@@ -145,7 +182,7 @@ function fireFileRead() {
   document.dispatchEvent(newEvent);
 }
 
-function validateNumberTickets(evt) {
+function validateTicketsNumber(evt) {
   if (evt.type === "paste") {
     evt.preventDefault();
     return alert(
@@ -157,25 +194,39 @@ function validateNumberTickets(evt) {
   // can't start with 0
   // has to be a number
   const value = evt.target.value;
-//Problem attempt
-  if (isNaN(value)) {
-    alert("Input has to be a number!");
-    setTimeout(() => {
-      evt.target.value = value.match(/^[0-9]*/);
-    }, 100);
-  }
-
   if (/^0/.test(value)) {
+    evt.target.value = "";
     alert("You can't order 0 number of tickets.");
-    setTimeout(() => {
-      evt.target.value = "";
-    }, 100);
-  }
-
-  if (value > 100) {
+  } else if (isNaN(value)) {
+    evt.target.value = value.match(/^[0-9]*/);
+    alert("Input has to be a number!");
+  } else if (value > 100) {
+    evt.target.value = "";
     alert("We can't sell more than 100 tickets.");
-    setTimeout(() => {
-      evt.target.value = "";
-    }, 100);
+  }
+}
+
+function validateTicketsNumberSubmit(evt, adultNumber, childNumber) {
+  if (adultNumber === "" && childNumber === "") {
+    alert("Invalid data.");
+    return false;
+  } else if (
+    /^0/.test(adultNumber) ||
+    isNaN(adultNumber) ||
+    adultNumber > 100
+  ) {
+    evt.target.querySelector(`input[name = "adults"]`).value = "";
+    alert("Invalid data.");
+    return false;
+  } else if (
+    /^0/.test(childNumber) ||
+    isNaN(childNumber) ||
+    childNumber > 100
+  ) {
+    evt.target.querySelector(`input[name = "children"]`).value = "";
+    alert("Invalid data.");
+    return false;
+  } else {
+    return true;
   }
 }
