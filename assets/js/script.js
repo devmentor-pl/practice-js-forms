@@ -77,7 +77,7 @@ function toBasket(evt) {
   const fileData = arrangedFileData[evt.target.parentNode.id - 1];
 
   // Use it on showBasket to tell that 100 tickets is max.
-/*   const moreThanHundred = basket.some(item => {
+  /*   const moreThanHundred = basket.some(item => {
     if (item.adultNumber && item.childNumber) {
       return parseInt(item.adultNumber) + parseInt(item.childNumber) > 100;
     } else if (item.adultNumber) {
@@ -94,14 +94,21 @@ function toBasket(evt) {
   if (isTripInBasket) {
     basket.forEach((item) => {
       if (item.title === fileData[1]) {
-        item.adultNumber =
-          item.adultNumber === ""
-            ? adultNumber
-            : (parseInt(item.adultNumber) + parseInt(adultNumber)).toString();
-        item.childNumber =
-          item.childNumber === ""
-            ? childNumber
-            : (parseInt(item.childNumber) + parseInt(childNumber)).toString();
+        if (item.adultNumber && adultNumber) {
+          item.adultNumber = (
+            parseInt(item.adultNumber) + parseInt(adultNumber)
+          ).toString();
+        } else if (adultNumber) {
+          item.adultNumber = adultNumber;
+        }
+
+        if (item.childNumber && childNumber) {
+          item.childNumber = (
+            parseInt(item.childNumber) + parseInt(childNumber)
+          ).toString();
+        } else if (childNumber) {
+          item.childNumber = childNumber;
+        }
       }
     });
   } else {
@@ -144,7 +151,47 @@ function toBasket(evt) {
   summary.appendChild(summaryItemTemplate); */
 }
 
-function showBasket(evt) {}
+function showBasket(evt) {
+  const panelSummary = document.querySelector(".panel__summary");
+
+  //Problem: Add every trip to the basket instead of submitted one.
+  basket.forEach((item) => {
+    const summaryItemTemplate = panelSummary
+      .querySelector(".summary__item--prototype")
+      .cloneNode(true);
+    summaryItemTemplate.classList.remove("summary__item--prototype");
+    const title = summaryItemTemplate.querySelector(".summary__name");
+    const summaryPrices = summaryItemTemplate.querySelector(".summary__prices");
+    const summaryTotalPrice = summaryItemTemplate.querySelector(
+      ".summary__total-price"
+    );
+
+    title.innerText = item.title;
+    console.log(item.adultNumber);
+    if (item.adultNumber && item.childNumber) {
+      summaryPrices.innerText = `dorośli: ${item.adultNumber} x ${item.adultPrice}PLN, dzieci ${item.childNumber} x ${item.childPrice}PLN.`;
+
+      summaryTotalPrice.innerText = (
+        parseInt(item.adultNumber) * parseInt(item.adultPrice) +
+        parseInt(item.childNumber) * parseInt(item.childPrice)
+      ).toString();
+    } else if (item.adultNumber) {
+      summaryPrices.innerText = `dorośli: ${item.adultNumber} x ${item.adultPrice}PLN.`;
+
+      summaryTotalPrice.innerText = (
+        parseInt(item.adultNumber) * parseInt(item.adultPrice)
+      ).toString();
+    } else if (item.childNumber) {
+      summaryPrices.innerText = `dzieci ${item.childNumber} x ${item.childPrice}PLN.`;
+
+      summaryTotalPrice.innerText = (
+        parseInt(item.childNumber) * parseInt(item.childPrice)
+      ).toString();
+    }
+
+    panelSummary.appendChild(summaryItemTemplate);
+  });
+}
 
 function initOperations(evt) {
   showExcursions(arrangedFileData);
@@ -159,8 +206,8 @@ function initOperations(evt) {
   ticketsInputList.forEach((input) => {
     input.addEventListener("paste", validateTicketsNumber);
   });
-// Problem solution: Divide one toBasket function to smaller ones. manageBasket is the main function.
-// I should validate number of tickets because I claimed 100 is max but client can insert more than 100!
+  // Problem solution: Divide one toBasket function to smaller ones. manageBasket is the main function.
+  // I should validate number of tickets because I claimed 100 is max but client can insert more than 100!
   excursionsContainer.addEventListener("submit", manageBasket);
 }
 
