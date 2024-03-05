@@ -154,20 +154,27 @@ function toBasket(evt) {
 function showBasket(evt) {
   const panelSummary = document.querySelector(".panel__summary");
 
+  const summaryItemTemplate = panelSummary
+    .querySelector(".summary__item--prototype")
+    .cloneNode(true);
+  summaryItemTemplate.classList.remove("summary__item--prototype");
+
+/*   while (panelSummary.children[1]) {
+    panelSummary.removeChild(panelSummary.children[1]);
+  } */
+
   //Problem: Add every trip to the basket instead of submitted one.
+
+  // If there's no trip in the summary create html structure.
   basket.forEach((item) => {
-    const summaryItemTemplate = panelSummary
-      .querySelector(".summary__item--prototype")
-      .cloneNode(true);
-    summaryItemTemplate.classList.remove("summary__item--prototype");
     const title = summaryItemTemplate.querySelector(".summary__name");
     const summaryPrices = summaryItemTemplate.querySelector(".summary__prices");
     const summaryTotalPrice = summaryItemTemplate.querySelector(
       ".summary__total-price"
     );
-
+    // PROBLEM with title
     title.innerText = item.title;
-    console.log(item.adultNumber);
+    console.log(item.title);
     if (item.adultNumber && item.childNumber) {
       summaryPrices.innerText = `dorośli: ${item.adultNumber} x ${item.adultPrice}PLN, dzieci ${item.childNumber} x ${item.childPrice}PLN.`;
 
