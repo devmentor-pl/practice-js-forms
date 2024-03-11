@@ -42,5 +42,9 @@ function checkPass() {
     } 
 }
 
-function registerUser(e) {
+//do weryfikacji
+function registerUser() {
+    errors.forEach(function(error) {
+        error.style.color = 'red';
+    })
 }
