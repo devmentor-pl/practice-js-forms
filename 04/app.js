@@ -1,3 +1,11 @@
+//jak w nasłuchiwaniu ustawić konkretną zmianę wartości?
+
+const colorChange = document.querySelector('[type="color"]');
+const opacityChange = document.querySelector('[type="range"]');
+
+colorChange.addEventListener('change', getChannelColor);
+opacityChange.addEventListener('change', setBoxShadow);
+
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
@@ -5,6 +13,7 @@ function init() {
     setBoxShadow(boxElement, '#000000');
 }
 
+//ustawia cień
 function setBoxShadow(element, colorInHex, opacity = 1) {
     const colorInRGBA = `rgba(
         ${getChannelColor(colorInHex, 'red')}, 
@@ -16,7 +25,7 @@ function setBoxShadow(element, colorInHex, opacity = 1) {
     element.style.boxShadow = `0 0 5px 5px ${colorInRGBA}`;
 }
 
-
+//ustawia kolor
 function getChannelColor(colorInHex, channelName) {
     let start;
     switch(channelName) {
