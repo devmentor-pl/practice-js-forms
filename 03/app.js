@@ -1,3 +1,5 @@
+//nasłuchiwanie do inputa "change"
+// tablica - pliki wpisane
 const input = document.querySelector('input');
 console.log(input);
 const fileList = input.type.includes('image');
