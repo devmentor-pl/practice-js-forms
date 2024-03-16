@@ -1,8 +1,12 @@
-//jak w nasłuchiwaniu ustawić konkretną zmianę wartości?
+//wszystko zrobione - tylko NIE DZIAŁA ustawienie cienia
 
 const colorChange = document.querySelector('[type="color"]');
 const opacityChange = document.querySelector('[type="range"]');
 
+colorChange.addEventListener('change', getColor);
+//setBoxShadow
+//ustawiamy cień, przekazujemy argumenty do funkcji
+opacityChange.addEventListener('change', setShadow);
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -38,18 +42,22 @@ function getChannelColor(colorInHex, channelName) {
             break;
     }
 
-    console.log(colorInHex);
+    // console.log(colorInHex);
     const channelColorHex = colorInHex.substr(start, 2);
     const channelColorDec = parseInt(channelColorHex, 16);
 
     return channelColorDec; 
 }
-
+//DZIAŁA
 function getColor(e) {
     console.log(e.target.value);
     const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, e.target.value);
 }
-
-    colorChange.addEventListener('change', getColor);
-    opacityChange.addEventListener('change', setBoxShadow);
+//NIE DZIAŁA ustawienie cienia
+function setShadow(e) {
+    console.log(e.target.value);
+    const boxElement = document.querySelector('.box');
+    const opacityValue = e.target.value / 100;
+    setBoxShadow(boxElement, opacityValue);
+}
