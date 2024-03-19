@@ -7,11 +7,12 @@ newItem.style.display = 'block';
 //nasłuchiwanie na 'change'
 input.addEventListener('change', function(e) {
     const file = e.target.value;
-    // console.log(e.target.value);
+    console.log(e.target.value);
     
     // dodaję do tablicy pobrane pliki
     const fileList = [];
-    const fileDownloaded = file;
+    const fileDownloaded = file.type.includes('image'); // NIE działa lub wczytuję nieodpowiedni plik graficzny
+    console.log(fileDownloaded);
     fileList.push(fileDownloaded); //ok
     
     //dodaję pobrane pliki do newItem
