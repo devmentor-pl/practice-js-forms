@@ -39,41 +39,37 @@ form.addEventListener('submit', function(e) {
     
     // console.log(e);
     checkEmail(e.target[0].value);
-    // console.log(e.target[0].value); //wpisany adres emails
+    // console.log(e.target[0].value); 
     checkAcceptance('wartość podana do funkcji- jaka?');
     checkPass(e.target[1].value, e.target[2].value);
     if(errors.length > 0) {
-        console.log(errors);
+        // console.log(errors);
         // for(let i = 0; i < errors.length; i ++) {
-        //     errors[i].style.color = 'red'; //BŁĄD - taki sam jak w linii 53
+        //     errors[i].style.color = 'red';
         // }
         errors.forEach(function(error) {
-            console.log(errors); //tutaj konsola wyświetla tablicę
+            // console.log(errors); 
             const colorRed = 'red'
-            error.style.color = colorRed; // tutaj konsola wyświetla komunikat, 
-            //źe nie moźe wykonać metody na undefined, tak samo jak w linii48
+            error.style.color = colorRed;
         })
-        console.log('invalid');
+        // console.log('invalid');
         return;
     }
 console.log('done');
 });
 
 function checkEmail(value) {
-    //sprawdź czy pole valid === false wtedy kolor label
     // console.log(value);
     const email = value.value;
     // console.log(inputEmail.valid);
-
-    //usunąć automatyczną walidację!!
     
     if(!value.includes('@')) {
         inputEmail.style.color = 'red';
         inputEmail.style.background = 'pink';
-        errors.push(labelEmail.innerText); //ok
+        errors.push(labelEmail); //ok
         const email = labelEmail.innerText;
         // console.log(email); //email:
-        // email.style.color = 'red'; //BŁĄD
+        // email.style.color = 'red';
         // console.log(errors);
     } 
 }
@@ -83,8 +79,8 @@ function checkAcceptance(e) {
         console.log('zaznaczony')
     } else {
         console.log('NIE zaznaczony');
-        errors.push(labelReg.innerText);
-        // labelReg.innerText.style.color = 'red'; //BŁĄD
+        errors.push(labelReg);
+        // labelReg.innerText.style.color = 'red';
     }
     return true;
 }
@@ -94,8 +90,8 @@ function checkPass(pass1, pass2) {
     if(pass1.length > 6 && pass2.length > 6) {
         
         if(pass1 !== pass2) {
-            errors.push(labelPass2.innerText);
-            // labelPass2.style.color = 'red'; //BŁĄD
+            errors.push(labelPass2);
+            // labelPass2.style.color = 'red';
             return false;
         } 
     }
