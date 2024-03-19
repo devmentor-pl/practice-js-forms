@@ -51,13 +51,19 @@ function getChannelColor(colorInHex, channelName) {
 //DZIAŁA
 function getColor(e) {
     console.log(e.target.value);
+    const color = e.target.value;
     const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, e.target.value);
+    return color;
 }
 //NIE DZIAŁA ustawienie cienia
 function setShadow(e) {
     console.log(e.target.value);
     const boxElement = document.querySelector('.box');
     const opacityValue = e.target.value / 100;
-    setBoxShadow(boxElement, opacityValue);
+    console.log(opacityValue);
+    const color = getColor(e);
+    console.log(color); 
+    // const color = document.querySelector() // MOZE POBRAĆ colorInHex?
+    setBoxShadow(boxElement, color, opacityValue);
 }
