@@ -1,4 +1,4 @@
-// WSZYSTKO OK, poza kolorem czerwonym z linii 53/48
+// DZIAŁA
 
 const inputEmail = document.getElementById('formLogin');
 inputEmail.noValidate;
