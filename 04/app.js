@@ -1,4 +1,4 @@
-//wszystko zrobione - tylko NIE DZIAŁA ustawienie cienia
+//DZIAŁA
 
 const colorChange = document.querySelector('[type="color"]');
 const opacityChange = document.querySelector('[type="range"]');
@@ -56,14 +56,11 @@ function getColor(e) {
     setBoxShadow(boxElement, e.target.value);
     return color;
 }
-//NIE DZIAŁA ustawienie cienia
+//DZIAŁA
 function setShadow(e) {
     console.log(e.target.value);
     const boxElement = document.querySelector('.box');
     const opacityValue = e.target.value / 100;
     console.log(opacityValue);
-    const color = getColor(e);
-    console.log(color); 
-    // const color = document.querySelector() // MOZE POBRAĆ colorInHex?
-    setBoxShadow(boxElement, color, opacityValue);
+    setBoxShadow(boxElement, colorChange.value, opacityValue);
 }
