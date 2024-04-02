@@ -13,5 +13,7 @@ function addUser(e) {
     newLi.innerText = `${firstName} ${lastName}`;
     ulEl.appendChild(newLi);
     formEl.reset();
+  } else {
+    alert("Proszę wypełnic pola First Name i Last Name");
   }
 }
