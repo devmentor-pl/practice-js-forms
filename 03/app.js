@@ -8,12 +8,12 @@ function addFile(e) {
   const fileListArray = [...fileList];
 
   fileListArray.forEach(function (file) {
-    console.log(file.name, file.type, file.size);
-    const newImage = imagesList.firstElementChild.cloneNode(true);
-    newImage.style.display = "block";
-    imagesList.appendChild(newImage);
-
     if (file && file.type.includes("image")) {
+      console.log(file.name, file.type, file.size);
+      const newImage = imagesList.firstElementChild.cloneNode(true);
+      newImage.classList.remove("images-list__item--prototype");
+      imagesList.appendChild(newImage);
+
       const reader = new FileReader();
       reader.onload = function (e) {
         newImage.querySelector(".images-list__item-img").src = e.target.result;
