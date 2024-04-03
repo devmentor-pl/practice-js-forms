@@ -1,3 +1,4 @@
+//BŁĄD  w sprawdzaniu kodu zgodnego z patternem (było ok i przestało działać)
 const form = document.querySelector('form');
 form.noValidate = true;
 console.log(form);
