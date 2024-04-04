@@ -44,6 +44,7 @@ function checkIsFilled() {
     const houseNumberValue = form.querySelector('[name="houseNumber"]').value;
     const cityValue = form.querySelector('[name="city"]').value;
     const voivodeshipValue = form.querySelector('[name="voivodeship"]').value;
+    const postalCode = form.querySelector('[name="zip"]').value;
     
     // if(firstNameValue && lastNameValue && streetValue && houseNumberValue && cityValue && voivodeshipValue) {
     //     return true;
@@ -68,6 +69,9 @@ function checkIsFilled() {
     } 
     if (voivodeshipValue.length === 0) {
         arr.push('Wypełnij pole województwo');
+    } 
+    if (postalCode.length === 0) {
+        arr.push('Wypełnij pole kod pocztowy');
     } 
     
     arr.forEach(function(value) {
