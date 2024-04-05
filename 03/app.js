@@ -6,19 +6,21 @@ newItem.style.display = 'block';
 
 //nasłuchiwanie na 'change'
 input.addEventListener('change', function(e) {
-    const file = e.target.files[0]; // do wyjaśnienia
-    console.log(file);
-    console.log(e.target.value);
-    
-    // dodaję do tablicy pobrane pliki
-    const fileList = [];
-    const fileDownloaded = file.type.includes['image']; // BŁąD undefined
-    console.log(fileDownloaded);
-    fileList.push(fileDownloaded); //ok
-    
-    //dodaję pobrane pliki do newItem
-    fileList.forEach(function (file) {
-        newItem.setAttribute('src', file);
-    })
-    console.log(newItem); //ok
+    const files = e.target.files;
+    console.log(files);
+    for (let i = 0; i < files.length; i ++) {
+        const file = files[i];
+        if(file.type.includes('image')) {
+            const fileSizeMB = file.size / (1024 * 1024);
+            const formattedSize = fileSizeMB.toFixed(2) + 'MB';
+            const newImageItem = newItem.cloneNode(true);
+            const imageName = newImageItem.querySelector('.images-list__item-name');
+            const imageSize = newImageItem.querySelector('.images-list__item-size');
+            imageName.textContent = file.name;
+            console.log(file.name);
+            imageSize.textContent = formattedSize;
+            console.log(formattedSize)
+            document.querySelector('.images-list').appendChild(newImageItem);
+        }
+    }
 })
