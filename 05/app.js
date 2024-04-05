@@ -79,6 +79,7 @@ function checkIsFilled() {
         newLi.innerText = value;
         console.log(messages);
         messages.appendChild(newLi);
+        arr = [];ś
     }) 
 
 
