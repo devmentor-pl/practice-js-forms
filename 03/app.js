@@ -1,4 +1,4 @@
-//BŁAD linia 14
+//DZIAŁA
 const input = document.querySelector('input'); //ok
 
 const newItem = document.querySelector('.images-list__item--prototype').cloneNode(true);
