@@ -16,10 +16,14 @@ input.addEventListener('change', function(e) {
             const newImageItem = newItem.cloneNode(true);
             const imageName = newImageItem.querySelector('.images-list__item-name');
             const imageSize = newImageItem.querySelector('.images-list__item-size');
+            const imagePreview = newImageItem.querySelector('.images-list__item-img');
+
             imageName.textContent = file.name;
-            console.log(file.name);
             imageSize.textContent = formattedSize;
-            console.log(formattedSize)
+
+            //dodaję podgląd obrazka
+            imagePreview.src = URL.createObjectURL(file);
+
             document.querySelector('.images-list').appendChild(newImageItem);
         }
     }
