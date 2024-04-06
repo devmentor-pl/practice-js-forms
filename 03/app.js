@@ -1,4 +1,4 @@
-//DZIAŁA
+//DZIAŁA + wyświetlenie obrazka
 const input = document.querySelector('input'); //ok
 
 const newItem = document.querySelector('.images-list__item--prototype').cloneNode(true);
@@ -7,7 +7,7 @@ newItem.style.display = 'block';
 //nasłuchiwanie na 'change'
 input.addEventListener('change', function(e) {
     const files = e.target.files;
-    console.log(files);
+
     for (let i = 0; i < files.length; i ++) {
         const file = files[i];
         if(file.type.includes('image')) {
