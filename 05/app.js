@@ -1,3 +1,5 @@
+//DZIAŁA
+
 const form = document.querySelector('form');
 form.noValidate = true;
 // console.log(form);
@@ -74,19 +76,21 @@ function checkIsFilled() {
         arr.push('Wypełnij pole kod pocztowy');
     } 
     
+    // czyszczę poprzednie messages
+    messages.innerHTML = '';
+    
     arr.forEach(function(value) {
         const newLi = document.createElement('li');
         newLi.innerText = value;
-        console.log(messages);
         messages.appendChild(newLi);
-        arr = [];ś
     }) 
+    return arr.length === 0;
 
-
-    if (arr.length === 0) {
-        return true;
-    } else {
-        return false;
-    }
-
+    // if (arr.length === 0) {
+    //     return true;
+    // } else {
+    //     return false;
+    // }
 }
+
+
