@@ -11,7 +11,9 @@ function getFormData(e) {
 	const streetName = e.target.elements.street.value
 	const numberOfBuilding = e.target.elements.houseNumber.value
 	const numberOfFlat = e.target.elements.flatNumber.value
-	const zipCode = e.target.elements.zip.value
+	const zipCodeValue = e.target.elements.zip.value
+	const zipCodeInput = e.target.elements.zip
+
 	const cityName = e.target.elements.city.value
 	const voivodeship = e.target.elements.voivodeship.value
 	const errors = []
@@ -32,7 +34,7 @@ function getFormData(e) {
 		errors.push("The number of house needs to be filled")
 	}
 
-	if (zipCode.validity.patternMismatch) {
+	if (zipCodeInput.validity.patternMismatch) {
 		errors.push("The zip code need to be put in proper style")
 	}
 
