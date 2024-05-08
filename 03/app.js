@@ -8,8 +8,7 @@ function showImage(e) {
 
 	for (let i = 0; i < files.length; i++) {
         const file = files[i]
-        console.log(file);
-
+    
 		if (file && file.type.includes("image")) {
 			const reader = new FileReader()
 
@@ -37,8 +36,4 @@ function showImage(e) {
 			reader.readAsDataURL(file)
 		}
 	}
-
-	// console.log("Nazwa pliku", file.name)
-	// console.log('Rozmiar pliku', file.size)
-	// console.log('Typ pliku', file.type);
 }
