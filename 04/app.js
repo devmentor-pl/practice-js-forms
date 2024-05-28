@@ -3,6 +3,23 @@ document.addEventListener('DOMContentLoaded', init);
 function init() {
     const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, '#000000');
+
+    const colorPicker = document.querySelector('input[type="color"]');
+    const opacitySlider = document.querySelector('input[name="opacity"]');
+    
+    let newColor = '#000000';
+    let newOpacity = 1;
+
+    colorPicker.addEventListener('change', function(e) {
+        newColor = e.target.value;
+        setBoxShadow(boxElement, newColor);
+    });
+
+    opacitySlider.addEventListener('change', function(e) {
+        newOpacity = e.target.value / 100;
+        setBoxShadow(boxElement, newColor, newOpacity);
+    });
+
 }
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
