@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', init)
 function init() {
     const form = document.querySelector('form');
     form.addEventListener('submit', validateForm);
-    let errors = [];
+    const errors = [];
 
     function showErrors(errors) {
         errors.forEach(function (element) {
@@ -17,12 +17,13 @@ function init() {
             const label = element.previousElementSibling
             label.style.color = 'black';  
         })
+        errors.length = 0;
     }
     
     function validateForm(e) {
         e.preventDefault();
+        
         resetErrors(errors);
-        errors = [];
 
         const login = form.elements.login;
         const pass1 = form.elements.pass1;
