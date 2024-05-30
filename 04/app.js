@@ -6,19 +6,22 @@ function init() {
 
     const colorPicker = document.querySelector('input[type="color"]');
     const opacitySlider = document.querySelector('input[name="opacity"]');
-    
+
     let newColor = '#000000';
     let newOpacity = 1;
 
-    colorPicker.addEventListener('change', function(e) {
+    colorPicker.addEventListener('change', function (e) {
         newColor = e.target.value;
         setBoxShadow(boxElement, newColor);
     });
 
-    opacitySlider.addEventListener('change', function(e) {
+    opacitySlider.addEventListener('change', setOpacity);
+    opacitySlider.addEventListener('mousemove', setOpacity);
+
+    function setOpacity(e) {
         newOpacity = e.target.value / 100;
         setBoxShadow(boxElement, newColor, newOpacity);
-    });
+    }
 
 }
 
@@ -36,7 +39,7 @@ function setBoxShadow(element, colorInHex, opacity = 1) {
 
 function getChannelColor(colorInHex, channelName) {
     let start;
-    switch(channelName) {
+    switch (channelName) {
         case 'red':
             start = 1;
             break;
@@ -51,7 +54,7 @@ function getChannelColor(colorInHex, channelName) {
     const channelColorHex = colorInHex.substr(start, 2);
     const channelColorDec = parseInt(channelColorHex, 16);
 
-    return channelColorDec; 
+    return channelColorDec;
 }
 
 
