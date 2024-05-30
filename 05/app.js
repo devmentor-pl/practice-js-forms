@@ -7,22 +7,20 @@ function init() {
     form = document.forms[0];
     addNovalidate();
     form.addEventListener('submit', validate)
-    console.log(messages)
 }
 
 function addNovalidate() {
     const inputs = document.querySelectorAll('input');
     inputs.forEach(function (element) {
         element.setAttribute('novalidate', '')
-        element.removeAttribute('required');
     })
 
     const select = document.querySelector('select')
-    select.removeAttribute('required');
     select.setAttribute('novalidate', '');
 }
 
 function validate(e) {
+    messages.length = 0;
     console.log('Validating...');
     e.preventDefault();
     validateName(form[0].value.trim(), 'First name');
@@ -31,7 +29,10 @@ function validate(e) {
     validateHouseOrFlatNumber(form[3].value.trim(), 'House number');
     validateHouseOrFlatNumber(form[4].value.trim(), 'Flat number');
     validateCity(form[6].value.trim());
-    
+
+    if (messages.length === 0) {
+        window.confirm("Form filled properly")
+    }
 }
 
 function validateName(name, nameType) {
@@ -40,8 +41,6 @@ function validateName(name, nameType) {
         messages.push(nameType + ' not inputted');
     } else if (!regex.test(name)) {
         messages.push(nameType + ' invalid: ' + name);
-    } else {
-        console.log(nameType + ' ok');
     }
 }
 
@@ -58,14 +57,11 @@ function validateStreet(streetName) {
 
 function validateHouseOrFlatNumber(number, numberType) {
     const regex = /^\d{1,4}$/g
-    if(number.length === 0) {
+    if (number.length === 0) {
         messages.push(numberType + ' not inputted');
     } else if (!regex.test(number)) {
         messages.push(numberType + ' invalid');
-    } else {
-        console.log(numberType + ' ok');
     }
-
 }
 
 function validateCity(name) {
@@ -74,7 +70,5 @@ function validateCity(name) {
         messages.push('City name not inputted');
     } else if (!regex.test(name)) {
         messages.push('City name invalid: ' + name);
-    } else {
-        console.log('City name ok');
     }
 }
