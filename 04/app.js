@@ -3,6 +3,28 @@ document.addEventListener('DOMContentLoaded', init);
 function init() {
     const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, '#000000');
+    const colorInput = document.querySelector('input[name="color"]');
+    const opacityInput = document.querySelector('input[name="opacity"]')
+    
+    setBoxShadow(boxElement, colorInput.value, opacityInput.value / 100);
+    
+    colorInput.addEventListener('input', ColorChange);
+    opacityInput.addEventListener('input', OpacityChange)
+
+    
+    function ColorChange(e) {
+        const color = e.target.value;
+        const opacity = opacityInput.value / 100;
+        
+        setBoxShadow(boxElement, color, opacity);
+    }
+    
+    function OpacityChange(e) {
+        const opacity = e.target.value / 100;
+        const color = colorInput.value;
+        
+        setBoxShadow(boxElement, color, opacity);
+    }
 }
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
@@ -15,7 +37,6 @@ function setBoxShadow(element, colorInHex, opacity = 1) {
 
     element.style.boxShadow = `0 0 5px 5px ${colorInRGBA}`;
 }
-
 
 function getChannelColor(colorInHex, channelName) {
     let start;
