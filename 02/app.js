@@ -1,6 +1,6 @@
 const formEl = document.querySelector('form');
 
-formEl.addEventListener('change', function (e) {
+formEl.addEventListener('submit', function (e) {
     e.preventDefault();
 
     const emailValue = formEl.elements['login'].value

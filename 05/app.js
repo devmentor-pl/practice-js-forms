@@ -3,13 +3,12 @@ const msgList = document.querySelector('.messages');
 const submit = document.querySelector('input[type="submit"]')
 formEl.setAttribute('novalidate', true)
 
-submit.addEventListener('submit', function(e) {
+formEl.addEventListener('submit', function(e) {
     e.preventDefault();
     validateInfo(e);
 })
 
 function validateInfo(e) {
-    e.preventDefault()
 
     const errors = [];
     const firstName = e.target.elements.firstName.value.trim();

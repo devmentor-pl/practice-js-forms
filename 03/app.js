@@ -16,7 +16,7 @@ fileEl.addEventListener('change', function(e) {
             fr.onload = function(readerEvent) {
                 clonedHeader.textContent = file.name
                 clonedImg.src = readerEvent.target.result
-                const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2) // nie znalazlem innego sposobu, a ten nie dziala
+                const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2)
                 clonedFooter.textContent = `${fileSizeMB} MB`
                 ulList.appendChild(clonedNode)
             }

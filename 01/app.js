@@ -1,18 +1,23 @@
 const formEl = document.querySelector('form');
-const ulEl = document.querySelector('.users-list')
+const ulEl = document.querySelector('.users-list');
 
-formEl.addEventListener('submit', handleSubmit)
+formEl.addEventListener('submit', handleSubmit);
 
 function handleSubmit(e) {
     e.preventDefault();
 
-    const firstName = formEl.elements['firstName'].value
-    const lastName = formEl.elements['lastName'].value
+    const firstNameEl = formEl.elements.firstName;
+    const lastNameEl = formEl.elements.lastName;
 
-    if(firstName && lastName) {
-        const newLi = document.createElement('li')
-        newLi.classList.add('user-list__person')
-        newLi.textContent = firstName + ' ' + lastName
-        ulEl.appendChild(newLi)
+    let firstNameValue = firstNameEl.value;
+    let lastNameValue = lastNameEl.value;
+
+    if(firstNameValue !== '' && lastNameValue !== '') {
+        const newLi = document.createElement('li');
+        newLi.classList.add('user-list__person');
+        newLi.textContent = firstNameValue + ' ' + lastNameValue;
+        ulEl.appendChild(newLi);
+        firstNameEl.value = '';
+        lastNameEl.value = '';
     }
-}
+};
