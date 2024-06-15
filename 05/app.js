@@ -3,40 +3,61 @@ const msgList = document.querySelector('.messages');
 const submit = document.querySelector('input[type="submit"]')
 formEl.setAttribute('novalidate', true)
 
-formEl.addEventListener('submit', function(e) {
-    e.preventDefault();
+formEl.addEventListener('submit', function (e) {
     validateInfo(e);
 })
 
 function validateInfo(e) {
-
+    e.preventDefault();
+    msgList.innerHTML = '';
     const errors = [];
-    const firstName = e.target.elements.firstName.value.trim();
-    const lastName = e.target.elements.lastName.value.trim();
-    const street = e.target.elements.street.value.trim();
-    const houseNumber = e.target.elements.houseNumber.value.trim();
-    const flatNumber = e.target.elements.flatNumber.value.trim();
-    const zipCode = e.target.elements.zip.value.trim();
-    const city = e.target.elements.city.value.trim();
-    const region = e.target.elements.voivodeship.value.trim();
 
-    if(firstName === '') {
-        addError(errors, firstName);
+    const firstNameEl = e.target.elements.firstName
+    const lastNameEl = e.target.elements.lastName
+    const streetEl = e.target.elements.street
+    const houseNumberEl = e.target.elements.houseNumber
+    const zipEl = e.target.elements.zip
+    const cityEl = e.target.elements.city
+    const regionEl = e.target.elements.voivodeship
+
+    const firstNameValue = firstNameEl.value.trim();
+    const lastNameValue = lastNameEl.value.trim();
+    const streetValue = streetEl.value.trim();
+    const houseNumberValue = houseNumberEl.value.trim();
+    const zipCodeValue = zipEl.value.trim();
+    const cityValue = cityEl.value.trim();
+    const regionValue = regionEl.value.trim();
+    const zipPattern = /^[0-9]{2}-[0-9]{3}$/
+
+    if (firstNameValue === '') {
+        errors.push('Podaj imię')
     }
-}
+    if (lastNameValue === '') {
+        errors.push('Podaj nazwisko')
+    }
+    if (streetValue === '') {
+        errors.push('Podaj ulicę')
+    }
+    if (houseNumberValue === '') {
+        errors.push('Podaj nr domu')
+    }
+    if (!zipPattern.test(zipCodeValue)) {
+        errors.push('Podaj kod pocztowy')
+    }
+    if (cityValue === '') {
+        errors.push('Podaj miasto')
+    }
+    if (regionValue === '') {
+        errors.push('Wybierz wojewodztwo')
+    }
 
-
-function checkNames(name) {
-    const regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
-    if(!regName.test(name)) {
-        addError(errorsArray, name)
-    } 
-}
-
-function addError(array, inputEl) {
-    const labelContent = inputEl.parentElement.textContent;
-    const errorMsg = `${labelContent} is required`;
-    array.push(errorMsg)
+    if( errors.length > 0) {
+        errors.forEach(function(error) {
+            displayErrors(msgList, error)
+        })
+    } else {
+        displaySuccess(msgList)
+    }
 }
 
 function displayErrors(element, error) {
@@ -47,7 +68,7 @@ function displayErrors(element, error) {
 
 function displaySuccess(element) {
     const liElement = document.createElement('li');
-    liElement.textContent = 'Form submitted successfully!';
+    liElement.textContent = 'Formularz wyslany!';
     element.appendChild(liElement);
 }
 
