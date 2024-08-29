@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', init);
 
+const boxElement = document.querySelector('.box');
 function init() {
-    const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, '#000000');
 }
 
@@ -37,4 +37,14 @@ function getChannelColor(colorInHex, channelName) {
     return channelColorDec; 
 }
 
+////my Code which I have written
+const inputColor = document.querySelector('input[type="color"]');
+const rangeColorInput = document.querySelector('input[type="range"]');
 
+inputColor.addEventListener('change', () => {
+    setBoxShadow(boxElement, inputColor.value, rangeColorInput.value / 100);
+});
+
+rangeColorInput.addEventListener('input', () => {
+    setBoxShadow(boxElement, inputColor.value, rangeColorInput.value / 100);
+});
