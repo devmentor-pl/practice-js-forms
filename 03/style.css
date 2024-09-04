@@ -18,7 +18,7 @@
 }
 
 .images-list__item--prototype {
-    display: none;
+   /* display: none; */
 }
 
 .images-list__item-name {
