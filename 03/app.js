@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     fileInput.addEventListener('change', function(event) {
 
-        imagesList.querySelectorAll(':not(.images-list__item--prototype)').forEach(item => item.remove());
 
         for (const file of fileInput.files) {
             if (file.type.includes('image')) {

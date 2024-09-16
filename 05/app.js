@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Sprawdzenie czy pole imię jest wypełnione i czy zawiera tylko litery
         if (firstName.value.trim() === '') {
             errors.push('Imię jest wymagane.');
-        } else if (!namePattern.test(firstName.value.trim())) {
+        } else if (!namePattern.test(firstName.value())) {
             errors.push('Imię może zawierać tylko litery.');
         }
 
