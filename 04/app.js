@@ -5,6 +5,29 @@ function init() {
     setBoxShadow(boxElement, '#000000');
 }
 
+
+const rangeEl = document.querySelector('input[name="opacity"]');
+const colorEl = document.querySelector('input[name="color"]');
+const box = document.querySelector(".box");
+
+colorEl.addEventListener("change", function (e) {
+	const color = e.target.value;
+	setBoxShadow(box, color, rangeEl.value);
+});
+
+rangeEl.addEventListener("change", handleRangeValue);
+rangeEl.addEventListener("mousemove", handleRangeValue);
+
+function handleRangeValue(e) {
+	const isMouseMoveEvent = e.type === "mousemove";
+	const isMouseLeftButtonPress = e.buttons === 1;
+	const rangeValue = e.target.value;
+
+	if ((isMouseMoveEvent && isMouseLeftButtonPress) || !isMouseMoveEvent) {
+		setBoxShadow(box, colorEl.value, rangeValue * 0.01);
+	}
+}
+
 function setBoxShadow(element, colorInHex, opacity = 1) {
     const colorInRGBA = `rgba(
         ${getChannelColor(colorInHex, 'red')}, 
