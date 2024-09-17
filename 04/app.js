@@ -38,3 +38,20 @@ function getChannelColor(colorInHex, channelName) {
 }
 
 
+const colorInput = document.querySelector("[name='color']");
+const opacityInput = document.querySelector("[name='opacity']");
+const colorBox =document.querySelector('.box')
+
+colorInput.addEventListener('change', handleSlider);
+opacityInput.addEventListener('mousemove', handleSlider);
+opacityInput.addEventListener('change', handleSlider);
+
+function handleSlider(e) {
+    const opacityValue = (1 - (opacityInput.value)/100);
+    const isMouseMoveEvent = e.type === 'mousemove';
+    const isMouseLeftButtonPress = e.buttons === 1;
+
+    if((isMouseMoveEvent&&isMouseLeftButtonPress) || !isMouseMoveEvent) {
+        setBoxShadow(colorBox, colorInput.value, opacityValue)
+    }
+}
