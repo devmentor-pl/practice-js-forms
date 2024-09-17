@@ -2,6 +2,24 @@ document.addEventListener('DOMContentLoaded', init);
 
 function init() {
     const boxElement = document.querySelector('.box');
+    const colorInputEl = document.querySelector('input[type=color]');
+    const rangeInputEl = document.querySelector('input[type=range]');
+
+    colorInputEl.addEventListener('change', function () {
+        const color = colorInputEl.value;
+        setBoxShadow(boxElement, color, rangeInputEl.value);
+    });
+
+    rangeInputEl.addEventListener('change', function () {
+        const opacity = rangeInputEl.value/100;
+        setBoxShadow(boxElement, colorInputEl.value, opacity);
+    });
+
+    rangeInputEl.addEventListener('mousemove', function () {
+        const opacity = rangeInputEl.value/100;
+        setBoxShadow(boxElement, colorInputEl.value, opacity);
+    });
+
     setBoxShadow(boxElement, '#000000');
 }
 
@@ -19,7 +37,7 @@ function setBoxShadow(element, colorInHex, opacity = 1) {
 
 function getChannelColor(colorInHex, channelName) {
     let start;
-    switch(channelName) {
+    switch (channelName) {
         case 'red':
             start = 1;
             break;
@@ -34,7 +52,5 @@ function getChannelColor(colorInHex, channelName) {
     const channelColorHex = colorInHex.substr(start, 2);
     const channelColorDec = parseInt(channelColorHex, 16);
 
-    return channelColorDec; 
+    return channelColorDec;
 }
-
-
