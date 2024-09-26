@@ -18,8 +18,7 @@ function setBoxShadow(element, colorInHex, opacity = 1) {
 
 
 function getChannelColor(colorInHex, channelName) {
-    let start;
-    switch(channelName) {
+    switch (channelName) {
         case 'red':
             start = 1;
             break;
@@ -34,7 +33,36 @@ function getChannelColor(colorInHex, channelName) {
     const channelColorHex = colorInHex.substr(start, 2);
     const channelColorDec = parseInt(channelColorHex, 16);
 
-    return channelColorDec; 
+    return channelColorDec;
 }
 
+const inputColor = document.querySelector('input[name="color"]')
+inputColor.addEventListener('change', changeColor)
 
+function changeColor(e) {
+    const boxElement = document.querySelector('.box');
+    const newColor = e.target.value
+    const rangeInputOpacity = inputOpacity.value
+    const opacity = countOpacity(rangeInputOpacity)
+
+    setBoxShadow(boxElement, newColor, opacity)
+}
+
+const inputOpacity = document.querySelector('input[name="opacity"]')
+inputOpacity.addEventListener('change', changeOpacity)
+inputOpacity.addEventListener('mousemove', changeOpacity)
+
+function changeOpacity(e) {
+    const boxElement = document.querySelector('.box');
+    const newColor = inputColor.value
+
+    if (e.type === 'change' || e.type === "mousemove" && e.buttons === 1) {
+        const rangeValue = e.target.value
+        const opacity = countOpacity(rangeValue)
+        setBoxShadow(boxElement, newColor, opacity)
+    }
+}
+
+function countOpacity(range) {
+    return range / 100
+}
