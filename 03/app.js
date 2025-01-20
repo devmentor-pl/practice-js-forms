@@ -10,27 +10,32 @@ function readFile(e) {
 
     if(files){
 
-    files.forEach((file) => {
+        files.forEach((file) => {
 
-        if(file.type.includes('image')){
+            if(file.type.includes('image')){
 
-            const reader = new FileReader();
+                const reader = new FileReader();
 
-            liElCopy = liEl.cloneNode(true);
-            liElCopy.style.display = 'block';
+                liElCopy = liEl.cloneNode(true);
+                liElCopy.style.display = 'block';
+                liElCopy.classList.remove('images-list__item--prototype');
 
-            reader.onload = function(readerEvent){
-                const newImg = document.createElement('img');
-                newImg.src = readerEvent.target.result;
+                const fileName = liElCopy.querySelector('.images-list__item-name');
+                const fileSize = liElCopy.querySelector('.images-list__item-size');
+                fileName.textContent = file.name;
+                fileSize.textContent = `${(file.size/(1024*1024)).toFixed(2)} MB`
 
-                liElCopy.appendChild(newImg);
-                ulEl.appendChild(liElCopy);
+                reader.onload = function(readerEvent){
+                    const newImg = document.createElement('img');
+                    newImg.src = readerEvent.target.result;
+
+                    liElCopy.appendChild(newImg);
+                    ulEl.appendChild(liElCopy);
+                }
+
+                reader.readAsDataURL(file);
+
             }
-
-            reader.readAsDataURL(file);
-
-        }
-    })
-}
-
+        })
+    }
 }
