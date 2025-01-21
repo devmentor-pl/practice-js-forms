@@ -2,13 +2,14 @@ document.addEventListener('DOMContentLoaded', init);
 
 const colorEl = document.querySelector('input[type="color"]');
 const opacityEl = document.querySelector('input[type="range"]');
+const box = document.querySelector('.box');
 
 function init() {
     const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, '#000000');
 }
 
-function setBoxShadow(element, colorInHex, opacity = 1) {
+function setBoxShadow(element, colorInHex, opacity) {
     const colorInRGBA = `rgba(
         ${getChannelColor(colorInHex, 'red')}, 
         ${getChannelColor(colorInHex, 'green')}, 
@@ -41,7 +42,14 @@ function getChannelColor(colorInHex, channelName) {
 }
 
 colorEl.addEventListener('change', function(){
-    // 
-    console.log(colorEl.value)
+
+    setBoxShadow(box, colorEl.value, opacityEl.value);
+    
 });
-opacityEl.addEventListener('change', setBoxShadow);
+
+opacityEl.addEventListener('change', function() {
+    console.log(opacityEl.value)
+    console.log(box);
+    console.log(colorEl.value)
+    setBoxShadow(box, colorEl.value, opacityEl.value);
+});
