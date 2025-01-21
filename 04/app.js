@@ -9,7 +9,7 @@ function init() {
     setBoxShadow(boxElement, '#000000');
 }
 
-function setBoxShadow(element, colorInHex, opacity) {
+function setBoxShadow(element, colorInHex, opacity = 1) {
     const colorInRGBA = `rgba(
         ${getChannelColor(colorInHex, 'red')}, 
         ${getChannelColor(colorInHex, 'green')}, 
@@ -48,8 +48,6 @@ colorEl.addEventListener('change', function(){
 });
 
 opacityEl.addEventListener('change', function() {
-    console.log(opacityEl.value)
-    console.log(box);
-    console.log(colorEl.value)
-    setBoxShadow(box, colorEl.value, opacityEl.value);
+    
+    setBoxShadow(box, colorEl.value, opacityEl.value/100);
 });
