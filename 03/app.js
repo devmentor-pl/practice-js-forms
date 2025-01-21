@@ -16,16 +16,17 @@ function readFile(e) {
 
                 const reader = new FileReader();
 
-                liElCopy = liEl.cloneNode(true);
-                liElCopy.style.display = 'block';
-                liElCopy.classList.remove('images-list__item--prototype');
-
-                const fileName = liElCopy.querySelector('.images-list__item-name');
-                const fileSize = liElCopy.querySelector('.images-list__item-size');
-                fileName.textContent = file.name;
-                fileSize.textContent = `${(file.size/(1024*1024)).toFixed(2)} MB`
-
                 reader.onload = function(readerEvent){
+
+                    liElCopy = liEl.cloneNode(true);
+                    liElCopy.style.display = 'block';
+                    liElCopy.classList.remove('images-list__item--prototype');
+
+                    const fileName = liElCopy.querySelector('.images-list__item-name');
+                    const fileSize = liElCopy.querySelector('.images-list__item-size');
+
+                    fileName.textContent = file.name;
+                    fileSize.textContent = `${(file.size/(1024*1024)).toFixed(2)} MB`
                     const newImg = document.createElement('img');
                     newImg.src = readerEvent.target.result;
 

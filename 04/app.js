@@ -40,5 +40,8 @@ function getChannelColor(colorInHex, channelName) {
     return channelColorDec; 
 }
 
-colorEl.addEventListener('change', getChannelColor);
+colorEl.addEventListener('change', function(){
+    // 
+    console.log(colorEl.value)
+});
 opacityEl.addEventListener('change', setBoxShadow);
