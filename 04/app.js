@@ -43,7 +43,7 @@ function getChannelColor(colorInHex, channelName) {
 
 colorEl.addEventListener('change', function(){
 
-    setBoxShadow(box, colorEl.value, opacityEl.value);
+    setBoxShadow(box, colorEl.value, opacityEl.value/100);
     
 });
 
