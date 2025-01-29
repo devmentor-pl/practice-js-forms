@@ -57,9 +57,7 @@ if (form){
 function handleSubmit(e){
     e.preventDefault();
 
-
     const errors = [];
-
     const fields = [
         {
             name: 'login',
@@ -72,6 +70,7 @@ function handleSubmit(e){
             name: 'pass1',
             label: 'Hasło',
             required: true,
+            minLength: 6,
         },
         {
             name: 'pass2',
@@ -83,47 +82,56 @@ function handleSubmit(e){
             label: 'Regulamin',
             required: true,
             type: 'checkbox',
-        }
-
+        },
     ]
 
-
     fields.forEach((field) => {
-        const {name, label, required = false, type = 'text', pattern = null} = field;
+        const {name, label, required = false, type = 'text', pattern = null, minLength = null} = field;
         const value = form.elements[name].value;
         const inputElement = form.elements[name];
+        const labelElement = document.querySelector(`label[for="${inputElement.id}"]`);
+
+        inputElement.style.border = '';
+        if (labelElement){
+            labelElement.style.color = '';
+        }
 
         if (required) {
             if (type === 'checkbox' && !inputElement.checked) {
-                errors.push(`Musisz zaznaczyć ${label}!`);
+                errors.push({message: `Musisz zaznaczyć ${label}!`, element: inputElement, labelElement});
             } else if (value.length === 0) {
-                errors.push(`Dane w polu ${label} są wymagane!`);
+                errors.push({message: `Dane w polu ${label} są wymagane!`, element: inputElement, labelElement});
             }
         }
 
         if (pattern){
             const reg = new RegExp(pattern);
             if (!reg.test(value)){
-                errors.push(`Dane w polu ${label} powinny zawierać znak @!`)
-                
+                errors.push({ message: `Dane w polu ${label} powinny zawierać znak @!`, element: inputElement, labelElement });
             }
+        }
+
+        if (minLength && value.length < minLength){
+            errors.push({ message: `Hasło musi mieć minimum ${minLength} znaków!`, element: inputElement, labelElement });
         }
 
         if (name === 'pass2'){
             const pass1Value = form.elements['pass1'].value;
             if (value !== pass1Value){
-                errors.push('Hasła muszą być takie same!')
-                
+                errors.push({ message: 'Hasła muszą być takie same!', element: inputElement, labelElement });
             }
+                
         }
-        
-    })
+    });
 
     if (errors.length === 0){
         console.log('done');
+        
     } else {
-        errors.forEach((error) => {
-            console.log(error);
+        errors.forEach(({message, element, labelElement}) => {
+            console.log(message);
+            element.style.border = '1px solid red';
+            if(labelElement) labelElement.style.color = 'red';
         })
     }
 }
