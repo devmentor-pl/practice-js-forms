@@ -6,6 +6,7 @@ if (form){
 
 function handleSubmit(e){
     e.preventDefault();
+    console.clear();
 
     const errors = [];
     const fields = [
