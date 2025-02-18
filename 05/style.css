@@ -1,3 +1,37 @@
-.body {
-    background-color: blueviolet;
+body {
+    background: rgb(238,174,202);
+    background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    color: white;
+    font-family: sans-serif;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 2px solid white;
+    border-radius: 10px;
+    max-width: 370px;
+    margin: 50px auto;
+}
+
+div {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+label {
+    margin: 5px;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+div:last-child {
+    margin: 25px auto ;
 }
