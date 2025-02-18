@@ -3,6 +3,21 @@ document.addEventListener('DOMContentLoaded', init);
 function init() {
     const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, '#000000');
+
+    const opacityInput = document.querySelector('[name="opacity"]');
+    const colorInput = document.querySelector('[name="color"]');
+
+    colorInput.addEventListener('input', ()=> {
+        setBoxShadow(boxElement, colorInput.value, opacityInput.value / 100);
+    });
+
+    opacityInput.addEventListener('input', ()=> {
+        setBoxShadow(boxElement, colorInput.value, opacityInput.value /100);
+    })
+    
+
+    
+
 }
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
