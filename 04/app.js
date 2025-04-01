@@ -1,8 +1,26 @@
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
+    const colorInput = document.querySelector('input[type="color"]');
+    const opacityRangeInput = document.querySelector('input[type="range"]');
     const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, '#000000');
+
+
+    colorInput.addEventListener('input', handleColorChange);
+    opacityRangeInput.addEventListener('input', handleOpacityChange);
+
+    function handleColorChange(e) {
+        const color = e.target.value;
+        setBoxShadow(boxElement, color);
+    }
+    function handleOpacityChange(e) {
+        const opacity = e.target.value / 100;
+        boxElement.style.opacity = opacity;
+    }
+
+
+
 }
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
