@@ -9,10 +9,14 @@ formEl.addEventListener('submit', function (e) {
   console.log(firstName.value, lastName.value);
 
   if (firstName.value && lastName.value) {
-    const ulEL = document.querySelector('ul');
-    const createli = document.createElement('li');
-    createli.classList.add('user-list__person');
-    createli.innerText = `${firstName.value}  ${lastName.value}`;
-    ulEL.appendChild(createli);
+    addUser(firstName, lastName);
   }
 });
+
+function addUser(firstName, lastName) {
+  const ulEL = document.querySelector('ul');
+  const createli = document.createElement('li');
+  createli.classList.add('user-list__person');
+  createli.innerText = `${firstName.value}  ${lastName.value}`;
+  ulEL.appendChild(createli);
+}
