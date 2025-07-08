@@ -8,22 +8,26 @@ function readFile(e) {
     const file = e.target.files[i];
 
     if (file && file.type.includes('image')) {
-      //1. get ul
-      const ulEl = getUlEl();
-      //2. clone li
-      const liEl = cloneLiEl();
-      //3. remove prototype class
-      removePrototypeClass(liEl);
-      //4. add more li
-      appendLiEl(ulEl, liEl);
-      //5. add header
-      addHeaderEl(liEl, file);
-      //6. add img
-      addImgEl(liEl, file);
-      //7. add footer
-      addFooterEl(liEl, file);
+      createImageItem(file);
     }
   }
+}
+
+function createImageItem(file) {
+  //1. get ul
+  const ulEl = getUlEl();
+  //2. clone li
+  const liEl = cloneLiEl();
+  //3. remove prototype class
+  removePrototypeClass(liEl);
+  //4. add more li
+  appendLiEl(ulEl, liEl);
+  //5. add header
+  addHeaderEl(liEl, file);
+  //6. add img
+  addImgEl(liEl, file);
+  //7. add footer
+  addFooterEl(liEl, file);
 }
 
 function getUlEl() {
