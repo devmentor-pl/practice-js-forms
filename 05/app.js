@@ -5,44 +5,40 @@ formEl.noValidate = true;
 formEl.addEventListener('submit', checkData);
 
 function checkData(e) {
-  const firstName = e.target.elements.firstName.value;
-  const lastName = e.target.elements.firstName.value;
-  const street = e.target.elements.street.value;
-  const houseNumber = e.target.elements.houseNumber.value;
-  const flatNumber = e.target.elements.flatNumber.value;
-  const zip = e.target.elements.zip.value;
-  const city = e.target.elements.city.value;
-  const voivodeship = e.target.voivodeship.value;
+  const fields = [
+    { name: 'firstName', label: 'Imię:', required: true },
+    { name: 'lastName', label: 'Nazwisko', required: true },
+    { name: 'street', label: 'Ulica', required: true },
+    { name: 'houseNumber', label: 'Numer budynku', type: 'number', required: true },
+    { name: 'flatNumber', label: 'Numer mieszkania', type: 'number', required: false },
+    { name: 'zip', label: 'Kod pocztowy', pattern: /^[0-9]{2}-[0-9]{3}$/, required: true },
+    { name: 'city', label: 'Miejscowość', required: true },
+    { name: 'voivodeship', label: 'Województwo', required: true },
+  ];
   const errors = [];
 
-  if (firstName.length === 0) {
-    errors.push('Name is required');
-  }
+  fields.forEach((field) => {
+    const value = formEl.elements[field.name].value;
 
-  if (lastName.length === 0) {
-    errors.push('Last name is required');
-  }
+    if (field.required) {
+      if (value.length === 0) {
+        errors.push(`${field.label} is required`);
+      }
+    }
 
-  if (street.length === 0) {
-    errors.push('Street name is required');
-  }
+    if (field.type === 'number') {
+      if (Number.isNaN(Number(value))) {
+        errors.push(`Value in ${field.label} must be number`);
+      }
+    }
 
-  if (houseNumber.length === 0) {
-    errors.push('House number is required');
-  }
-
-  const pattern = /^[0-9]{2}-[0-9]{3}$/;
-  if (!pattern.test(zip)) {
-    errors.push('Incorrect zip code');
-  }
-
-  if (city.length === 0) {
-    errors.push('City is required');
-  }
-
-  if (voivodeship === '') {
-    errors.push('Choose voivodeship');
-  }
+    if (field.pattern) {
+      const reg = new RegExp(field.pattern);
+      if (!reg.test(value)) {
+        errors.push(`Value in ${field.label} is incorrect`);
+      }
+    }
+  });
 
   showMessages(e, errors);
 }
