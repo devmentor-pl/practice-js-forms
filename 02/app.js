@@ -28,12 +28,15 @@ function checkData(e) {
 
   if (errors.length > 0) {
     e.preventDefault();
-
-    errors.forEach((err) => {
-      const errLabelId = document.querySelector(`label[for=${err}]`);
-      errLabelId.style.color = 'red';
+    document.querySelectorAll('label').forEach((label) => {
+      label.style.color = 'black';
+      errors.forEach((err) => {
+        const errLabelId = document.querySelector(`label[for=${err}]`);
+        errLabelId.style.color = 'red';
+      });
     });
   } else {
     console.log('Done');
+    document.querySelector('form').reset();
   }
 }
