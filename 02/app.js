@@ -5,9 +5,9 @@ const emailEl = document.querySelector('#formLogin');
 const passwordEl = document.querySelector('#formPass1');
 const passwordEl2 = document.querySelector('#formPass2');
 
-formEl.addEventListener('submit', checkData);
+formEl.addEventListener('submit', hadleData);
 
-function checkData(e) {
+function handleData(e) {
   e.preventDefault();
   const allLabels = formEl.querySelectorAll('label');
   allLabels.forEach((label) => (label.style.color = 'black'));
