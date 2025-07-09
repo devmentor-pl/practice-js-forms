@@ -3,44 +3,73 @@ document.addEventListener('DOMContentLoaded', init);
 function init() {
   const form = document.querySelector('form');
   const message = document.querySelector('.messages');
+  const ulEl = document.createElement('ul');
+  message.appendChild(ulEl);
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    message.innerHTML = '';
+    ulEl.innerHTML = '';
     const errors = [];
 
-    const firstName = form.elements.firstName.value.trim();
-    const lastName = form.elements.lastName.value.trim();
-    const street = form.elements.street.value.trim();
-    const houseNumber = form.elements.houseNumber.value.trim();
-    const flatNumber = form.elements.flatNumber.value.trim();
-    const zip = form.elements.zip.value.trim();
-    const city = form.elements.city.value.trim();
-    const voivodeship = form.elements.voivodeship.value.trim();
+    const fields = [
+      { name: 'firstName', label: 'Imię', required: true },
+      { name: 'lastName', label: 'Nazwisko', required: true },
+      { name: 'street', label: 'Ulica', required: true },
+      {
+        name: 'houseNumber',
+        label: 'Numer budynku',
+        type: 'number',
+        required: true,
+      },
+      { name: 'flatNumber', label: 'Numer mieszkania', type: 'number' },
+      {
+        name: 'zip',
+        label: 'Kod pocztowy',
+        pattern: '^[0-9]{2}-[0-9]{3}$',
+        required: true,
+      },
+      { name: 'city', label: 'Miejscowość', required: true },
+      { name: 'voivodeship', label: 'Województwo', required: true },
+    ];
 
-    if (firstName === '') errors.push('Imię jest wymagane.');
-    if (lastName === '') errors.push('Nazwisko jest wymagane.');
-    if (street === '') errors.push('Ulica jest wymagana');
-    if (houseNumber === '') errors.push('Numer budynku jest wymagany');
-    if (zip === '') {
-      errors.push('Kod pocztowy jest wymagany.');
-    } else if (!/^\d{2}-\d{3}$/.test(zip)) {
-      errors.push('Kod pocztowy musi być w formacie 00-000.');
-    }
-    if (city === '') errors.push('Miejscowość jest wymagana');
-    if (voivodeship === '') errors.push('Województwo jest wymagane');
+    fields.forEach(function (field) {
+      const value = form.elements[field.name].value;
 
-    if (errors.length > 0) {
-      errors.forEach((err) => {
-        const li = document.createElement('li');
-        li.textContent = err;
-        message.appendChild(li);
+      if (field.required) {
+        if (value.length === 0) {
+          errors.push('Dane w polu ' + field.label + ' są wymagane.');
+        }
+      }
+
+      if (field.type === 'number' && value.length > 0) {
+        if (Number.isNaN(Number(value))) {
+          errors.push(`Dane w polu ${field.label} muszą być liczbą`);
+        }
+      }
+
+      if (field.pattern && value.length > 0) {
+        const reg = new RegExp(field.pattern);
+        if (!reg.test(value)) {
+          errors.push(
+            `Dane w polu ${field.label} zawierają niedozwolone znaki lub nie są zgodne z przyjętym w Polsce wzorem.`
+          );
+        }
+      }
+    });
+
+    if (errors.length === 0) {
+      alert('Dane zostały wypełnione prawidłowo!');
+
+      // czyszczę pola po prawidłowym wypełnieniu formularza
+      fields.forEach(function (el) {
+        form[el.name].value = '';
       });
     } else {
-      const li = document.createElement('li');
-      li.textContent = 'Dane zostały wysłane prawidłowo!';
-      li.style.color = 'green';
-      message.appendChild(li);
+      errors.forEach(function (text) {
+        const liEl = document.createElement('li');
+        liEl.innerText = text;
+        ulEl.appendChild(liEl);
+      });
     }
   });
 }
