@@ -8,12 +8,12 @@
     <title>devmentor.pl - JS Forms - #05</title>
 </head>
 <body>
-    <form action="" method="post">
+    <form action="" method="post" novalidate>
         <ul class="messages"></ul>
 
         <div>
             <label>
-                Imię: <input name="firstName" required/>
+                Imię <input name="firstName" required/>
             </label>
         </div>
         <div>
@@ -26,11 +26,15 @@
                 Ulica <input name="street" required/>
             </label>
             <label>
-                Numer budunku <input name="houseNumber" type="number" required />
+                Numer budunku <input name="houseNumber" data-number="true" required />
             </label>
             <label>
-                Numer mieszkania <input name="flatNumber" type="number" />
+                Numer mieszkania <input name="flatNumber" data-number="true" />
             </label>
+
+            <!-- Zamieniłem type="number" na data-number="true",
+            żeby móc sprawdzać czy użytkownik faktycznie wpisał liczbę -->
+
         </div>
         <div>
             <label>
