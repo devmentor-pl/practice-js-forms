@@ -6,11 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="author" content="Mateusz Bogolubow">
     <title>devmentor.pl - JS Forms - #05</title>
+    <style>
+        label, input, select {
+           display: block;
+        }
+        label {
+            margin-top: 10px;
+        }
+
+    </style>
 </head>
 <body>
-    <form action="" method="post">
+    <form action="" method="post" novalidate>
         <ul class="messages"></ul>
-
         <div>
             <label>
                 Imię: <input name="firstName" required/>
@@ -26,15 +34,15 @@
                 Ulica <input name="street" required/>
             </label>
             <label>
-                Numer budunku <input name="houseNumber" type="number" required />
+                Numer budunku <input name="houseNumber" type="number" min="1" required />
             </label>
             <label>
-                Numer mieszkania <input name="flatNumber" type="number" />
+                Numer mieszkania <input name="flatNumber" type="number" min="1" />
             </label>
         </div>
         <div>
             <label>
-                Kod pocztowy <input name="zip" pattern="[0-9]{2}-[0-9]{3}" required/>
+                Kod pocztowy <input name="zip" pattern="^[0-9]{2}-[0-9]{3}" required/>
             </label>
 
             <label>
