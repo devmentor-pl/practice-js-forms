@@ -2,6 +2,19 @@ document.addEventListener('DOMContentLoaded', init);
 
 function init() {
     const boxElement = document.querySelector('.box');
+    const colEl = document.querySelector('input[type=color]');
+    const levelEl = document.querySelector('input[type=range]');
+    
+    colEl.addEventListener('change', function(){
+        const color = colEl.value;
+        setBoxShadow(boxElement , color);
+    });
+
+    levelEl.addEventListener('change', function(){
+        const opacity = levelEl.value / 100;
+        console.log(opacity);
+    });
+
     setBoxShadow(boxElement, '#000000');
 }
 
@@ -36,5 +49,9 @@ function getChannelColor(colorInHex, channelName) {
 
     return channelColorDec; 
 }
+
+
+const rangeEl = document.querySelector('.panel');
+console.log(fieldEl);
 
 
