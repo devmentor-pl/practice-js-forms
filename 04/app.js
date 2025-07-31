@@ -1,8 +1,20 @@
 document.addEventListener('DOMContentLoaded', init);
+const inputColor = document.querySelector('[type="color"]');
+const inputRange = document.querySelector('[type="range"]');
+const boxElement = document.querySelector('.box');
+inputRange.addEventListener('change', invokeSetBoxShadow);
+inputRange.addEventListener('mousemove', invokeSetBoxShadow)
+inputColor.addEventListener('change', invokeSetBoxShadow);
 
 function init() {
     const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, '#000000');
+}
+
+function invokeSetBoxShadow(e) {
+    const inputColorValue = inputColor.value;
+    const inputRangeValue = inputRange.value / 100;
+    setBoxShadow(boxElement, inputColorValue, inputRangeValue);
 }
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
