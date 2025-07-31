@@ -1,7 +1,20 @@
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
+    console.log('czesc')
     const boxElement = document.querySelector('.box');
+    const colorInput = document.querySelector('input[name=color]')
+    const opacityInput = document.querySelector('input[name=opacity]');
+    console.log(colorInput)
+    colorInput.addEventListener('change',function(){
+        setBoxShadow(boxElement, colorInput.value,opacityInput.value/100);
+        console.log(colorInput);
+    })
+    
+    opacityInput.addEventListener('change', function(){
+        setBoxShadow(boxElement, colorInput.value, opacityInput.value/100);
+    console.log(opacityInput)
+    })
     setBoxShadow(boxElement, '#000000');
 }
 
