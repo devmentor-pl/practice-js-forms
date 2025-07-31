@@ -1,0 +1,64 @@
+
+.messages {
+    list-style: none;
+    color: red;
+}
+.levelOne {
+    max-width: 300px;
+    position: relative;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.levelOne input, div select {
+    position: absolute;
+    right: 0;
+}
+.levelTwo {
+    max-width: 300px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+}
+.levelTwo label {
+    width: 100%;
+    display: block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+input[name='houseNumber'] {
+    width: 80px;
+}
+input[name='flatNumber'] {
+    width: 80px;
+}
+input {
+    width: 170px;
+}
+select {
+    width: 188px;
+}
+.levelOne input[type='submit'] {
+    width: 100px;
+}
+
+@media screen and (min-width: 650px) {
+    .levelOne {
+        max-width: 600px;
+    }
+    .levelOne input, div select {
+        left: 100px;
+    }
+    .levelTwo {
+        max-width: 750px;
+        
+    }
+    .levelTwo label {
+        width: 30%;
+        display: inline-block;
+    } 
+    .levelThree label{
+        width: 40%;
+    }  
+}

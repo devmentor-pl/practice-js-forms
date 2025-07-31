@@ -6,33 +6,34 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="author" content="Mateusz Bogolubow">
     <title>devmentor.pl - JS Forms - #05</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="" method="post">
+    <form action="" method="post" novalidate>
         <ul class="messages"></ul>
 
-        <div>
+        <div class='levelOne'>
             <label>
                 Imię: <input name="firstName" required/>
             </label>
         </div>
-        <div>
+        <div class='levelOne'>
             <label>
-                Nazwisko <input name="lastName" required/>
+                Nazwisko: <input name="lastName" required/>
             </label>
         </div>
-        <div>
+        <div class='levelTwo'>
             <label>
                 Ulica <input name="street" required/>
             </label>
             <label>
-                Numer budunku <input name="houseNumber" type="number" required />
+                Numer budunku <input name="houseNumber" type="number" />
             </label>
             <label>
                 Numer mieszkania <input name="flatNumber" type="number" />
             </label>
         </div>
-        <div>
+        <div class='levelTwo levelThree'>
             <label>
                 Kod pocztowy <input name="zip" pattern="[0-9]{2}-[0-9]{3}" required/>
             </label>
@@ -41,7 +42,7 @@
                 Miejscowość <input name="city" required/>
             </label>
         </div>
-        <div>
+        <div class='levelOne'>
             <label>
                 Województwo <select name="voivodeship" required>
                         <option></option>
@@ -64,8 +65,9 @@
                     </select>
             </label>
         </div>
-        <div><input type="submit" /></div>
+        <div class='levelOne'><input type="submit" /></div>
     </form>
+
     <script src="app.js"></script>
 
     <footer>
