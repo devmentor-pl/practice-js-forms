@@ -1,3 +1,13 @@
+//DZIAŁA
+
+const colorChange = document.querySelector('[type="color"]');
+const opacityChange = document.querySelector('[type="range"]');
+
+colorChange.addEventListener('change', getColor);
+//setBoxShadow
+//ustawiamy cień, przekazujemy argumenty do funkcji
+opacityChange.addEventListener('change', setShadow);
+
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
@@ -5,6 +15,7 @@ function init() {
     setBoxShadow(boxElement, '#000000');
 }
 
+//ustawia cień
 function setBoxShadow(element, colorInHex, opacity = 1) {
     const colorInRGBA = `rgba(
         ${getChannelColor(colorInHex, 'red')}, 
@@ -16,7 +27,7 @@ function setBoxShadow(element, colorInHex, opacity = 1) {
     element.style.boxShadow = `0 0 5px 5px ${colorInRGBA}`;
 }
 
-
+//ustawia kolor
 function getChannelColor(colorInHex, channelName) {
     let start;
     switch(channelName) {
@@ -31,10 +42,25 @@ function getChannelColor(colorInHex, channelName) {
             break;
     }
 
+    // console.log(colorInHex);
     const channelColorHex = colorInHex.substr(start, 2);
     const channelColorDec = parseInt(channelColorHex, 16);
 
     return channelColorDec; 
 }
-
-
+//DZIAŁA
+function getColor(e) {
+    console.log(e.target.value);
+    const color = e.target.value;
+    const boxElement = document.querySelector('.box');
+    setBoxShadow(boxElement, e.target.value);
+    return color;
+}
+//DZIAŁA
+function setShadow(e) {
+    console.log(e.target.value);
+    const boxElement = document.querySelector('.box');
+    const opacityValue = e.target.value / 100;
+    console.log(opacityValue);
+    setBoxShadow(boxElement, colorChange.value, opacityValue);
+}
