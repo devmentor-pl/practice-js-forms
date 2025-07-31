@@ -1,8 +1,30 @@
+const panel = document.querySelector('.panel');
+const colorInput = panel.firstElementChild;
+const rangeInput = panel.lastElementChild;
+const box = document.querySelector('.box');
+
 document.addEventListener('DOMContentLoaded', init);
+rangeInput.addEventListener('mousemove', setRange);
+rangeInput.addEventListener('change', setRange);
+colorInput.addEventListener('change', function(e){
+    const color = e.target.value;
+    const opacity = rangeInput.value/100
+    setBoxShadow(box, color, opacity);
+});
 
 function init() {
     const boxElement = document.querySelector('.box');
     setBoxShadow(boxElement, '#000000');
+}
+
+function setRange(e){
+    if(e.type === 'mousemove' && e.buttons === 1 
+    || e.type !== 'mousemove'){
+        const color = colorInput.value;
+        const opacity = e.target.value/100;
+        e.target.setAttribute('value', e.target.value);
+        setBoxShadow(box, color, opacity)
+    }
 }
 
 function setBoxShadow(element, colorInHex, opacity = 1) {
