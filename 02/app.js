@@ -11,6 +11,8 @@
 
 const inputsList = document.querySelectorAll('input');
 const formEl = document.querySelector('form');
+const labelsList = document.querySelectorAll('label')
+console.log(labelsList)
 
 formEl.addEventListener('submit', checkData);
 
@@ -49,12 +51,14 @@ function checkData(e) {
         e.preventDefault();
         const ulEl = document.createElement('ul')
         formEl.appendChild(ulEl)
+        labelsList.forEach(function (label) {
+            label.style.border = '1px solid red'
+        })
         if (ulEl) {
             ulEl.innerHTML = '';
             errors.forEach(function (error) {
                 const newLi = document.createElement('li');
                 newLi.innerText = error;
-
                 ulEl.appendChild(newLi)
             });
         }
