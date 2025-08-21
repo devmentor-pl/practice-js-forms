@@ -63,6 +63,7 @@ function validateForm(e) {
         });
         console.log(errors)
     } else {
+        ulEl.innerHTML = '';
         const newLi = document.createElement('li');
         newLi.innerText = 'Dane zostały wysłane prawidłowo!';
         ulEl.appendChild(newLi);
