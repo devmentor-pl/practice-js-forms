@@ -11,51 +11,55 @@
 
 const inputsList = document.querySelectorAll('input');
 const formEl = document.querySelector('form');
-const labelsList = document.querySelectorAll('label')
-console.log(labelsList)
+const ulEl = document.querySelector('ul')
+// console.log(labelsList)
 
 formEl.addEventListener('submit', checkData);
 
 function checkData(e) {
+    e.preventDefault();
 
     const email = e.target.elements.login.value;
     const pass1 = e.target.elements.pass1.value;
     const pass2 = e.target.elements.pass2.value;
     const confirm = e.target.elements['accept'];
     const errors = [];
+    const labelsList = [];
 
     if (!email.includes('@')) {
-        // e.target.elements.login.style.border = '1px solid red';
+        labelsList.push(e.target.elements.login)
 
         errors.push('Email need @ sign!')
     }
     if ((pass1.length && pass2.length) < 6) {
-        // e.target.elements.pass1.style.border = '1px solid red';
-        // e.target.elements.pass2.style.border = '1px solid red';
-
+        labelsList.push(e.target.elements.pass1)
+        labelsList.push(e.target.elements.pass2)
         errors.push('Password less than 6 characters!')
     }
-    // if(pass1.length && pass2.length)
     if (pass1 != pass2) {
-        // e.target.elements.pass1.style.border = '1px solid red';
-        // e.target.elements.pass2.style.border = '1px solid red';
+        labelsList.push(e.target.elements.pass1)
+        labelsList.push(e.target.elements.pass2)
+
         errors.push('Passwords are not match!')
     }
     if (!confirm.checked) {
-
-
         errors.push('Please accept regulations!')
 
     }
+
+    const inputsStyleReset = document.querySelectorAll('input');
+    console.log(inputsStyleReset)
+    inputsStyleReset.forEach(function (input) {
+
+        input.style.border = '';
+    })
+
+    ulEl.innerHTML = '';
     if (errors.length > 0) {
-        e.preventDefault();
-        const ulEl = document.createElement('ul')
-        formEl.appendChild(ulEl)
         labelsList.forEach(function (label) {
             label.style.border = '1px solid red'
         })
         if (ulEl) {
-            ulEl.innerHTML = '';
             errors.forEach(function (error) {
                 const newLi = document.createElement('li');
                 newLi.innerText = error;
@@ -64,7 +68,6 @@ function checkData(e) {
         }
 
     } else {
-        e.preventDefault();
         console.log('Done')
     }
 
