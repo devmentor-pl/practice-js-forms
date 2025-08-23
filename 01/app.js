@@ -18,11 +18,14 @@ function getUserInfo(e) {
     e.preventDefault();
     const firstName = e.target.elements.firstName.value;
     const lastName = e.target.elements.lastName.value;
-    const liEl = document.createElement('li');
-    liEl.innerText = firstName + ' ' + lastName;
-    liEl.classList.add('user-list__person')
+    if (firstName === '' || lastName === '') {
+        alert('Pola nie moga byc puste')
+    } else {
+        const liEl = document.createElement('li');
+        liEl.innerText = firstName + ' ' + lastName;
+        liEl.classList.add('user-list__person')
 
 
-    ulEl.appendChild(liEl)
-
+        ulEl.appendChild(liEl)
+    }
 }
