@@ -1,5 +1,4 @@
 {
-  "image": "mghcr.io/devcontainers/images/universal:latest",
   "features": {
   },
   "customizations": {
@@ -13,3 +12,4 @@
     }
   }
 }
+
