@@ -16,8 +16,8 @@ formEl.addEventListener('submit', getUserInfo)
 
 function getUserInfo(e) {
     e.preventDefault();
-    const firstName = e.target.elements.firstName.value;
-    const lastName = e.target.elements.lastName.value;
+    const firstName = e.target.elements.firstName.value.trim();
+    const lastName = e.target.elements.lastName.value.trim();
     if (firstName === '' || lastName === '') {
         alert('Pola nie moga byc puste')
     } else {
